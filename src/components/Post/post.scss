@@ -1,0 +1,64 @@
+.post__card {
+    width: 500px;
+    height: 600px;
+    background: #c31432;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  
+    background-position: center;
+    background-size: cover;
+   
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    // padding: 15px;
+    border: 1px solid #333333;
+    border-radius: 15px;
+    margin-top: 15px;
+    grid-template-rows: 120px auto 1fr 30px;
+    align-items: center;
+    overflow: hidden;
+
+
+    &__light {
+        background-color: transparent;
+    }
+
+    &__dark {
+        background-color: darkgrey;
+    }
+
+    &:hover {
+        box-shadow: 0 2px 4px rgba(40, 41, 61, 0.04),
+            0 8px 16px rgba(96, 97, 112, 0.16);
+    }
+
+    &:focus-within {
+        box-shadow: 0 0 1px rgba(40, 41, 61, 0.16),
+            0 0.5px 2px rgba(96, 97, 112, 0.24);
+    }
+
+}
+
+
+.post__card h4 {
+    margin: 20px;
+}
+
+.post__card p {
+    margin: 15px;
+    color: rgb(7, 7, 7);
+    font-size: 16px;
+}
+
+.post__img {
+    height: 100vh;
+    justify-self: center;
+}
+
+.post__card button {
+    margin: 15px;
+    position: relative;
+    z-index: 1;
+}

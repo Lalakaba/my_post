@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { postData } from "./posts";
+import Post from "./components/Post/Post";
+import Header from "./components/Header/Header";
+
+
 
 function App() {
+
+  // отображение карточек на сайте
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <h1>First </h1>
+      <div className="container">
+
+        {postData.map((pos,id) => (
+          <Post key={id} img={pos.image} name={pos.title} text={pos.text} />
+        ))}
+
+    
+        
+      </div>
     </div>
   );
 }
