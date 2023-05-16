@@ -1,0 +1,23 @@
+.container__search {
+    width: 300px;
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+}
+
+.container__search input {
+    width: 200px;
+    height: 30px;
+    border: none;
+    font-size: 15pt;
+    float: left;
+    padding-left: 30px;
+    border-radius: 1px;
+}
+
+.search__icon {
+    position: absolute;
+    top: 20%;
+    z-index: 1;
+    color: #818181;
+}
