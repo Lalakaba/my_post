@@ -1,7 +1,8 @@
-import { PlusCircleOutlined, ProfileOutlined} from "@ant-design/icons";
-import Logo from "../Logo/Logo";
 import "./header.css";
+import React from 'react';
+import Logo from "../Logo/Logo";
 import Search from "../Search/Search";
+import { AppstoreAddOutlined,ProfileOutlined } from "@ant-design/icons";
 
 const Header = () => {
   return (
@@ -10,10 +11,10 @@ const Header = () => {
       <Search />
       <div className="header__wrapper">
       <div className="header__icon">
-       <span> <PlusCircleOutlined  className="ant-icon"/></span>
+       <span> <AppstoreAddOutlined className="ant-icon"/></span>
        </div>
       <div className="header__icon">
-      <span> <ProfileOutlined className="ant-icon"/></span>
+      <span> <ProfileOutlined  className="ant-icon"/></span>
         </div>
         </div>
     </div>
