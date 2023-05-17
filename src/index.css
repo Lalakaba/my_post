@@ -1,21 +1,4 @@
-body {
-    background-image: url('./images/bg.jpeg');
-    background-position: center;
-    background-size: cover;
-    font-family: sans-serif;
-    margin: 0;
-}
-
-#root {
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-}
-
-.container {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    align-content: flex-start;
+.body {
+    width: 1920px;
+    height: 1080px;
 }
