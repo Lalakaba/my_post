@@ -108,3 +108,8 @@ span:first-child{
     border-radius: 2px solid #dbdbdb;
     cursor: pointer;
 }
+
+.post__like{
+    border:none;
+    background-color: #ffff;
+}
