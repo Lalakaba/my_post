@@ -35,19 +35,23 @@ export const Post = ({
           <Avatar src={avatar} alt="name" className="post__userLogo" />
         </div>
         <div className="post__userDate">
-          <div className="post__userName">{name}</div>
+          <div className="post__userName"> {name}</div>
         </div>
-        <div class="dropdown">
-  <a class="btn btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">. . .
-   
+       
+        <div className="dropdown">
+  <a className="btn btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    . . .
   </a>
-
-  <ul class="dropdown-menu">
-  <a class="dropdown-item" href="#">Редактировать</a>
-       <a class="dropdown-item" href="#">Удалить</a>
-    </ul>
+  <ul className="dropdown-menu">
+    <a className="dropdown-item" href="/#">
+      Редактировать
+    </a>
+    <a className="dropdown-item" href="/#">
+      Удалить
+    </a>
+  </ul>
 </div>
-      </div>
+</div>
       <div className="post__img">
         <img src={image} alt="" className="card__image" />
       </div>
@@ -56,18 +60,23 @@ export const Post = ({
         <button
           onClick={handleClicker}
           className={`post__like ${isLiked ? "post__like_active" : ""}`}
-        ><Badge badgeContent={likes.length} color="primary">
-          <FavoriteIcon/></Badge>
+        >
+          <Badge badgeContent={likes.length} color="primary">
+            <FavoriteIcon />
+          </Badge>
         </button>
-        
+
         <div className="post__comm__comment">
-        <Badge badgeContent={comments.length} color="primary">
-        <ChatBubbleIcon /></Badge>
+          <Badge badgeContent={comments.length} color="primary">
+            <ChatBubbleIcon />
+          </Badge>
         </div>
-        </div>
+      </div>
 
       {args.tags.map((e) => (
-        <span className={`tag tag_type_ ${e}`} key={e}>{e}</span>
+        <span className={`tag tag_type_ ${e}`} key={e}>
+          {e}
+        </span>
       ))}
 
       <div className="post__footer">
@@ -82,9 +91,7 @@ export const Post = ({
           className="comment"
         />
         <button className="post__btn">Опубликовать</button>
-        <div className="post__info">
-        
-        </div>
+        <div className="post__info"></div>
       </div>
     </div>
   );

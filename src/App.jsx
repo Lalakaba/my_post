@@ -1,5 +1,5 @@
+import {Routes, Route} from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
-
 import Header from './components/Header/Header';
 import {Main} from './components/Main/Main';
 import { api } from './api';
@@ -9,7 +9,10 @@ import { PostContext } from './someContext/PostContext';
 import { UserContext } from './someContext/UserCtx';
 
 
-
+//Подключение страниц
+import { Enter } from './pages/Enter';
+import { PersonalPage } from "./pages/PersonalPage";
+import { NotFound } from './pages/NotFound';
 
 
 
@@ -73,11 +76,17 @@ useEffect(() => {
   return (
 
     <div className='App' >
-
+<h1>Главная</h1>
     <PostContext.Provider value={postsValue}>
     <UserContext.Provider value={user}>
 
-      <Header setSearch={setSearch} />
+    <Header setSearch={setSearch} />
+      <Routes>
+      <Route path="personalpage" element={<PersonalPage/>} /> 
+      <Route path='/enter' element={<Enter/>}/> 
+      <Route path='*' element={<NotFound/>}/> 
+      </Routes>
+
        <Main posts={posts}/>
        </UserContext.Provider>
     </PostContext.Provider>
