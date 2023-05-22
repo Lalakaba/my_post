@@ -39,14 +39,14 @@ export const Post = ({
         </div>
        
         <div className="dropdown">
-  <a className="btn btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a className="btn btn" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     . . .
   </a>
   <ul className="dropdown-menu">
-    <a className="dropdown-item" href="/#">
+    <a className="dropdown-item" href="/">
       Редактировать
     </a>
-    <a className="dropdown-item" href="/#">
+    <a className="dropdown-item" href="/">
       Удалить
     </a>
   </ul>
