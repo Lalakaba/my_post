@@ -82,7 +82,7 @@ useEffect(() => {
 
     <Header setSearch={setSearch} />
       <Routes>
-      <Route path="personalpage" element={<PersonalPage/>} /> 
+      <Route path="/personalpage" element={<PersonalPage/>} /> 
       <Route path='/enter' element={<Enter/>}/> 
       <Route path='*' element={<NotFound/>}/> 
       </Routes>
