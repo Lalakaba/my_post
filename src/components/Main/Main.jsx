@@ -1,18 +1,17 @@
-import { postData } from '../Post/postData.js';
+
 import React from 'react';
-import styles from './Main.module.scss';
-import Post from "../Post/Post";
+import "../Main/main.css"
+import Post from '../Post/Post';
 
-const Main= () => {
-    return (
-        <div className={styles.main}>
+export  const Main = ({posts}) => {
 
-            {postData.map((pos,id) => (
-          <Post key={id} img={pos.image} name={pos.title} text={pos.text} />
-        ))}
-          
-        </div>
-    )
-}
-
-export default Main;
+  return (
+          <div className="main">
+         {posts.map((item) => {
+        return <Post  key={item.updated_at}
+        {...item}  post={item}/>;
+       
+      })}
+    </div>
+  );
+};

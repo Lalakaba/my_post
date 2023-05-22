@@ -1,8 +1,11 @@
 .container__search {
-    width: 300px;
+    width: 230px;
     vertical-align: middle;
     white-space: nowrap;
     position: relative;
+    background-color: #9e9e9e;
+    border: none;
+    
 }
 
 .container__search input {
@@ -12,7 +15,9 @@
     font-size: 15pt;
     float: left;
     padding-left: 30px;
-    border-radius: 1px;
+    border-radius: 2px;
+    background-color:#9e9e9e;
+  
 }
 
 .search__icon {

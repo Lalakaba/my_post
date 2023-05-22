@@ -1,44 +1,54 @@
 .post__card {
-    width: 616px;
-    height: 842px;
-    border: 1px solid #dbdbdb;
+    width: 550px;
+    height: 840px;
+    border: 1px solid #b6b6b6;
+    margin-bottom: 10px;
+    background-color: #DBD7D2;
+    border-radius: 20px;
+    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(255,255,255,0.5);
+    overflow: hidden;
 }
 
+
 .post__header {
-    width:100%;
+    width: 100%;
     height: 60px;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #b6b6b6;
     padding: 15px 20px;
     display: flex;
     box-sizing: border-box;
-    
-    }
-    .post__burger{
-font-size: 20px;
-font-weight: 900;
-cursor: pointer;
-opacity: 0.7;
+    border-radius: 20px 20px 0 0;
 
-    }
+
+
+}
+
+.post__burger {
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    opacity: 0.7;
+
+}
 
 /*Стили Маленькой аватарки*/
 
-.post__userLogo{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: crimson;
-    margin-right: 20px;
+.post__userLogo {
+    width: 34px;
+    height: 34px;
+    /* border-radius: 50%; */
     
+    margin-right: 20px;
+
 }
 
 .post__userName {
     font-weight: 700;
 }
 
-.post__userDate{
+.post__userDate {
     margin-right: auto;
-    
+
 }
 
 
@@ -51,65 +61,149 @@ opacity: 0.7;
 }
 
 .post__footer p {
-    margin: 10px;
-    color: rgb(7, 7, 7);
+    margin: 0 10px 0 15px;
+    color: #000000;
     font-size: 16px;
+    font-family: 'CursiveSerifBook', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
 }
 
 .post__img {
     width: 100%;
     height: 500px;
-    background-color: blue;
-    /* justify-self: center; */
+    background-size: cover;
+    overflow: hidden;
+
 }
+
+
+
+
+.card__image {
+
+    width: 100%;
+    height: 100%;
+}
+
 /*Стили комментариев и лайков*/
 
 .post__comm {
-    width: 100%;
-    height: 40px;
-    padding:10px;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    margin:0;
     cursor: pointer;
-    
-
 }
- span:hover{
+.post__comm__comment{
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    margin:0;
+    cursor: pointer; 
+}
+
+span:hover {
     opacity: 0.7;
- }
-
-span:first-child{
-    margin-right:20px;
-   
 }
+
+span:first-child {
+    margin-right: 10px;
+
+}
+
 .post__card button {
+
     margin: 15px;
     position: relative;
     z-index: 1;
 }
 
 
-.post__footer{
+.post__footer {
     width: 100%;
     height: 120px;
-    border-top: 1px solid #dbdbdb;
+    border-top: 2px solid #b6b6b6;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+    align-items: center;
+    background-color: #DBD7D2;
+    border-radius: 8px;
+
 }
-.comment{
+
+.comment {
     font-size: 16px;
     float: left;
     height: 30px;
-    border:none;
-    margin:10px;
+    border: none;
+    margin: 10px;
+    background-color: #DBD7D2;
 }
 
-.post__btn{
+.post__btn {
+    width: 120px;
+    height: 30px;
     font-size: 16px;
-    border-radius: 2px solid #dbdbdb;
+    border: 1px solid #dbdbdb;
     cursor: pointer;
+    border-radius: 8px;
+    background-color: #DBD7D2;
+    
+
 }
 
-.post__like{
-    border:none;
-    background-color: #ffff;
+.post__like {
+    align-content: center;
+    border: none;
+    background-color: #DBD7D2;
+    fill: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.post__chatBubble{
+    margin:0;
+    display: flex;
+    border: none;
+    background: none;
+    
+
+}
+.post__like_active {
+    border: none;
+    background: none;
+    fill: #000000;
+    stroke: #000000;
+   
+  }
+
+.footer__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.tag {
+    margin-left: 8px;
+    color: #584949;
+
+}
+
+/* дропдаун кнопка*/
+
+.dropdown{
+    background-color:#DBD7D2; 
+
+}
+.dropdown-menu ul {
+    background: var(--bg-color)
+}
+
+.dropdown-item{
+    background: var(--bg-color)
 }

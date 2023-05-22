@@ -7,7 +7,7 @@ const Search = ({ setSearch }) => {
     <div className="container__search">
       <SearchIcon className="search__icon" />
 
-      <input
+      <input type="text"
         placeholder="Поиск..."
         onChange={(e) => setSearch(e.target.value)}
         className="search__input"

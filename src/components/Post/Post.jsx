@@ -1,55 +1,92 @@
 import "./post.css";
-import React, { useState } from "react";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import React, { useContext } from "react";
+import  {Avatar, Badge}  from "@mui/material";
+import { PostContext } from "../../someContext/PostContext";
+import { UserContext } from "../../someContext/UserCtx";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 
+export const Post = ({
+  avatar,
+  post,
+  image,
+  comments,
+  author,
+  name,
+  _id,
+  text,
+  likes,
+  ...args
+}) => {
+ 
+  const user = useContext(UserContext);
+  const { handleLike } = useContext(PostContext);
 
-// const [countDown, setCountDown] = useState(0)
+  const isLiked = likes.some((e) => e === user._id);
 
-const Post = (props) => {
+  const handleClicker = () => {
+    handleLike(post, isLiked);
+  };
 
-  const [countUp, setCountUp] = useState(0)
   return (
     <div className="post__card">
       <div className="post__header">
-        <div className="post__userLogo">User</div>
-        <div className="post__userDate">
-          <div className="post__userName">Will Tompson</div>
+        <div>
+          <Avatar src={avatar} alt="name" className="post__userLogo" />
         </div>
-                         
+        <div className="post__userDate">
+          <div className="post__userName">{name}</div>
+        </div>
+        <div class="dropdown">
+  <a class="btn btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">. . .
+   
+  </a>
+
+  <ul class="dropdown-menu">
+  <a class="dropdown-item" href="#">Редактировать</a>
+       <a class="dropdown-item" href="#">Удалить</a>
+    </ul>
+</div>
       </div>
       <div className="post__img">
-        <img src={props.img} alt={props.name} />
-        
-        
-        
+        <img src={image} alt="" className="card__image" />
       </div>
-
 
       <div className="post__comm">
-      {/* <h4>{props.name}</h4> */}
-        <span>
-        <button className="post__like" onClick={() => setCountUp(countUp + 1)}><FavoriteBorderIcon/>{`${countUp === 0 ? '' : countUp}`}</button>  
-        </span>
+        <button
+          onClick={handleClicker}
+          className={`post__like ${isLiked ? "post__like_active" : ""}`}
+        ><Badge badgeContent={likes.length} color="primary">
+          <FavoriteIcon/></Badge>
+        </button>
+        
+        <div className="post__comm__comment">
+        <Badge badgeContent={comments.length} color="primary">
+        <ChatBubbleIcon /></Badge>
+        </div>
+        </div>
 
-        <span>
-          <ChatBubbleOutlineIcon className="post__chatBubble" />
-        </span>
-      </div>
+      {args.tags.map((e) => (
+        <span className={`tag tag_type_ ${e}`} key={e}>{e}</span>
+      ))}
 
       <div className="post__footer">
-      <p> {props.text} </p>
-      
-        <input type="text"  placeholder ="Добавьте комментарий..." className="comment"/>
+        {/* <h4>{name ?? title}</h4> */}
+        <p> {text} </p>
+      </div>
 
-       
+      <div className="footer__footer">
+        <input
+          type="text"
+          placeholder="Добавьте комментарий..."
+          className="comment"
+        />
+        <button className="post__btn">Опубликовать</button>
+        <div className="post__info">
         
-
-        <button className="post__btn">Добавить</button>
         </div>
+      </div>
     </div>
   );
 };
-
-
 export default Post;

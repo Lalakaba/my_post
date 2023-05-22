@@ -1,12 +1,16 @@
-const baseData= {
-    baseUrl: 'https://api.react-learning.ru',
-    headers: {
-          
-          authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDVhNTJmMWUwYmYyYzUxOWI5ZDNkMGQiLCJncm91cCI6IjEyIiwiaWF0IjoxNjg0NDQ0ODc5LCJleHAiOjE3MTU5ODA4Nzl9.oxV0pbHwI1DnQ0WA-arR2YoydzqtHVbKv3dD1OJCjRA',
+const baseInfo = {
+  baseUrl: 'https://api.react-learning.ru',
+  headers: {
+    authorization:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDVhNTJmMWUwYmYyYzUxOWI5ZDNkMGQiLCJncm91cCI6IjEyIiwiaWF0IjoxNjg0NDQ0ODc5LCJleHAiOjE3MTU5ODA4Nzl9.oxV0pbHwI1DnQ0WA-arR2YoydzqtHVbKv3dD1OJCjRA',
+    'Content-Type': 'application/json',
+  },
+};
 
-          
-    }       
-  }
+const onResponse = (res) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
     
   
   const resp = (res) => {
@@ -17,24 +21,71 @@ const baseData= {
     constructor(data) {
       this.baseUrl = data.baseUrl;
       this.headers = data.headers;
+      this.group = 12;
     }
 
     getAllPosts() {
-      return fetch(`${this.baseUrl}/v2/:group-12/posts`, {
+      return fetch(`${this.baseUrl}/v2/${this.group}/posts`, {
         method: 'GET',
         headers: this.headers,
       })
-        .then(resp)
-        .catch((e) => console.log(e));
+        .then(onResponse)
+        
     }
 
+    SearchPosts(title) {
+      return fetch(`${this.baseUrl}/v2/${this.group}/posts/search?query=${title}`, {
+        headers: this.headers,
+      })
+      .then(onResponse)
+    };
+
+
+    getUserInfo() {
+      return fetch(`${this.baseUrl}/users/me`, {
+          headers: this.headers
+        })
+        .then(onResponse)
+    }
+
+    getUsers() {
+      return fetch(`${this.baseUrl}/v2/${this.group}/users`, {
+          headers: this.headers
+      })
+      .then(onResponse)
+  };
+
+  AddLikeOnPosts(postId ) {
+    return fetch(`${this.baseUrl}/v2/${this.group}/posts/likes/${postId}`, {
+      headers: this.headers,
+      method: 'PUT',
+    })
+    .then(onResponse)
+  }
+// // установка лайка по id
+  DeleteLikeOfPosts(postId) {
+    return fetch(`${this.baseUrl}/v2/${this.group}/posts/likes/${postId}`, {
+      headers: this.headers,
+      method: 'DELETE',
+    })
+    .then(onResponse)
+  }
+// //смена лайка и снятия лайка
+  ChangeLikePostStatus(postId, isLiked) {
+    return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
+      headers: this.headers,
+      method: isLiked ? 'DELETE' : 'PUT',
+    })
+    .then(onResponse)
+  }
 
 
     /*Методы регистрации/авторизации/сброса пароля*/
     // getRegisteredUser(data) {
     //   return fetch(`${this.baseUrl}/signup`, {
     //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
+    //     headers: 
+    // { 'Content-Type': 'application/json' },
     //     body: JSON.stringify(data),
     //   })
     //     .then(resp)
@@ -44,7 +95,8 @@ const baseData= {
     // AuthorizedUser(data) {
     //   return fetch(`${this.baseUrl}/signin`, {
     //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
+    //     headers: this.headers
+                 
     //     body: JSON.stringify(data),
     //   })
     //     .then(resp)
@@ -53,10 +105,10 @@ const baseData= {
   
     /*Получение постов*/
    
-  }
+  
   // //Добавление поста
   //   getAddPost(data,id) {
-  //     return fetch(`${this.baseUrl}v2/:group${id}/posts`, {
+  //     return fetch(`${this.baseUrl}v2/${this.group}/posts`, {
   //       method: 'POST',
   //       headers: this.headers,
   //       body: JSON.stringify(data),
@@ -68,8 +120,8 @@ const baseData= {
   //       .catch((e) => console.log(e));
   //   }
   
-  //   getProductInfo(groupId,postId) {
-  //     return fetch(`${this.baseUrl}v2/${groupId}/posts/${postId}`, {
+  //   getPostsInfo(postId) {
+  //     return fetch(`${this.baseUrl}v2/${this.group}/posts/${postId}`, {
   //       headers: this.headers,
   //     })
   //       .then(resp)
@@ -78,8 +130,8 @@ const baseData= {
   
   //   //добавление комментария по id;
 
-  //     getAddCommentsOfProduct(groupId,postId, data) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/comments/${postId}`, {
+  //     getAddCommentsPosts(postId) {
+  //     return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/${postId}`, {
   //       method: 'POST',
   //       headers: this.headers,
   //       body: JSON.stringify(data),
@@ -90,55 +142,28 @@ const baseData= {
  
   //   // получение комментариев конкрентного поста.
 
-  //     getAllCommentsOfProduct(postId, groupId) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/comments/:postId${postId}`, {
+  //     getAllCommentsOfPosts(postId, groupId) {
+  //     return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/${postId}`, {
   //       headers: this.headers,
   //     })
   //       .then(resp)
   //       .catch((e) => console.log(e));
   //   }
-  // // получение всех комментариев
-  //   getAllCommentsProducts(groupId, postId) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/comments/ `, {
-  //       headers: this.headers,
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
-  //   getSearchPosts(title,groupId) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/search?query=${title}`, {
-  //       headers: this.headers,
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
-  // // установка лайка по id
-  //   getAddLikeOfPosts(postId,groupId ) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/likes/${postId}`, {
-  //       headers: this.headers,
-  //       method: 'PUT',
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
-  // // установка лайка по id
-  //   getDeleteLikeOfPosts(postId,groupId) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/likes/${postId}`, {
-  //       headers: this.headers,
-  //       method: 'DELETE',
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
-  // //смена лайка и снятия лайка
-  //   getChangeLikePostStatus(postId,groupId, isLiked) {
-  //     return fetch(`${this.baseUrl}/v2/${groupId}/posts/likes/${postId}`, {
-  //       headers: this.headers,
-  //       method: isLiked ? 'DELETE' : 'PUT',
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
-  // }
+  // получение всех комментариев
+    getAllCommentsPost(groupId, postId) {
+      return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/ `, {
+        headers: this.headers,
+      })
+        .then(resp)
+        .catch((e) => console.log(e));
+    
+      }
   
-  export const api = new Api(baseData);
+  
+                                                                     // // установка лайка по id
+  }
+  
+
+
+
+  export const api = new Api(baseInfo);
