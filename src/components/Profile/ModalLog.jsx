@@ -3,7 +3,7 @@ import "../Profile/index.css"
 
 
 
-export const ModalLog =()=>{
+export const ModalLog = () => {
 
     const [isReg, setIsReg] = useState(false);
    const [name, setName] = useState("")

@@ -1,7 +1,7 @@
 import {Routes, Route} from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
-import { ModalLog } from './components/Profile/ModalLog';
+// import { ModalLog } from './components/Profile/ModalLog';
 import { api } from './api';
 import { useDebounce } from "./components/MyHooks/hook"
 import {filteredPosts} from './others/something'
@@ -99,7 +99,7 @@ useEffect(() => {
       <Route path="/personalpage" element={<PersonalPage/>} /> 
       <Route path='/enter' element={<Enter/>}/> 
       </Routes>
-     <ModalLog/>
+     {/* <ModalLog/> */}
        
        </UserContext.Provider>
     </PostContext.Provider>
@@ -109,6 +109,31 @@ useEffect(() => {
 
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
