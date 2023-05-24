@@ -1,5 +1,6 @@
 const baseInfo = {
-  baseUrl: 'https://api.react-learning.ru',
+  baseUrl: 'https://api.react-learning.ru' ||
+           'https://api.react-learning.ru/v2/group-12',
   headers: {
     authorization:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDVhNTJmMWUwYmYyYzUxOWI5ZDNkMGQiLCJncm91cCI6IjEyIiwiaWF0IjoxNjg0NDQ0ODc5LCJleHAiOjE3MTU5ODA4Nzl9.oxV0pbHwI1DnQ0WA-arR2YoydzqtHVbKv3dD1OJCjRA',
@@ -33,8 +34,8 @@ const onResponse = (res) => {
         
     }
 
-    SearchPosts(title) {
-      return fetch(`${this.baseUrl}/v2/${this.group}/posts/search?query=${title}`, {
+    SearchPosts(name) {
+      return fetch(`${this.baseUrl}/v2/${this.group}/posts/search?query=${name}`, {
         headers: this.headers,
       })
       .then(onResponse)
@@ -150,7 +151,7 @@ const onResponse = (res) => {
   //       .catch((e) => console.log(e));
   //   }
   // получение всех комментариев
-    getAllCommentsPost(groupId, postId) {
+    getAllCommentsPost( postId) {
       return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/ `, {
         headers: this.headers,
       })

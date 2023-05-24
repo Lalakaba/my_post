@@ -1,10 +1,11 @@
 import "./post.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import  {Avatar, Badge}  from "@mui/material";
-import { PostContext } from "../../someContext/PostContext";
-import { UserContext } from "../../someContext/UserCtx";
+import { PostContext } from "../someContext/PostContext";
+import { UserContext } from "../someContext/UserCtx";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+
 
 export const Post = ({
   avatar,
@@ -18,7 +19,7 @@ export const Post = ({
   likes,
   ...args
 }) => {
- 
+  
   const user = useContext(UserContext);
   const { handleLike } = useContext(PostContext);
 
@@ -27,31 +28,51 @@ export const Post = ({
   const handleClicker = () => {
     handleLike(post, isLiked);
   };
+// кнопка дропдаун
+  const menu = useRef();
+  const [dropdownState, setDropdownState] = useState({ open: false });
+
+  const handleDropdownClick = () =>
+    setDropdownState({ open: !dropdownState.open });
+
+  const handleClickOutside = (e) => {
+    if (menu.current && !menu.current.contains(e.target)) {
+      setDropdownState({ open: false });
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className="post__card">
       <div className="post__header">
         <div>
-          <Avatar src={avatar} alt="name" className="post__userLogo" />
+          <Avatar src={author.avatar} alt="name" className="post__userLogo" />
         </div>
         <div className="post__userDate">
-          <div className="post__userName"> {name}</div>
+          <div className="post__userName"> {author.name}</div>
         </div>
-       
-        <div className="dropdown">
-  <a className="btn btn" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    . . .
-  </a>
-  <ul className="dropdown-menu">
-    <a className="dropdown-item" href="/">
-      Редактировать
-    </a>
-    <a className="dropdown-item" href="/">
-      Удалить
-    </a>
-  </ul>
-</div>
-</div>
+
+        <div className="menu" ref={menu}>
+          <button
+            type="button"
+            className="menu__btn"
+            onClick={handleDropdownClick}
+          >
+            . . .
+          </button>
+          {dropdownState.open && (
+            <div className="dropdown">
+              <ul>
+                <li>Изменить</li>
+                <li>Удалить</li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
       <div className="post__img">
         <img src={image} alt="" className="card__image" />
       </div>

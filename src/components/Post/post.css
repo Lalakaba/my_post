@@ -18,6 +18,7 @@
     display: flex;
     box-sizing: border-box;
     border-radius: 20px 20px 0 0;
+    
 
 
 
@@ -33,17 +34,16 @@
 
 /*Стили Маленькой аватарки*/
 
-.post__userLogo {
+/* .post__userLogo {
     width: 34px;
     height: 34px;
-    /* border-radius: 50%; */
-    
-    margin-right: 20px;
+     margin-right: 20px;
 
-}
+} */
 
 .post__userName {
     font-weight: 700;
+    
 }
 
 .post__userDate {
@@ -115,13 +115,6 @@ span:first-child {
 
 }
 
-.post__card button {
-
-    margin: 15px;
-    position: relative;
-    z-index: 1;
-}
-
 
 .post__footer {
     width: 100%;
@@ -160,7 +153,7 @@ span:first-child {
     border: none;
     background-color: #DBD7D2;
     fill: none;
-    margin: 0;
+    margin: 15px;
     padding: 0;
 }
 
@@ -175,6 +168,7 @@ span:first-child {
 
 }
 .post__like_active {
+    margin: 15px;
     border: none;
     background: none;
     fill: #000000;
@@ -194,16 +188,34 @@ span:first-child {
 
 }
 
-/* дропдаун кнопка*/
+.menu__btn {
+    text-align: center;
+    border:none;
+    padding: 0;
+    width: 50px;
+    border: none;
+    background-color:transparent;
+    color: #000000;
+    cursor: pointer;
+    outline: 0;
+    font-size: 20px;
+    font-weight: 700;
 
-.dropdown{
-    background-color:#DBD7D2; 
+ }
 
-}
-.dropdown-menu ul {
-    background: var(--bg-color)
-}
-
-.dropdown-item{
-    background: var(--bg-color)
-}
+ ul{
+    padding: 0;
+    margin: 0;
+   }
+   li {
+    overflow: hidden;
+    text-align: center;
+    border-radius: 10px;
+    background: #dbdbdb;
+    padding: 8px 12px;
+   }
+   
+   li:hover {
+    background-color: rgba(146, 144, 144, 0.733);
+    cursor: pointer;
+   }

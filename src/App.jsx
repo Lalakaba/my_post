@@ -1,18 +1,21 @@
 import {Routes, Route} from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
-import {Main} from './components/Main/Main';
+import { ModalLog } from './components/Profile/ModalLog';
 import { api } from './api';
-import { useDebounce } from "./MyHooks/hook"
+import { useDebounce } from "./components/MyHooks/hook"
 import {filteredPosts} from './others/something'
-import { PostContext } from './someContext/PostContext';
-import { UserContext } from './someContext/UserCtx';
+import { PostContext } from './components/someContext/PostContext';
+import { UserContext } from './components/someContext/UserCtx';
 
 
 //Подключение страниц
+import {Main} from './pages/Main';
 import { Enter } from './pages/Enter';
 import { PersonalPage } from "./pages/PersonalPage";
 import { NotFound } from './pages/NotFound';
+
+
 
 
 
@@ -20,12 +23,12 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState(undefined);
   const [user, setUser] = useState({});
-
+  const [authors, setAuthors] = useState([]);
 
 
   const debounceValue = useDebounce(search)
 
-
+//функция снятия и удаление лайка без перезагрузки страницы
   const handlePostsLike = async (post, wasLiked) => {
     const updatedPost = await api.ChangeLikePostStatus(post._id, wasLiked);
     
@@ -52,6 +55,7 @@ useEffect(() => {
   useEffect(() => {                                              
     api.getUserInfo().then((user) => {
         setUser(user);
+      
     })
   }, []);
     useEffect(() => { 
@@ -61,33 +65,42 @@ useEffect(() => {
       });
   }, []);
 
+  useEffect(() => {                                              
+    api.getUsers().then((data) => {
+      setAuthors(data);
+      
+    })
+  }, []);
+
   const postsValue = {
     handleLike: handlePostsLike,
     posts : posts,
     search,
     user,
+    authors
     
  
   }
-//функция снятия и удаление лайка без перезагрузки страницы
+
 
   
   
   return (
 
     <div className='App' >
-<h1>Главная</h1>
+
     <PostContext.Provider value={postsValue}>
     <UserContext.Provider value={user}>
 
     <Header setSearch={setSearch} />
       <Routes>
+      <Route path='*' element={<NotFound/>}/> 
+      <Route path='/' element={<Main posts={posts}/>}/> 
       <Route path="/personalpage" element={<PersonalPage/>} /> 
       <Route path='/enter' element={<Enter/>}/> 
-      <Route path='*' element={<NotFound/>}/> 
       </Routes>
-
-       <Main posts={posts}/>
+     <ModalLog/>
+       
        </UserContext.Provider>
     </PostContext.Provider>
     </div>

@@ -1,9 +1,14 @@
 html,
 .body {
     display: flex;
-    margin: 0;
-    max-width: 1280px;
-    height: 100%;
-    background-color: #474A51;
+ max-width: 1240px;
+ height: 100%;
+background-color: black;
+
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+       
+  
     
 }
