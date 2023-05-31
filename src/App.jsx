@@ -1,7 +1,6 @@
 import {Routes, Route} from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
-// import { ModalLog } from './components/Profile/ModalLog';
 import { api } from './api';
 import { useDebounce } from "./components/MyHooks/hook"
 import {filteredPosts} from './others/something'
@@ -14,6 +13,8 @@ import {Main} from './pages/Main';
 import { Enter } from './pages/Enter';
 import { PersonalPage } from "./pages/PersonalPage";
 import { NotFound } from './pages/NotFound';
+import { ResetPass } from './components/Profile/ResetPass';
+
 
 
 
@@ -22,17 +23,15 @@ import { NotFound } from './pages/NotFound';
 function App() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState(undefined);
-  const [user, setUser] = useState({});
   const [authors, setAuthors] = useState([]);
-
-
+  const [user, setUser] = useState({});
   const debounceValue = useDebounce(search)
+  
+  const [response, setResponse] = useState({});
 
 //функция снятия и удаление лайка без перезагрузки страницы
   const handlePostsLike = async (post, wasLiked) => {
     const updatedPost = await api.ChangeLikePostStatus(post._id, wasLiked);
-    
-
     const index = posts.findIndex((e) => e._id === updatedPost?._id);
     if (index !== -1) {
       setPosts((state) => [
@@ -42,7 +41,7 @@ function App() {
       ]);
     }
   }
-
+ 
 
 //поиск по query
 useEffect(() => {
@@ -52,12 +51,24 @@ useEffect(() => {
 }, [debounceValue]);
 
 //получаем инфу о пользователе и все посты
+
+
+
+
   useEffect(() => {                                              
-    api.getUserInfo().then((user) => {
-        setUser(user);
+    api.getUserInfo().then((data) => {
+        setUser(data);
       
     })
   }, []);
+
+  function updatePostState(likedPost) {
+    let updatedPostData = posts.map((el) => {
+      return el._id !== likedPost._id ? el : likedPost;
+    });
+    setPosts([...updatedPostData]);
+  }
+
     useEffect(() => { 
     api.getAllPosts().then((data) => {
       // const filtered = filteredPosts(data)
@@ -74,6 +85,7 @@ useEffect(() => {
 
   const postsValue = {
     handleLike: handlePostsLike,
+    updatePostState,
     posts : posts,
     search,
     user,
@@ -94,12 +106,23 @@ useEffect(() => {
 
     <Header setSearch={setSearch} />
       <Routes>
+      <Route path='/resetPass' element={<ResetPass/>}/> 
+
+
       <Route path='*' element={<NotFound/>}/> 
-      <Route path='/' element={<Main posts={posts}/>}/> 
+      <Route path='/' element={<Enter setResponse={setResponse}/>}/>
+      <Route path='/main' element={<Main posts={posts}/>}/> 
       <Route path="/personalpage" element={<PersonalPage/>} /> 
-      <Route path='/enter' element={<Enter/>}/> 
+
+      
+     
+      
+    
+       
+
+     
       </Routes>
-     {/* <ModalLog/> */}
+     
        
        </UserContext.Provider>
     </PostContext.Provider>

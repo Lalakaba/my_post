@@ -14,13 +14,13 @@ export const Navbar = () => (
 
 
       <button className="glow-on-hover" >
-      <Link to="/" className="navbar__link">Main</Link>
+      <Link to="/main" className="navbar__link">Main</Link>
        </button>        
     
       
      
       <button className="glow-on-hover" >
-    <Link to="/enter"className="navbar__link">Login</Link>
+    <Link to="/"className="navbar__link">Enter</Link>
   </button>
     <button className="glow-on-hover">
    <Link to="/personalpage"className="navbar__link">Profile</Link>

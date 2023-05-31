@@ -1,5 +1,5 @@
 const baseInfo = {
-  baseUrl: 'https://api.react-learning.ru' ||
+  baseUrl: "https://api.react-learning.ru/v2/12" ||
            'https://api.react-learning.ru/v2/group-12',
   headers: {
     authorization:
@@ -9,33 +9,35 @@ const baseInfo = {
 };
 
 const onResponse = (res) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+  return res.ok ? res.json() : res.json().then(() => Promise.reject('Error'));
 };
 
-    
-  
-  const resp = (res) => {
-    return res.json();
-  };
   
   class Api {
     constructor(data) {
       this.baseUrl = data.baseUrl;
       this.headers = data.headers;
-      this.group = 12;
+      
     }
 
     getAllPosts() {
-      return fetch(`${this.baseUrl}/v2/${this.group}/posts`, {
+      return fetch(`${this.baseUrl}/posts`, {
         method: 'GET',
         headers: this.headers,
       })
         .then(onResponse)
         
     }
+    getPostId(id) {
+      return fetch(`${this.baseUrl}v2/${this.group}/posts/${id}`, {
+        method: "GET",
+         headers: this.headers,
+      })
+      .then(onResponse)
+    }
 
-    SearchPosts(name) {
-      return fetch(`${this.baseUrl}/v2/${this.group}/posts/search?query=${name}`, {
+    SearchPosts(title) {
+      return fetch(`${this.baseUrl}/v2/${this.group}/posts/search?query=${title}`, {
         headers: this.headers,
       })
       .then(onResponse)
@@ -50,28 +52,29 @@ const onResponse = (res) => {
     }
 
     getUsers() {
-      return fetch(`${this.baseUrl}/v2/${this.group}/users`, {
+      return fetch(`${this.baseUrl}/users`, {
+        
           headers: this.headers
       })
       .then(onResponse)
   };
-
+// // установка лайка по id
   AddLikeOnPosts(postId ) {
-    return fetch(`${this.baseUrl}/v2/${this.group}/posts/likes/${postId}`, {
+    return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
       headers: this.headers,
       method: 'PUT',
     })
     .then(onResponse)
   }
-// // установка лайка по id
+// // удаление лайка по id
   DeleteLikeOfPosts(postId) {
-    return fetch(`${this.baseUrl}/v2/${this.group}/posts/likes/${postId}`, {
+    return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
       headers: this.headers,
       method: 'DELETE',
     })
     .then(onResponse)
   }
-// //смена лайка и снятия лайка
+// // 2 метода сразу
   ChangeLikePostStatus(postId, isLiked) {
     return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
       headers: this.headers,
@@ -81,88 +84,111 @@ const onResponse = (res) => {
   }
 
 
-    /*Методы регистрации/авторизации/сброса пароля*/
-    // getRegisteredUser(data) {
-    //   return fetch(`${this.baseUrl}/signup`, {
-    //     method: 'POST',
-    //     headers: 
-    // { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(data),
-    //   })
-    //     .then(resp)
-    //     .catch((e) => console.log(e));
-    // }
-  
-    // AuthorizedUser(data) {
-    //   return fetch(`${this.baseUrl}/signin`, {
-    //     method: 'POST',
-    //     headers: this.headers
-                 
-    //     body: JSON.stringify(data),
-    //   })
-    //     .then(resp)
-    //     .catch((e) => console.log(e));
-    // }
-  
+      /*Методы регистрации/авторизации/сброса пароля*/
+      RegistratedUser(data) {
+        return fetch(`${this.baseUrl}/signup`, {
+          method: "POST",
+          headers: this.headers,
+          body: JSON.stringify(data),
+        }).then(onResponse);
+      }
+    
+    AuthorizedUser(data) {
+      return fetch(`${this.baseUrl}/signin`, {
+        method: "POST",
+      headers: this.headers,
+      body: JSON.stringify(data),
+    }).then(onResponse);
+  }
+
+  ResetPassword(dataUser) {
+    return fetch(`${this.baseUrl}/password-reset`,{
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify(dataUser)
+        }).then(onResponse)
+    }
+    ChangePassword(dataUser, token) {
+      return fetch(`${this._baseUrl}/password-reset/${token}`, {
+          headers: this._headers,
+          method: 'PATCH',
+          body: JSON.stringify(dataUser),
+      }).then(onResponse);
+  }
+
+
+
+
     /*Получение постов*/
    
   
   // //Добавление поста
-  //   getAddPost(data,id) {
-  //     return fetch(`${this.baseUrl}v2/${this.group}/posts`, {
-  //       method: 'POST',
-  //       headers: this.headers,
-  //       body: JSON.stringify(data),
-  //     })
-  //       .then((res) => {
-  //         console.log(res);
-  //         return res.json();
-  //       })
-  //       .catch((e) => console.log(e));
-  //   }
+     getAddPost(post) {
+     return fetch(`${this.baseUrl}/posts`, {
+       method: 'POST',
+        headers: this.headers,
+      body: JSON.stringify(post),
+      }).then(onResponse)
+    }
+    //изменение поста
+    getchangePost(post, postId) {
+      return fetch(`${this.baseUrl}/posts/${postId}`, {
+        method: "PATCH",
+       headers: this.headers,
+      body: JSON.stringify(post),
+        }).then(onResponse);
+    }
+    // Удаление поста
+
+    deletePostById(PostId) {
+      return fetch(`${this.baseUrl}/posts/${PostId}`, {
+        method: "DELETE",
+        headers: this.headers,
+        // authorization: `Bearer ${localStorage.getItem("Api")}`,
+      }).then(onResponse);
+    }
+
+
   
-  //   getPostsInfo(postId) {
-  //     return fetch(`${this.baseUrl}v2/${this.group}/posts/${postId}`, {
-  //       headers: this.headers,
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
+   
   
+
+
+
+
   //   //добавление комментария по id;
 
-  //     getAddCommentsPosts(postId) {
-  //     return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/${postId}`, {
-  //       method: 'POST',
-  //       headers: this.headers,
-  //       body: JSON.stringify(data),
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
+      getAddCommentsPosts(comments, postId) {
+     return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
+         method: 'POST',
+         headers: this.headers,
+         body: JSON.stringify(comments),
+       })
+       .then(onResponse)
+      }
  
   //   // получение комментариев конкрентного поста.
 
-  //     getAllCommentsOfPosts(postId, groupId) {
-  //     return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/${postId}`, {
-  //       headers: this.headers,
-  //     })
-  //       .then(resp)
-  //       .catch((e) => console.log(e));
-  //   }
-  // получение всех комментариев
-    getAllCommentsPost( postId) {
-      return fetch(`${this.baseUrl}/v2/${this.group}/posts/comments/ `, {
-        headers: this.headers,
-      })
-        .then(resp)
-        .catch((e) => console.log(e));
-    
+     getCommentOfPost(postId) {
+      return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
+        method: "GET",
+       headers: this.headers,
+       })
+       .then(onResponse)
+      }
+//удаление комментариев
+      deleteComment(postId, commentId) {
+        return fetch(`${this.baseUrl}/posts/comments/${postId}/${commentId}`, {
+          method: "DELETE",
+          headers: this.headers,
+          // authorization: `Bearer ${localStorage.getItem("Api")}`,
+        }).then(onResponse);
       }
   
   
-                                                                     // // установка лайка по id
-  }
+    }
+
+  
   
 
 
