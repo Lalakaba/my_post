@@ -1,0 +1,36 @@
+
+.profile{
+    position: absolute;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    top: 80px;
+    left: 380px;
+}
+
+.profileAvatar{
+    margin-right: 35px;
+
+}
+.profileInfo{
+
+}
+.profileName{
+display: flex;
+flex-direction: column;
+font-size:24px;
+font-weight: 700;
+}
+
+.profileAbout{
+    display: flex;
+    flex-direction: column;
+    font-size:16px;
+    font-weight: 500;
+}
+
+.profileEmail{
+    display: flex;
+    flex-direction: column;
+    font-size:16px
+}

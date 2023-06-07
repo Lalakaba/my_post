@@ -1,203 +1,109 @@
-
-
-import "../components/Profile/index.css"
+import "../components/Profile/index.css";
 import { useForm } from "react-hook-form";
-import { Validate, email_reg, password_reg } from "../components/Profile/Validate";
+import {emailValidate,  passValidate} from "../components/Profile/Validate";
 import { useNavigate } from "react-router";
-// import { toast } from "react-hot-toast";
 import { api } from "../api";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { ResetPass } from "../components/Profile/ResetPass";
+import { useContext } from "react";
+import { ContextData } from "../components/someContext/Context";
+import { EyeInvisibleOutlined } from "@ant-design/icons";
+import { EyeOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
-
-
-
-
-
-export const Enter = ({isRequired = true, setResponse }) => {
+export const Enter = () => {
+  const { visible, setVisible, setAuthorized } = useContext(ContextData);
   const navigate = useNavigate();
-  const [authMode, setAuthMode] = useState("Вход")
-  const {register,
+  
+  const {
+    register,
     handleSubmit,
-    formState: { errors},
-  } = useForm({ mode: 'onChange' });
- 
-  const sendInfo = async (data) => {
-    try {
-      const res = await api.AuthorizedUser(data);
-      setResponse(res);
-      navigate('/')
-      localStorage.setItem('token', res.token);
+    reset,
+    formState: { errors },
+  } = useForm({ mode: "onSubmit" });
 
-    } catch (error) {
-      toast.error('Не правильный логин или пароль')
-    }
+  const sendInfo = (data) => {
+    api.authorizedUser(data).then((res) => {
+      if (!!res.err) {
+        alert(`${res.message}`);
+        reset();
+      } else {
+        alert(`Очень рады видеть Вас снова, ${res.data.name}`);
+        setAuthorized(true);
+        localStorage.setItem("token", data.token)
+        navigate("/profilepage");
+        
+      }
+    });
   };
 
 
-  const sendData = async (data) => {
-    try {
-      const result = await api.RegistratedUser({ ...data });
-      console.log(result);
-    } catch (error) {
-      toast.error('Что то пошло не так')
-    }
 
-  };
 
-  const changeAuthMode = () => {
-    setAuthMode(authMode === "Вход" ? "Регистрация" : "Вход")
+  function logOut() {
+    localStorage.removeItem("token" );
+    setAuthorized(false);
+    alert("Уже покидаете нас?")
+    navigate("/");
   }
-   
-  const logOut = () => {
-		
-		localStorage.removeItem('token');;
-		navigate("/");
-	}
 
-
-  if (authMode === "Вход") {
-
- return (
-
-
-
-  <div className="enter__container">
-            
-         <div className="wrapper">
-        <form className="modal-form" onSubmit={handleSubmit(sendInfo)}>
-                     <h3>Вход</h3>
-          <div className="text-center">
+  
+    return (
+      <div className="enter__container">
+        <div className="wrapper">
+          <form className="auth-form" onSubmit={handleSubmit(sendInfo)}>
+            <h3>Вход</h3>
+            <div className="text-center">
               Нет регистрации?
-              <span className="link-primary" onClick={changeAuthMode}>
+
+              <Link to ="/registration"> <button className="link-primary" type= "button">
                 Регистрация
-              </span>
-              </div>
-              <input  {...register('email', {
-               required: {
-               value: isRequired,
-     
-                        },
-              pattern: {
-              value: email_reg,
-              message: Validate.email,
-                       },
-           })}
-                type="email"
-                placeholder="Email"/>
-                {errors.email && (
-               <p className='input__error'>{errors?.email?.message}</p>
-                 )}
+              </button>
+              </Link>
+            </div>
 
-             <input {...register('password', {
-             required: {
-             value: true,
-     
-                      },
-             pattern: {
-             value: password_reg,
-             message: Validate.password,
-                      }
-             })}
-             type="password"
-              placeholder="Пароль"/>
-             {errors.password && (
-            <p className='input__error'>{errors?.password?.message}</p>
-          )}
-
-             <p className='recover__pass' onClick={() => navigate('/resetPass')}>Восстановить пароль</p>
-
-       
+            <input
+              className={errors.email ? "postInput__input error" : "postInput__input" }
+              type="email"
+              {...register("email", emailValidate)}
+              placeholder="Email"
+            />
+            {errors.email && 
+              <p className="input__error">{errors.email.message}</p>
+            }
+    <div className="postInput__wrapper__input">
+            <input className={errors.password ? "postInput__input error" : "postInput__input"}
+              type={visible ? "text" : "password"}
+              {...register("password", passValidate)}
+              placeholder="Пароль"
+            />
+            <span className="inputEye" onClick={() => setVisible((v) => !v)}>
+              {visible ?  <EyeOutlined /> : <EyeInvisibleOutlined />}
+            </span>
+           </div>
+           {errors.password && 
+              <p className="input__error">{errors.password.message}</p>
+            }
+            <Link className="recover__pass" to="/ressetpass">
+              Восстановить пароль
+            </Link>
 
             <div className="modal-btn">
-              <button type="submit"  className="btn-log" >Войти 
+              <button type="submit" className="btn-log">
+                Войти
               </button>
-              <button type="button"  className="btn-log" onClick={logOut}>Выйти 
+              <button type="submit" className="btn-log"
+                onClick={() => logOut()}
+              >Выйти
               </button>
-              
-              
-          </div>
+            </div>
           </form>
-          </div> 
-          <h1 className="title"> Ты принес печеньки?</h1>
-          </div>
-         
-  
-       
+        </div>
+        <h1 className="title"> Ты принес печеньки?</h1>
+      </div>
     );
-    }
+  }
 
-
-
-            
-    return (
-              <div className="enter__container">
-               
-               
-               
-<div className="wrapper">
-              <form  className="modal-form" onSubmit={handleSubmit(sendData)}>
-                           <h3>Регистрация</h3>
-              <div className="text-center">
-            Зарегистрирован?
-            <span className="link-primary" onClick={changeAuthMode}>
-              Вход
-            </span>
-          </div>
-                           
-              <input  {...register('email', {
-            required: {
-              value: true,
-             
-            },
-            pattern: {
-              value: email_reg,
-              message: Validate.email,
-            },
-          })} type="email"  
-                  placeholder="Электронный адрес"/> 
-    
-                   {errors.email && (
-                <p className='input__error'>{errors?.email?.message}</p>
-              )}
-    
-            <input {...register('password', {
-            required: {
-              value: true,
-             
-            },
-            pattern: {
-              value: password_reg,
-              message: Validate.password,
-            },
-          })} 
-                 type="password"
-                  placeholder="Пароль"/>
-    
-                <p className='input__error'>{errors?.password?.message}</p>
-                 <div>
-                 <p className='recover__pass' onClick={() => navigate('/resetPass')}>
-              Восстановить пароль
-            </p>
-    
-            </div> 
-    
-                <div className="modal-btn">
-                <button type='submit'className="btn-log" >Зарегистрироваться
-                  </button>
-                </div>
-              </form>
-          </div>
-            
-          <h1 className="title">А хочешь?</h1>
-          <ResetPass/>   
-          </div>
-        );
-} 
-        
-      
-
+  // регистрация
+ 
       
           
 

@@ -15,7 +15,7 @@
     display: flex;
     width: 60px;
     height: 50px;
-margin: 30px;
+    margin: 30px;
 
 }
 
@@ -40,11 +40,11 @@ margin: 30px;
     
 }
 .title{
-  width: 100%;
+  width: 500px;
   position: relative;
   font-family: 'CursiveSerifBook';
   bottom: 450px;
-  left: 300px;
+  left: 700px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -62,48 +62,20 @@ margin: 30px;
 
 /*сатили кнопок в Enter*/
 
-.box{
-    background: #dbd7d200;
-    padding: 20px;
-    top: 30px;
-    bottom: 30px;
-    left: 0;
-    right: 0;
-    display: flex;
-    gap:10px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+
+
+
+
+.link-primary {
+    font-size: 16px;
+    color:#ffff;
+    text-decoration: none !important;
+    cursor: pointer;
+    background: transparent;
+    border: none;
     
 
-}
-
-.login-btn{
-    font-family: 'CursiveSerifBook';
-    font-weight: 900;
-    font-size: 26px;
-    width: 260px;
-    height: 60px;
-    background-color: #00000000;
-    color:#ffff;
-    outline: none;
-    border-radius: 15px;
-    border:none;
-    cursor: pointer;
-}
-
-.login-btn:hover{
-    background-color: #666565;
-
-
-}
-
-.link-primary{
-    text-decoration: none;
-    font-size: 16px;
-    margin-left: 10px;
-    color:#ffff;
-    font-family: 'CursiveSerifBook';
+    
 
 }
 
@@ -111,4 +83,36 @@ margin: 30px;
     font-size: 16px;
     font-family: 'CursiveSerifBook';
     color:black;
+}
+
+/* стили профиля*/
+
+.profilePage_container{
+    max-width: 1380px;
+    height: 100vh;
+    background-color: #bdbdbd;
+   
+
+}
+
+.comeBack{
+    text-decoration: none;
+    display: flex;
+    font-size: 20px;
+    width: 70px;
+    height: 30px;
+    top:100px;
+    left:3%;
+    position: relative;
+    background:transparent;
+    color:#000000;
+    border-radius: 12px;
+    font-weight: 600;
+    font-family: 'CursiveSerifBook';
+    text-align: center;
+    border: none;
+
+    
+ 
+
 }

@@ -1,0 +1,43 @@
+.commentRoot {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    position: relative;
+}
+.namePlace {
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.textPlace {
+    display: flex;
+    justify-content: center;
+    margin: 0 10px 0 5px;
+}
+
+.commentName {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.commentText {
+    margin: 0 5px 0 5px;
+    line-height: 0, 1;
+    font-size: 12px;
+}
+
+.commentButt {
+    border: none;
+    background: none;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+}
+
+
+
+.trash {
+    font-size: 12px;
+    cursor: pointer;
+}

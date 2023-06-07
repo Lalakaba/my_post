@@ -1,28 +1,27 @@
 .post__card {
-    width: 550px;
-    height: 840px;
-    border: 1px solid #b6b6b6;
-    margin-bottom: 10px;
-    background-color: #DBD7D2;
-    border-radius: 20px;
-    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(255,255,255,0.5);
-    overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ width: 600px;
+ border: 1px solid #dbdbdb;
+ margin-bottom: 10px;
+ background-color: #DBD7D2;
+ border-radius: 20px;
+ box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3),
+ -5px -5px 15px rgba(255, 255, 255, 0.5);
 }
 
 
 .post__header {
-    width: 100%;
     height: 60px;
-    border: 1px solid #b6b6b6;
-    padding: 15px 20px;
+    padding: 10px;
     display: flex;
     box-sizing: border-box;
     border-radius: 20px 20px 0 0;
-    
-
-
-
-}
+  }
+  .post__userDate{
+    margin-right: auto;
+  }
+  
 
 .post__burger {
     font-size: 20px;
@@ -32,162 +31,116 @@
 
 }
 
-/*Стили Маленькой аватарки*/
-
-/* .post__userLogo {
-    width: 34px;
-    height: 34px;
-     margin-right: 20px;
-
-} */
 
 .post__userName {
-    font-weight: 700;
-    
-}
-
-.post__userDate {
-    margin-right: auto;
+  font-weight: 600;
+  padding: 10px;
 
 }
-
-
-
-
-
-.post__card h4 {
-    margin: 10px;
-    font-weight: 700;
-}
-
-.post__footer p {
-    margin: 0 10px 0 15px;
-    color: #000000;
-    font-size: 16px;
-    font-family: 'CursiveSerifBook', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: normal;
-    font-style: italic;
-    text-align: center;
-}
-
-.post__img {
-    width: 100%;
-    height: 500px;
-    background-size: cover;
-    overflow: hidden;
-
-}
-
-
-
 
 .card__image {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
 
-    width: 100%;
-    height: 100%;
 }
 
 /*Стили комментариев и лайков*/
 
-.post__comm {
+.post__icon {
     display: flex;
-    align-items: center;
-    width: 150px;
-    height: 50px;
-    margin:0;
+    padding: 10px;
+
+}
+.post__like{
+    font-size:30px; 
     cursor: pointer;
-}
-.post__comm__comment{
-    display: flex;
-    align-items: center;
-    width: 150px;
-    height: 50px;
-    margin:0;
-    cursor: pointer; 
-}
-
-span:hover {
-    opacity: 0.7;
-}
-
-span:first-child {
-    margin-right: 10px;
-
-}
-
-
-.post__footer {
-    width: 100%;
-    height: 120px;
-    border-top: 2px solid #b6b6b6;
-    display: flex;
-    align-items: center;
-    background-color: #DBD7D2;
-    border-radius: 8px;
-
-}
-
-.comment {
-    font-size: 16px;
-    float: left;
-    height: 30px;
-    border: none;
-    margin: 10px;
-    background-color: #DBD7D2;
-}
-
-.post__btn {
-    width: 120px;
-    height: 30px;
-    font-size: 16px;
-    border: 1px solid #dbdbdb;
-    cursor: pointer;
-    border-radius: 8px;
-    background-color: #DBD7D2;
-    
-
-}
-
-.post__like {
-    align-content: center;
-    border: none;
-    background-color: #DBD7D2;
     fill: none;
-    margin: 15px;
-    padding: 0;
-}
-
-
-
-.post__chatBubble{
-    margin:0;
-    display: flex;
-    border: none;
     background: none;
-    
+    border: none;
+    stroke:#000000;
+    display: flex;
+  }
 
-}
-.post__like_active {
-    margin: 15px;
+  
+  .post__like_active {
+    font-size: 24px;
     border: none;
     background: none;
     fill: #000000;
-    stroke: #000000;
-   
+    stroke: rgb(0, 0, 0);
   }
 
-.footer__footer {
+  .post__chat{
+    cursor: pointer;
+    background: none;
+    border: none;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
+
+  }
+.like_count {
+   font-size: 14px;
+    font-weight: 600;
+    padding: 0 10px 0 10px;
+}
+.chat_count{
+    font-size: 16px;
+    font-weight: 600;
+   
+}
+.comment{
+  width: 100%;
+  background: #423737;
+}
+
+   
+.post__comments{
+ display: flex;
+ flex-direction: column;
+ padding:0 5px 5px 5px;
+
+}
+.textarea__comments{
+width: 85%;
+border:none;
+padding: 10px;
+outline: none;
+resize:none;
+border-radius: 10px;
+box-sizing: border-box;
+background: #e6e2dd;
+font-size: 14px;
+
+}
+.post__text {
+    width: 100%;
+    border-top: 1px solid #b6b6b6;
+    display: flex;
+    flex-direction: column;
+   }
+
+
+
+
+.footer__footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .tag {
-    margin-left: 8px;
-    color: #584949;
+    font-size: 13px;
+    padding: 0 0 0 10px;
+    color: #423737;
 
 }
-
+.postTime{
+    display: flex;
+    font-size: 12px;
+    justify-content: flex-end;
+    padding:0 10px 10px 0;
+}
 .menu__btn {
     text-align: center;
     border:none;
@@ -202,20 +155,27 @@ span:first-child {
     font-weight: 700;
 
  }
-
- ul{
-    padding: 0;
-    margin: 0;
-   }
-   li {
-    overflow: hidden;
-    text-align: center;
-    border-radius: 10px;
-    background: #dbdbdb;
-    padding: 8px 12px;
-   }
-   
-   li:hover {
-    background-color: rgba(146, 144, 144, 0.733);
+ .postCommentTitle{
+    display:flex;
+    font-size: 14px;
+    font-size: 600;
+    color:#776161;
     cursor: pointer;
-   }
+
+ }
+ .footer__form{
+  position: relative;
+ }
+
+ .commentsSend{
+  position: absolute;
+  bottom: 5px;
+  right:3px;
+  border:none;
+  background: none;
+  font-weight: 600;
+  cursor: pointer;
+
+ }
+
+ 

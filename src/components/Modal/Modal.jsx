@@ -19,7 +19,7 @@ export const Modal = ({active, setActive, children}) => {
 return (
 
 <div className={active ? "modal active" : "modal"}>
-        <div className={active ? "modal__сontent active" : "modal__content"}>       
+        <div className={active ? "modal__сontent_active" : "modal__content"}>       
         <span className="modal__close" onClick={() => setActive(false)}>X</span>
            {children}
          </div>

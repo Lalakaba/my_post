@@ -1,4 +1,4 @@
-import "./search.css";
+import './search.css';
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 

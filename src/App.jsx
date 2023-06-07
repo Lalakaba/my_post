@@ -1,19 +1,22 @@
 import {Routes, Route} from 'react-router-dom'
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Header from './components/Header/Header';
 import { api } from './api';
 import { useDebounce } from "./components/MyHooks/hook"
 import {filteredPosts} from './others/something'
-import { PostContext } from './components/someContext/PostContext';
-import { UserContext } from './components/someContext/UserCtx';
-
+import { ContextData } from './components/someContext/Context';
 
 //Подключение страниц
 import {Main} from './pages/Main';
 import { Enter } from './pages/Enter';
-import { PersonalPage } from "./pages/PersonalPage";
+import { ProfilePage } from "./pages/ProfilePage";
 import { NotFound } from './pages/NotFound';
-import { ResetPass } from './components/Profile/ResetPass';
+import {  RessetPass } from './components/Profile/ResetPass';
+import { ChangePass } from './components/Profile/ChangePass';
+import { Registration } from './pages/Registration';
+import { AboutUser } from './others/InfoUser';
+
+
 
 
 
@@ -23,96 +26,123 @@ import { ResetPass } from './components/Profile/ResetPass';
 function App() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState(undefined);
-  const [authors, setAuthors] = useState([]);
   const [user, setUser] = useState({});
-  const debounceValue = useDebounce(search)
-  
-  const [response, setResponse] = useState({});
+  const [visible, setVisible] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const debounceValue = useDebounce(search);
+  const [postComment, setPostComment] = useState([]);
+  const [authorized, setAuthorized] = useState(false);
+  const [userInfo, setUserInfo] = useState(AboutUser);
 
 //функция снятия и удаление лайка без перезагрузки страницы
-  const handlePostsLike = async (post, wasLiked) => {
-    const updatedPost = await api.ChangeLikePostStatus(post._id, wasLiked);
-    const index = posts.findIndex((e) => e._id === updatedPost?._id);
-    if (index !== -1) {
-      setPosts((state) => [
-        ...state.slice(0, index),
-        updatedPost,
-        ...state.slice(index + 1),
-      ]);
-    }
-  }
- 
+
+const handlePostLike = useCallback(async (post, isLiked) => {
+  const updatedPost = await api.changeLikePostStatus(post._id, isLiked);
+  setPosts(s => [...s.map(e => e._id === updatedPost?._id ? updatedPost : e)]);// функция работает, видно в сети, но не меняется цвет сердце никак и счетчик не изменяется
+
+}, [])
+
 
 //поиск по query
 useEffect(() => {
-  if (debounceValue === undefined)  return; 
-  api.SearchPosts(debounceValue)
-    .then((data) => setPosts(filteredPosts(data)))
+  if (debounceValue === undefined)  
+  return
+  api.searchPosts(debounceValue)
+    .then((data) => setPosts(filteredPosts(data)
+    ))
+    .catch((error) => console.error( error)
+            );
 }, [debounceValue]);
 
 //получаем инфу о пользователе и все посты
+useEffect(() => {
+  Promise.all([api.getAllPosts(), api.getUserInfo()])
+      .then(([data, user]) => {
+          setPosts(data);
+          setUser(user);
+      })
+      .catch((error) =>
+          console. error( error)
+      );
+}, [ postComment, userInfo]);
 
 
 
 
-  useEffect(() => {                                              
-    api.getUserInfo().then((data) => {
-        setUser(data);
-      
-    })
-  }, []);
+  // useEffect(() => {                                              
+  //   api.getUserInfo().then((user) => {
+  //       setUser(user);
+  //     })
+  //     .catch((error) =>
+  //               console.error(error)
+  //           );
+  // }, []);
 
-  function updatePostState(likedPost) {
-    let updatedPostData = posts.map((el) => {
-      return el._id !== likedPost._id ? el : likedPost;
+ 
+  //   useEffect(() => { 
+  //   api.getAllPosts().then((data) => {
+  //     // const filtered = filteredPosts(data)
+  //     setPosts(data);
+  //     })
+  //     .catch((error) =>
+  //               console.error(error)
+  //           );
+  // }, []);
+
+  
+
+
+  function updatePostState(likePost) {
+    let updatedPost = posts.map((el) => {
+      return el._id !== likePost._id ? el : likePost;
     });
-    setPosts([...updatedPostData]);
+    setPosts([...updatedPost]);
   }
 
-    useEffect(() => { 
-    api.getAllPosts().then((data) => {
-      // const filtered = filteredPosts(data)
-      setPosts(data);
-      });
-  }, []);
-
-  useEffect(() => {                                              
-    api.getUsers().then((data) => {
-      setAuthors(data);
-      
-    })
-  }, []);
-
   const postsValue = {
-    handleLike: handlePostsLike,
+    handleLike: handlePostLike,
     updatePostState,
+    setPosts,
     posts : posts,
     search,
     user,
-    authors
-    
+    setUser,
+    visible, 
+    setVisible,
+    userInfo,
+    setUserInfo,
+    favorites,
+    postComment, 
+    setPostComment,
+    authorized, 
+    setAuthorized
  
   }
 
-
+  
   
   
   return (
 
     <div className='App' >
 
-    <PostContext.Provider value={postsValue}>
-    <UserContext.Provider value={user}>
+    <ContextData.Provider value={postsValue}>
+  
 
     <Header setSearch={setSearch} />
       <Routes>
-      <Route path='/resetPass' element={<ResetPass/>}/> 
+      
+      <Route path='/registration' element={<Registration/>}/> 
+      <Route path='/ressetpass' element={<RessetPass/>}/> 
+      <Route path='/changepass' element={<ChangePass/>}/> 
 
 
       <Route path='*' element={<NotFound/>}/> 
-      <Route path='/' element={<Enter setResponse={setResponse}/>}/>
-      <Route path='/main' element={<Main posts={posts}/>}/> 
-      <Route path="/personalpage" element={<PersonalPage/>} /> 
+      <Route path='/' element={<Enter />}/>
+      
+
+      <Route path='/blogpage' element={<Main posts={posts}/>}/> 
+      <Route path='/profile/:userId' element={<ProfilePage/>} /> 
 
       
      
@@ -124,8 +154,8 @@ useEffect(() => {
       </Routes>
      
        
-       </UserContext.Provider>
-    </PostContext.Provider>
+       </ContextData.Provider>
+   
     </div>
   );
 }

@@ -1,32 +1,39 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom";
 import "../NavBar/index.css"
+import { Avatar } from "@nextui-org/react";
+import { ContextData } from "../someContext/Context";
 
 
 
 
 // const onClick = () => setIsActive(!isActive);
 
-export const Navbar = () => (
+export const Navbar = () => {
+  const { userInfo  } = useContext(ContextData);
+  const { avatar } = userInfo;
 
 
+
+return(
   <nav className="navbar">
 
 
       <button className="glow-on-hover" >
-      <Link to="/main" className="navbar__link">Main</Link>
+      <Link to="/blogpage" className="navbar__link">Blog</Link>
        </button>        
     
       
      
       <button className="glow-on-hover" >
-    <Link to="/"className="navbar__link">Enter</Link>
+    <Link to="/"className="navbar__link">Login</Link>
   </button>
-    <button className="glow-on-hover">
-   <Link to="/personalpage"className="navbar__link">Profile</Link>
- </button> 
+    
+   <Link to="/profile/:userId'"className="navbar__link">
+   <Avatar src={avatar} alt='name' css={{ size: '$16' }} />
+   </Link>
    </nav>
 );
 
-
+}
 

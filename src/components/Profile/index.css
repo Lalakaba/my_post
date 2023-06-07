@@ -4,11 +4,12 @@
     width: 550px;
     height: 550px;
     display: flex;
+    flex-direction: column;
     background: #5e72cc60;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    box-shadow: 5px 10px 30px rgba(0,0,0,0.3), -5px -10px 30px rgba(163, 170, 224, 0.5);
+    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(103, 115, 230, 0.5);
     overflow: hidden;
 
 
@@ -19,36 +20,35 @@
 h3{
     color:#ffffff;
     text-align: center;
-    margin-bottom: 20px;
+   padding: 10px;
     font-family: 'CursiveSerifBook';
 }
 
 
-.modal-form{
-    position: relative;
-    width: 400px;
-    margin: 0 25px 25px;
-    display: grid;
-    gap: 15px;
-    outline: none;
-}
-
-
-
-.modal-form input{
-    position: relative;
+.auth-form{
     width: 350px;
-    height: 50px;
-    color:#ffffff;
+    margin: 0 25px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     outline: none;
+    
+}
+.postInput__input {
+    width: 100%;
+    height: 45px;
     border-radius: 20px;
-    font-size: 16px;
-    background: #474a5100;
-    border: 1px solid #4e82f370;
-    padding: 15px 15px;
-    margin: 0 25px 0 25px;
+    border: 1px solid #8292ec5b;
+    padding: 10px;
+    background: #5e72cc60;
 }
 
+.postInput__input:focus {
+    outline: none;
+}
+.postInput__wrapper__input {
+position:relative;
+}
 .modal-btn{
     display: flex;
     align-items: center;
@@ -83,14 +83,25 @@ h3{
 } 
 
 
+  .error {
+    outline: auto;
+    outline-color: #e60c0c;
+    border: 1px solid #8292ec5b;
+    
+}
 
 
 
 
-
-
+.inputText{
+    font-size: 12px;
+    color:#ffffff;
+    text-align: center;
+    padding: 10px;
+}
 
 .recover__pass{
+    text-decoration: none;
     text-align: center;
     font-size: 14px;
     font-family: 'CursiveSerifBook';
@@ -101,11 +112,17 @@ h3{
     color:#0048e4;
 }
 .input__error{
-    font-size: 14px;
-    font-weight: 700;
-    text-align:center; 
-    color: #ff0909;
-    margin-left: 30px;
-    font-family: 'CursiveSerifBook';
+    font-size: 12px;
+    text-align: center;
+    color: #e60c0c;
+   
+    
 
+}
+.inputEye{
+    color:#ffffff;
+    cursor: pointer;
+    position: absolute;
+    bottom: 33%;
+   right: 6%;
 }
