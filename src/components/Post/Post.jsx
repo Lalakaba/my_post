@@ -1,120 +1,220 @@
 import "./post.css";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import  {Avatar, Badge}  from "@mui/material";
-import { PostContext } from "../someContext/PostContext";
-import { UserContext } from "../someContext/UserCtx";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import React, { useContext, useState } from "react";
+import { ReactComponent as Like } from "./img/like.svg"
+import { ContextData } from "../someContext/Context";
+import { ReactComponent as Chat } from "./img/chat.svg"
+import Comment from "../Comments/Comment";
+import PostText from "../PostText/PostText";
+
+import { api } from "../../api";
+import { Avatar, Dropdown, Modal } from "@nextui-org/react";
+import { DeleteDocumentIcon } from "./DeleteDocumentIcon"
+import { EditDocumentIcon } from "./EditDocumentIcon"
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 
-export const Post = ({
-  avatar,
-  post,
+ const Post = ({
   image,
   comments,
   author,
-  name,
-  _id,
+  updated_at,
+  post,
   text,
   likes,
+  userId,
+  tags,
+  _id,
+  postId,
+  created_at,
   ...args
 }) => {
+ 
   
-  const user = useContext(UserContext);
-  const { handleLike } = useContext(PostContext);
+  const { user, handleLike, updatePostState, setPostComment, visible, setVisible } = useContext(ContextData);
+  const { reset, register, handleSubmit } = useForm({});
+  const [isCommentsShown, setisCommentsShown] = useState(false);
 
   const isLiked = likes.some((e) => e === user._id);
-
-  const handleClicker = () => {
+  const handleClick = () => {
     handleLike(post, isLiked);
   };
-// кнопка дропдаун
-  const menu = useRef();
-  const [dropdownState, setDropdownState] = useState({ open: false });
 
-  const handleDropdownClick = () =>
-    setDropdownState({ open: !dropdownState.open });
-
-  const handleClickOutside = (e) => {
-    if (menu.current && !menu.current.contains(e.target)) {
-      setDropdownState({ open: false });
+ 
+  const renderComments = (post) => {
+    if (comments?.length > 2 && !isCommentsShown) {
+      const commentsCopy = [...comments];
+      const commentForRender = commentsCopy.splice(comments.length - 2, 2);
+      return (
+        <>
+          <span
+            className='postCommentTitle'
+            onClick={() => setisCommentsShown(true)}
+          >{`Показать еще комментарии ${
+            comments.length - commentForRender.length
+          }`}</span>
+          {commentForRender.map((comment,post) => (
+            <Comment {...comment} key={comment._id} postId={post._id} />
+          ))}
+        </>
+      );
     }
+       return comments.map((comment) => (
+      <Comment {...comment} key={comment._id} postId={_id} />
+    ));
   };
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+
+ 
+
+
+  const addComment = async (data) => {
+   return  (await 
+      api.getAddCommentsPosts(_id, data)
+      .then((data) => setPostComment(data.comments.reverse()))
+      .then(reset())
+      .then((data) => updatePostState(data))
+      .catch((error) => console.log(error))
+   )
+  }
+
+  
+
+  // const addComment = (data) => {
+  //   api
+  //     .getAddCommentsPosts(data, _id)
+  //     .then((data) => setPostComment(data.comments.reverse()))
+  //     .then(reset())
+         
+  //     .catch((error) => console.log(error));
+  // };
+     
+  
+
+  const deletePost = async (id) => {
+    // return await api.deletePostById(id)
+    //   .then(() => setPosts((state) => state.filter((post) => post._id !== id)))
+    //   .catch((error) => console.log(error));
+  };
+
+//модалка
+  // const handler = () => setVisible(true);
+  // const closeHandler = () => {
+  //   setVisible(false);
+  //   console.log("closed");
+  // };
+
+
 
   return (
-    <div className="post__card">
-      <div className="post__header">
-        <div>
-          <Avatar src={author.avatar} alt="name" className="post__userLogo" />
+    
+    <div className='post__card'>
+      <div className='post__header'>
+      
+        <div className='post__userLogo'>
+          <Link to={`/profilepage/${author._id}`}>
+            <Avatar src={author.avatar} alt='name' css={{ size: '$16' }} />
+          </Link>
         </div>
-        <div className="post__userDate">
-          <div className="post__userName"> {author.name}</div>
+        <div className='post__userDate'>
+          <div className='post__userName'> {author.name}</div>
         </div>
 
-        <div className="menu" ref={menu}>
-          <button
-            type="button"
-            className="menu__btn"
-            onClick={handleDropdownClick}
-          >
+        <Dropdown>
+          <Dropdown.Button color='default' light>
             . . .
-          </button>
-          {dropdownState.open && (
-            <div className="dropdown">
-              <ul>
-                <li>Изменить</li>
-                <li>Удалить</li>
-              </ul>
-            </div>
-          )}
-        </div>
+          </Dropdown.Button>
+          <Dropdown.Menu color='default' variant='light' aria-label='Actions'>
+            <Dropdown.Item
+              key='edit'
+              icon={<EditDocumentIcon size={20} fill='currentColor' />}
+            >
+              Редактировать
+            </Dropdown.Item>
+            {user._id === author._id && (
+              <Dropdown.Item
+                key='delete'
+                icon={<DeleteDocumentIcon size={20} fill='currentColor' />}
+                onClick={() => deletePost(post._id)}
+              >
+                Удалить
+              </Dropdown.Item>
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
-      <div className="post__img">
-        <img src={image} alt="" className="card__image" />
+      <div>
+      
+        <img src={image} alt='avatar' className='card__image' />
       </div>
 
-      <div className="post__comm">
+      <div className='post__icon'>
         <button
-          onClick={handleClicker}
-          className={`post__like ${isLiked ? "post__like_active" : ""}`}
+          onClick={handleClick}
+          className={`post__like ${isLiked ? 'post__like_active' : ''}`} 
         >
-          <Badge badgeContent={likes.length} color="primary">
-            <FavoriteIcon />
-          </Badge>
+          <Like />
         </button>
-
-        <div className="post__comm__comment">
-          <Badge badgeContent={comments.length} color="primary">
-            <ChatBubbleIcon />
-          </Badge>
-        </div>
+        <button className='post__chat'>
+          {' '}
+          <Chat />
+          <span className='chat_count'>
+            {!!comments.length && comments.length}
+          </span>
+        </button>
+      </div>
+      <div className='like_count'>{`Оценили ${likes.length} человек`}</div>
+      <div>
+        {tags.map((e) => (
+          <span className={`tag tag_type_ ${e}`} key={e}>
+            {e}
+          </span>
+        ))}
+      </div>
+      <div className='post__text'>
+        <PostText>{text}</PostText>
       </div>
 
-      {args.tags.map((e) => (
-        <span className={`tag tag_type_ ${e}`} key={e}>
-          {e}
-        </span>
-      ))}
+      <div className='comment'>{renderComments()}</div>
 
-      <div className="post__footer">
-        {/* <h4>{name ?? title}</h4> */}
-        <p> {text} </p>
-      </div>
-
-      <div className="footer__footer">
-        <input
+      <div className="footer__form">
+       <form className='post__comments'onSubmit={handleSubmit(addComment)}>
+        
+         <textarea
           type="text"
-          placeholder="Добавьте комментарий..."
-          className="comment"
-        />
-        <button className="post__btn">Опубликовать</button>
-        <div className="post__info"></div>
+            {...register('text')}
+            placeholder="Напишите комментарий..."
+              className='textarea__comments'
+                />
+                         
+        <button className="commentsSend">
+          Отправить
+        </button>
+        </form> 
       </div>
+
+
+      <div className='postTime'>
+        {new Date(created_at).toLocaleDateString('ru-RU', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        })}
+      </div>
+      
     </div>
+    
   );
 };
 export default Post;
+
+
+
+
+{/* <form className='form__comments'>
+  <textarea
+  type="text"
+                        {...register('text')}
+                        labelPlaceholder=""
+                        className='textarea__comments'
+                        minRows={2}/>
+                         </form> */}
