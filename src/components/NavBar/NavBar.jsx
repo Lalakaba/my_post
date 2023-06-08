@@ -10,9 +10,9 @@ import { ContextData } from "../someContext/Context";
 // const onClick = () => setIsActive(!isActive);
 
 export const Navbar = () => {
-  const { userInfo  } = useContext(ContextData);
+  const { userInfo, user  } = useContext(ContextData);
   const { avatar } = userInfo;
-
+  const userProfile = user._id 
 
 
 return(
@@ -30,7 +30,10 @@ return(
   </button>
     
    <Link to="/profile/:userId'"className="navbar__link">
+   {userProfile && (
    <Avatar src={avatar} alt='name' css={{ size: '$16' }} />
+   )
+}
    </Link>
    </nav>
 );

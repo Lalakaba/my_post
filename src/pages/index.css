@@ -90,20 +90,20 @@
 .profilePage_container{
     max-width: 1380px;
     height: 100vh;
-    background-color: #bdbdbd;
+    background-color: #7dadf7;
    
 
 }
 
 .comeBack{
-    text-decoration: none;
+    text-decoration: none !important;
     display: flex;
     font-size: 20px;
     width: 70px;
     height: 30px;
+    position: relative;
     top:100px;
     left:3%;
-    position: relative;
     background:transparent;
     color:#000000;
     border-radius: 12px;
@@ -111,8 +111,19 @@
     font-family: 'CursiveSerifBook';
     text-align: center;
     border: none;
+}
 
-    
- 
+.editProfileIcon{
+   top:12%;
+   left:46%;
+   position: absolute;
+   cursor: pointer;
+
+}
+.editProfileIconInfo{
+    position: absolute;
+    cursor: pointer;
+    top:20%;
+    right:35%;
 
 }

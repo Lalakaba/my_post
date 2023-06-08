@@ -1,17 +1,17 @@
 import "./post.css";
-import React, { useContext, useState } from "react";
+import React, {  useContext, useState } from "react";
 import { ReactComponent as Like } from "./img/like.svg"
 import { ContextData } from "../someContext/Context";
 import { ReactComponent as Chat } from "./img/chat.svg"
 import Comment from "../Comments/Comment";
 import PostText from "../PostText/PostText";
-
 import { api } from "../../api";
-import { Avatar, Dropdown, Modal } from "@nextui-org/react";
+import { Avatar, Dropdown } from "@nextui-org/react";
 import { DeleteDocumentIcon } from "./DeleteDocumentIcon"
 import { EditDocumentIcon } from "./EditDocumentIcon"
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Modal from "../Modal/Modal";
 
 
  const Post = ({
@@ -31,7 +31,7 @@ import { useForm } from "react-hook-form";
 }) => {
  
   
-  const { user, handleLike, updatePostState, setPostComment, visible, setVisible } = useContext(ContextData);
+  const { user, handleLike, updatePostState, setPostComment, openModal,setOpenModal } = useContext(ContextData);
   const { reset, register, handleSubmit } = useForm({});
   const [isCommentsShown, setisCommentsShown] = useState(false);
 
@@ -41,7 +41,7 @@ import { useForm } from "react-hook-form";
   };
 
  
-  const renderComments = (post) => {
+  const renderComments = () => {
     if (comments?.length > 2 && !isCommentsShown) {
       const commentsCopy = [...comments];
       const commentForRender = commentsCopy.splice(comments.length - 2, 2);
@@ -53,14 +53,14 @@ import { useForm } from "react-hook-form";
           >{`Показать еще комментарии ${
             comments.length - commentForRender.length
           }`}</span>
-          {commentForRender.map((comment,post) => (
-            <Comment {...comment} key={comment._id} postId={post._id} />
+          {commentForRender.map((comment) => (
+            <Comment {...comment} key={comment._id} postId={_id} />
           ))}
         </>
       );
     }
        return comments.map((comment) => (
-      <Comment {...comment} key={comment._id} postId={_id} />
+        <Comment {...comment} key={comment._id} postId={_id}/>
     ));
   };
 
@@ -78,36 +78,28 @@ import { useForm } from "react-hook-form";
   }
 
   
-
-  // const addComment = (data) => {
-  //   api
-  //     .getAddCommentsPosts(data, _id)
-  //     .then((data) => setPostComment(data.comments.reverse()))
-  //     .then(reset())
-         
-  //     .catch((error) => console.log(error));
-  // };
+  
      
   
 
   const deletePost = async (id) => {
-    // return await api.deletePostById(id)
-    //   .then(() => setPosts((state) => state.filter((post) => post._id !== id)))
-    //   .catch((error) => console.log(error));
-  };
-
-//модалка
-  // const handler = () => setVisible(true);
-  // const closeHandler = () => {
-  //   setVisible(false);
-  //   console.log("closed");
+  //    return await api.deletePostById(id)
+  //      .then(() => setPosts((state) => state.filter((post) => post._id !== id)))
+  //     .catch((error) => console.log(error));
   // };
+  }
+
 
 
 
   return (
-    
+   
     <div className='post__card'>
+       {openModal === 'post' && (
+      <Modal state={openModal === 'post'} setState={setOpenModal}>
+
+      </Modal>
+      )}
       <div className='post__header'>
       
         <div className='post__userLogo'>
@@ -130,15 +122,16 @@ import { useForm } from "react-hook-form";
             >
               Редактировать
             </Dropdown.Item>
-            {user._id === author._id && (
+            {user._id === author._id ? (
               <Dropdown.Item
                 key='delete'
                 icon={<DeleteDocumentIcon size={20} fill='currentColor' />}
-                onClick={() => deletePost(post._id)}
-              >
-                Удалить
+                onClick={() => deletePost(_id)}>
+               Удалить
               </Dropdown.Item>
-            )}
+             ) : (
+              ''
+          )}
           </Dropdown.Menu>
         </Dropdown>
       </div>
@@ -174,7 +167,7 @@ import { useForm } from "react-hook-form";
         <PostText>{text}</PostText>
       </div>
 
-      <div className='comment'>{renderComments()}</div>
+      {renderComments()}
 
       <div className="footer__form">
        <form className='post__comments'onSubmit={handleSubmit(addComment)}>
@@ -202,19 +195,8 @@ import { useForm } from "react-hook-form";
       </div>
       
     </div>
-    
+   
   );
 };
 export default Post;
 
-
-
-
-{/* <form className='form__comments'>
-  <textarea
-  type="text"
-                        {...register('text')}
-                        labelPlaceholder=""
-                        className='textarea__comments'
-                        minRows={2}/>
-                         </form> */}

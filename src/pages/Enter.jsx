@@ -10,7 +10,7 @@ import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 export const Enter = () => {
-  const { visible, setVisible, setAuthorized } = useContext(ContextData);
+  const { visible, setVisible, setAuthorized,authorized } = useContext(ContextData);
   const navigate = useNavigate();
   
   const {
@@ -87,9 +87,11 @@ export const Enter = () => {
             </Link>
 
             <div className="modal-btn">
+            
               <button type="submit" className="btn-log">
                 Войти
               </button>
+             
               <button type="submit" className="btn-log"
                 onClick={() => logOut()}
               >Выйти

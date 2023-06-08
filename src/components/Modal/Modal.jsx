@@ -1,30 +1,20 @@
-import { useCallback, useEffect } from "react";
+
 import "../Modal/modal.css"
 
-export const Modal = ({active, setActive, children}) => {
-        const closeOn = useCallback((e) => {
-                if (e.code === 'Escape') {
-                  setActive(false);
-                }
-              },
-              [setActive]
-            );
-          
-            useEffect(() => {
-              document.addEventListener('keydown', closeOn);
-              return () => document.removeEventListener('keydown', closeOn);
-            }, [closeOn]);
+const Modal = ({ children, setState }) => {
+  return (
+      <div className='modal'>
+        
+          <div className='modal__content'>
+          <button className='close__modal' onClick={() => setState('')}>
+                X </button>
+              <div className='modalfFormContent'>
+                {children}
+                </div>
+          </div>
+      </div>
+  );
+};
 
-
-return (
-
-<div className={active ? "modal active" : "modal"}>
-        <div className={active ? "modal__сontent_active" : "modal__content"}>       
-        <span className="modal__close" onClick={() => setActive(false)}>X</span>
-           {children}
-         </div>
-
-        </div>
-
-)
-        } //onClick={e => e.stopPropagation()}>{children}
+export default Modal;
+      

@@ -46,4 +46,20 @@ export const nameValidate = {
   },
 };
 
-   
+export const avatarValidate = {
+  required: {
+      value: true,
+      message: 'URL-адрес вашего аватара',
+  },
+}; 
+
+export const aboutValidate = {
+  required: {
+      value: true,
+      message: 'О себе',
+  },
+  maxLength: {
+      value: 50,
+      message: 'Слишком длинная биография',
+  },
+};

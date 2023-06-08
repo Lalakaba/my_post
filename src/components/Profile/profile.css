@@ -1,11 +1,10 @@
 
 .profile{
-    position: absolute;
     display:flex;
     justify-content: center;
     align-items: center;
-    top: 80px;
-    left: 380px;
+    margin: 70px;
+    position: relative;
 }
 
 .profileAvatar{
@@ -13,6 +12,10 @@
 
 }
 .profileInfo{
+    position: relative;
+    
+    margin-right: 15px;
+    padding: 10px;
 
 }
 .profileName{

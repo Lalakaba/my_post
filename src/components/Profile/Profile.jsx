@@ -1,29 +1,16 @@
 
 import "./profile.css"
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import { ContextData } from "../someContext/Context";
-import { api } from "../../api";
-import { useParams } from "react-router";
 import { Avatar } from "@nextui-org/react";
 
 
 const Profile = () => {
-    const {user, userInfo, setUserInfo } = useContext(ContextData);
+    const {userInfo } = useContext(ContextData);
     const { name, about, email, avatar, group } = userInfo;
-    const { userId } = useParams();
-
-    useEffect(() => {
-        api.getUserInfoById(user._id)
-        .then((userData) => {
-            setUserInfo(userData);})
-            .catch((error) => console.error(error));
-    }, [user._id, setUserInfo])
-
-
-
     
-
-    return (
+    
+return (
       
        
 <div className="profile">
@@ -36,6 +23,8 @@ const Profile = () => {
     <span className="profileAbout">{about} </span>
     <span className="profileEmail">{email}</span>
     <span className="profileGroup">{group}</span>
+   
+    
 </div>
 </div>     
 )

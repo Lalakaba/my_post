@@ -21,191 +21,181 @@ const onResponse = (res) => {
     constructor(data) {
       this.baseUrl = data.baseUrl;
       this.headers = data.headers;
-      
     }
 
     getAllPosts() {
       return fetch(`${this.baseUrl}/posts`, {
-        method: 'GET',
+        method: "GET",
         headers: this.headers,
-      })
-        .then(onResponse)
-        
+      }).then(onResponse);
     }
     getPostId(id) {
       return fetch(`${this.baseUrl}v2/${this.group}/posts/${id}`, {
         method: "GET",
-         headers: this.headers,
-      })
-      .then(onResponse)
+        headers: this.headers,
+      }).then(onResponse);
     }
 
-    searchPosts(title) {
-      return fetch(`${this.baseUrl}/v2/${this.group}/posts/search?query=${title}`, {
-        headers: this.headers,
-      })
-      .then(onResponse)
-    };
-
+    searchPosts(path) {
+      return fetch(
+        `${this.baseUrl}/v2/${this.group}/posts/search?query=${path}`,
+        {
+          headers: this.headers,
+        }
+      ).then(onResponse);
+    }
 
     getUserInfo() {
       return fetch(`${this.baseUrl}/users/me`, {
-        method: 'GET',
-          headers: this.headers
-        })
-        .then(onResponse)
+        method: "GET",
+        headers: this.headers,
+      }).then(onResponse);
     }
 
     getUsers() {
       return fetch(`${this.baseUrl}/users`, {
-        method: 'GET',
-        headers: this.headers
-      })
-      .then(onResponse)
-  };
-
-  getUserInfoById(userId) {
-    return fetch(`${this.baseUrl}/users/${userId}`, {
-        method: 'GET',
+        method: "GET",
         headers: this.headers,
-    }).then(onResponse);
-}
-// // установка лайка по id
-  addLikeOnPosts(postId ) {
-    return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
-      headers: this.headers,
-      method: 'PUT',
-    })
-    .then(onResponse)
-  }
-// // удаление лайка по id
-  deleteLikeOfPosts(postId) {
-    return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
-      headers: this.headers,
-      method: 'DELETE',
-    })
-    .then(onResponse)
-  }
-// // 2 метода сразу
-  changeLikePostStatus(postId, isLiked) {
-    return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
-      headers: this.headers,
-      method: isLiked ? 'DELETE' : 'PUT',
-    })
-    .then(onResponse)
-  }
+      }).then(onResponse);
+    }
 
+    getUserInfoById(userId) {
+      return fetch(`${this.baseUrl}/users/${userId}`, {
+        method: "GET",
+        headers: this.headers,
+      }).then(onResponse);
+    }
+    // // установка лайка по id
+    addLikeOnPosts(postId) {
+      return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
+        headers: this.headers,
+        method: "PUT",
+      }).then(onResponse);
+    }
+    // // удаление лайка по id
+    deleteLikeOfPosts(postId) {
+      return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
+        headers: this.headers,
+        method: "DELETE",
+      }).then(onResponse);
+    }
+    // // 2 метода сразу
+    changeLikePostStatus(postId, isLiked) {
+      return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
+        headers: this.headers,
+        method: isLiked ? "DELETE" : "PUT",
+      }).then(onResponse);
+    }
 
-      /*Методы регистрации/авторизации/сброса пароля*/
-      registratedUser(data) {
-        return fetch(`${this.baseUrl}/signup`, {
-          method: "POST",
-          headers: this.headers,
-          body: JSON.stringify(data),
-        }).then(onResponse);
-      }
-    
+    /*Методы регистрации/авторизации/сброса пароля*/
+    registratedUser(data) {
+      return fetch(`${this.baseUrl}/signup`, {
+        method: "POST",
+        headers: this.headers,
+        body: JSON.stringify(data),
+      }).then(onResponse);
+    }
+
     authorizedUser(data) {
       return fetch(`${this.baseUrl}/signin`, {
         method: "POST",
-      headers: this.headers,
-      body: JSON.stringify(data),
-    }).then(onResponse);
-  }
+        headers: this.headers,
+        body: JSON.stringify(data),
+      }).then(onResponse);
+    }
 
-  resetPassword(dataUser) {
-    return fetch(`${this.baseUrl}/password-reset`,{
-      method: "POST",
-      headers: this.headers,
-      body: JSON.stringify(dataUser)
-        }).then(onResponse)
+    resetPassword(dataUser) {
+      return fetch(`${this.baseUrl}/password-reset`, {
+        method: "POST",
+        headers: this.headers,
+        body: JSON.stringify(dataUser),
+      }).then(onResponse);
     }
     changePassword(data) {
       return fetch(`${this.baseUrl}/password-reset/${data.token}`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: this.headers,
         body: JSON.stringify({ password: data.password }),
-         }).then(onResponse)
-}
-
-
-
-
-
+      }).then(onResponse);
+    }
 
     /*Получение постов*/
-   
-  
-  // //Добавление поста
-     getAddPost(post) {
-     return fetch(`${this.baseUrl}/posts`, {
-       method: 'POST',
+
+    // //Добавление поста
+    getAddPost(post) {
+      return fetch(`${this.baseUrl}/posts`, {
+        method: "POST",
         headers: this.headers,
-      body: JSON.stringify(post),
-      }).then(onResponse)
+        body: JSON.stringify(post),
+      }).then(onResponse);
     }
     //изменение поста
     getchangePost(post, postId) {
       return fetch(`${this.baseUrl}/posts/${postId}`, {
         method: "PATCH",
-       headers: this.headers,
-      body: JSON.stringify(post),
-        }).then(onResponse);
+        headers: this.headers,
+        body: JSON.stringify(post),
+      }).then(onResponse);
     }
     // Удаление поста
 
     deletePostById(postId) {
       return fetch(`${this.baseUrl}/posts/${postId}`, {
-          method: 'DELETE',
-          headers: this.headers,
-      }).then(onResponse);
-  }
-
-
-  
-   
-  
-
-
-
-
-  //   //добавление комментария по id;
-
-  getAllComments() {
-    return fetch(`${this.basePostsUrl}/comments`, {
+        method: "DELETE",
         headers: this.headers,
-    }).then(onResponse);
-}
+      }).then(onResponse);
+    }
 
-      getAddCommentsPosts(postId, data) {
-     return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
-         method: 'POST',
-         headers: this.headers,
-         body: JSON.stringify(data),
-       })
-       .then(onResponse)
-      }
- 
-  //   // получение комментариев конкрентного поста.
+    //   //добавление комментария по id;
 
-     getCommentOfPost(postId) {
+    getAllComments() {
+      return fetch(`${this.basePostsUrl}/comments`, {
+        headers: this.headers,
+      }).then(onResponse);
+    }
+
+    getAddCommentsPosts(postId, data) {
+      return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
+        method: "POST",
+        headers: this.headers,
+        body: JSON.stringify(data),
+      }).then(onResponse);
+    }
+
+    //   // получение комментариев конкрентного поста.
+
+    getCommentOfPost(postId) {
       return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
         method: "GET",
-       headers: this.headers,
-       })
-       .then(onResponse)
-      }
-//удаление комментариев
-      deleteComment(postId, commentId) {
-        return fetch(`${this.baseUrl}/posts/comments/${postId}/${commentId}`, {
-          method: "DELETE",
-          headers: this.headers,
-          
-        }).then(onResponse);
-      }
-  
-  
+        headers: this.headers,
+      }).then(onResponse);
     }
+    //удаление комментариев
+    deleteComment(postId, commentId) {
+      return fetch(`${this.baseUrl}/posts/comments/${postId}/${commentId}`, {
+        method: "DELETE",
+        headers: this.headers,
+      }).then(onResponse);
+    }
+
+    // Изменение данных пользователя
+
+    editProfileInfo(data) {
+      return fetch(`${this.baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: this.headers,
+        body: JSON.stringify(data),
+      }).then(onResponse);
+    }
+
+    editAvatar(avatar) {
+      return fetch(`${this.baseUrl}/users/me/avatar`, {
+        method: "PATCH",
+        headers: this.headers,
+        body: JSON.stringify(avatar),
+      }).then(onResponse);
+    }
+  }
 
   
   
