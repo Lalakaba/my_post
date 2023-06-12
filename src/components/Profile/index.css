@@ -1,16 +1,21 @@
 .wrapper{
-    margin-top: 120px;
-    margin-left: 200px;
+    margin: 0 20px 30px 200px;
     width: 550px;
     height: 550px;
     display: flex;
+    top:7%;
+    right: 10%;
     flex-direction: column;
-    background: #5e72cc60;
+    background: #ffbfec6b;
+    backdrop-filter: blur(5px);
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(103, 115, 230, 0.5);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3),
+    -5px -5px 15px rgba(255, 255, 255, 0.5);
+   
     overflow: hidden;
+    position: absolute;
 
 
 
@@ -18,7 +23,7 @@
 
 
 h3{
-    color:#ffffff;
+    color:#888888;
     text-align: center;
    padding: 10px;
     font-family: 'CursiveSerifBook';
@@ -38,9 +43,9 @@ h3{
     width: 100%;
     height: 45px;
     border-radius: 20px;
-    border: 1px solid #8292ec5b;
+    border: 1px solid #d8d8d8af;
     padding: 10px;
-    background: #5e72cc60;
+    background: #ddddddde;
 }
 
 .postInput__input:focus {
@@ -65,21 +70,20 @@ position:relative;
     font-family: 'CursiveSerifBook';
     width: 150px;
     height: 30px;
-    color:#ffffff;
+    color:#6b6b6b;
     font-size: 14px;
     font-family: 'CursiveSerifBook';
     font-weight: 600;
-    background:#474A5128;
+    background:#eefc58;
     border-radius: 15px;
     border: none;
-    box-shadow: 1px 1px 5px 3px rgba(167, 169, 253, 0.4);
     /* outline: none; */
 
 }
 
 .btn-log:hover{
 
-    box-shadow: 1px 1px 6px 4px rgba(221, 106, 250, 0.4);
+    box-shadow: 1px 1px 6px 4px rgba(233, 252, 63, 0.952);
 } 
 
 
@@ -96,7 +100,6 @@ position:relative;
 .inputText{
     font-size: 12px;
     color:#ffffff;
-    text-align: center;
     padding: 10px;
 }
 
@@ -105,7 +108,7 @@ position:relative;
     text-align: center;
     font-size: 14px;
     font-family: 'CursiveSerifBook';
-    color:#ffffff;
+    color:#757575;
     cursor: pointer;
 }
 .recover__pass:hover{
@@ -120,7 +123,7 @@ position:relative;
 
 }
 .inputEye{
-    color:#ffffff;
+    color:#868686;
     cursor: pointer;
     position: absolute;
     bottom: 33%;
@@ -154,7 +157,7 @@ form {
     display: flex;
     flex-direction: column;
     background-color: transparent;
-    justify-content: center;
+    
     
 
 }
@@ -166,11 +169,15 @@ form {
 }
 .formInput__input{
     width: 100%;
-    padding: 5px;
-    border-radius: 12px;
     border:none;
+    padding: 10px;
     outline: none;
-    color: black;
+    margin:10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #ffffff;
+    font-size: 14px;
+    color:black;
 }
 .saveBtn{
     margin-top:10px;
@@ -193,10 +200,51 @@ form {
 }
 
 .save:hover {
-    background-color: #f19ddc;
+    background-color: #6a5fff;
     border: none;
 }
 
 .inform{
     margin:10px;
+}
+
+.formImgBox{
+    width: 100%;
+    height: 200px;
+    padding: 5px;
+    
+
+    
+
+}
+.formInputImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.inputBox{
+    width: 100%;
+    display:block;
+    justify-content: center;
+}
+
+.someText{
+    width: 100%;
+    border:none;
+    padding: 10px;
+    outline: none;
+    resize:none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #ffffff;
+    
+    
+
+}
+
+.addPostForm{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }

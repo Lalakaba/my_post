@@ -1,33 +1,40 @@
-import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { api } from "../../../api";
 import "../index.css"
+import { hashtag } from "../../../others/something";
+import { useContext } from "react";
 import { ContextData } from "../../someContext/Context";
 import { imageValidate, textValidate, titleValidate } from "../Validate";
-import { api } from "../../../api";
-import { useForm } from "react-hook-form";
-import { hashtag } from "../../../others/something";
 
 
 
-const AddPost =({ setOpenModal }) => {
-    const { setPosts,postImageView, setPostImageView } = useContext(ContextData);
+
+const EditPost =({ setOpenModal, editPostInfo, setEditPostInfo}) => {
+    const { postImageView, setPostImageView } = useContext(ContextData);
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
-    } = useForm ({ mode: 'onChange' });
+    } = useForm ({ mode: 'onChange' ,
+    defaultValues: {
+        title: editPostInfo,    //ругается на это
+            text: editPostInfo,
+            image: editPostInfo,
+            tags: editPostInfo,
+        
+        
+    },
+});
 
     
 
-    const sendPost = async (post) => {
-        return await api.getAddPost({ ...post, tags: hashtag(post.tags) })
-            .then((post) => {
-                setPosts((state) => [post, ...state]);
+    const sendEditPost =  (post) => {
+         api.editPost(editPostInfo._id, { ...post, tags: hashtag(post.tags) })
+            .then((res) => {
+                setEditPostInfo(res);
                 setOpenModal('');
-                reset();
-            })
-            .catch((error) => console.log(error));
-    };
+              })
+            }
 
 
 
@@ -35,14 +42,14 @@ const AddPost =({ setOpenModal }) => {
 
 return (
   <div>
-    <form className="addPostForm" onSubmit={handleSubmit(sendPost)}>
+    <form className="editPostForm" onSubmit={handleSubmit(sendEditPost)}>
     <input
                 type='text'
                 {...register('title', titleValidate)}
                 className={errors.title ? "formInput error" : "formInput__input"}
                 placeholder='Заголовок...'
             />
-            {errors.title && 
+            {errors.image && 
                <p className="input__error">{errors.title.message}</p>}
       <input
         type="text"
@@ -88,4 +95,4 @@ return (
 
 }
 
-export default AddPost;
+export default EditPost;

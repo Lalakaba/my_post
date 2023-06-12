@@ -3,10 +3,11 @@
   
     left: 50%;
     transform:  translate(-10%,10%);
-    background: #474A51;
+    background: #474a5100;
     height: 40px;
     border-radius: 40px;
     padding: 10px;
+    border:1px solid #474a51;
 
 }
 
@@ -17,7 +18,7 @@
 
 .searchBox:hover > .searchButton {
   background: white;
-  color : #474A51;
+  color : #474a51;
 }
 
 .searchButton {
@@ -50,7 +51,7 @@
 
 @media screen and (max-width: 620px) {
 .searchBox:hover > .searchInput {
-    width: 150px;
+    width: 120px;
     padding: 0 6px;
 }
 }

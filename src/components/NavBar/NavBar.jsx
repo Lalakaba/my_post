@@ -16,25 +16,15 @@ export const Navbar = () => {
 
 
 return(
-  <nav className="navbar">
-
-
-      <button className="glow-on-hover" >
-      <Link to="/blogpage" className="navbar__link">Blog</Link>
-       </button>        
+  <nav className="navbar">       
     
       
      
       <button className="glow-on-hover" >
-    <Link to="/"className="navbar__link">Login</Link>
+    <Link to="/"className="navbar__link">Назад</Link>
   </button>
     
-   <Link to="/profile/:userId'"className="navbar__link">
-   {userProfile && (
-   <Avatar src={avatar} alt='name' css={{ size: '$16' }} />
-   )
-}
-   </Link>
+  
    </nav>
 );
 

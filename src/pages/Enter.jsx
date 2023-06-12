@@ -8,9 +8,10 @@ import { ContextData } from "../components/someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import {Footer} from "../components/Footer/Footer";
 
 export const Enter = () => {
-  const { visible, setVisible, setAuthorized,authorized } = useContext(ContextData);
+  const { visible, setVisible, setAuthorized} = useContext(ContextData);
   const navigate = useNavigate();
   
   const {
@@ -38,16 +39,19 @@ export const Enter = () => {
 
 
 
-  function logOut() {
-    localStorage.removeItem("token" );
-    setAuthorized(false);
-    alert("Уже покидаете нас?")
-    navigate("/");
-  }
+  
 
   
     return (
+
       <div className="enter__container">
+
+
+
+         <div class="text-container">
+            <h1>Lalakaba<br/>Project </h1>
+               </div>
+        
         <div className="wrapper">
           <form className="auth-form" onSubmit={handleSubmit(sendInfo)}>
             <h3>Вход</h3>
@@ -92,19 +96,19 @@ export const Enter = () => {
                 Войти
               </button>
              
-              <button type="submit" className="btn-log"
-                onClick={() => logOut()}
-              >Выйти
-              </button>
+             
             </div>
           </form>
         </div>
-        <h1 className="title"> Ты принес печеньки?</h1>
+       <div>
+       <Footer/>
+       </div>
       </div>
+
     );
   }
 
-  // регистрация
+
  
       
           

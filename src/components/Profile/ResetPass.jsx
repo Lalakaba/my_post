@@ -3,6 +3,7 @@ import "./index.css"
 import { Link } from "react-router-dom";
 import { emailValidate } from "./Validate";
 import { api } from "../../api";
+import { Footer } from "../Footer/Footer";
 
 
 
@@ -35,7 +36,9 @@ export const RessetPass = () => {
 
 return(
 <div className="enter__container">
-            
+<div class="text-container">
+            <h1>Lalakaba<br/>Project </h1>
+               </div>
             <div className="wrapper">
             <form className="auth-form" onSubmit={handleSubmit(sendPass)}>
                <h3 >Восстановление пароля</h3>
@@ -69,7 +72,7 @@ return(
                          </div>
                       </form>
                 </div>
-                <h1 className="title">Упс...Проблемы?</h1>
+               <Footer/>
                 </div>
 
 

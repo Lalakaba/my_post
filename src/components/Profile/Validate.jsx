@@ -63,3 +63,29 @@ export const aboutValidate = {
       message: 'Слишком длинная биография',
   },
 };
+
+
+export const imageValidate = {
+  required: {
+      value: true,
+      message: 'URL-адрес картинки',
+  },
+};
+
+export const textValidate = {
+  required: {
+      value: true,
+      message: 'Не забудьте текст',
+  },
+};
+
+export const titleValidate = {
+  required: {
+      value: true,
+      message: 'заголовок',
+  },
+  maxLength: {
+      value: 20,
+      message: 'слишком длинный',
+  },
+};

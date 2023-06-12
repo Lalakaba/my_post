@@ -1,0 +1,7 @@
+.mainList{ 
+    padding-left: 130px;
+    margin-top: 80px;
+    background: linear-gradient(90deg, #fc44ed 0%,#f6ffb7 30%,#96efff 67%, #7cff75 100%);
+    background-size: 1000%;
+    animation: background 20s linear alternate infinite;
+}

@@ -45,7 +45,7 @@ return(
               {...register("about", aboutValidate)}
               placeholder="Обо мне"
             />
-            {errors.name && 
+            {errors.about && 
             <p className="input__error">{errors.about.message}</p>}
             </div>
 

@@ -29,17 +29,16 @@ const onResponse = (res) => {
         headers: this.headers,
       }).then(onResponse);
     }
-    getPostId(id) {
-      return fetch(`${this.baseUrl}v2/${this.group}/posts/${id}`, {
-        method: "GET",
+
+
+    getPostById(postId) {
+      return fetch(`${this.baseUrl}/posts/${postId}`, {
         headers: this.headers,
-      }).then(onResponse);
+      }).then(onResponse)
     }
 
     searchPosts(path) {
-      return fetch(
-        `${this.baseUrl}/v2/${this.group}/posts/search?query=${path}`,
-        {
+      return fetch(`${this.baseUrl}/posts/search?query=${path}`, {
           headers: this.headers,
         }
       ).then(onResponse);
@@ -130,11 +129,11 @@ const onResponse = (res) => {
       }).then(onResponse);
     }
     //изменение поста
-    getchangePost(post, postId) {
-      return fetch(`${this.baseUrl}/posts/${postId}`, {
+    editPost(id, data) {
+      return fetch(`${this.baseUrl}/posts/${id}`, {
         method: "PATCH",
         headers: this.headers,
-        body: JSON.stringify(post),
+        body: JSON.stringify(data),
       }).then(onResponse);
     }
     // Удаление поста
@@ -161,6 +160,13 @@ const onResponse = (res) => {
         body: JSON.stringify(data),
       }).then(onResponse);
     }
+
+    getPostCommentsAll(id) {
+      return fetch(`${this.baseUrl}/posts/comments/${id}`, {
+          method: 'GET',
+          headers: this.headers,
+      }).then(onResponse);
+  }
 
     //   // получение комментариев конкрентного поста.
 

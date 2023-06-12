@@ -1,46 +1,40 @@
 import "./post.css";
-import React, {  useContext, useState } from "react";
+import React, {  useContext } from "react";
 import { ReactComponent as Like } from "./img/like.svg"
 import { ContextData } from "../someContext/Context";
 import { ReactComponent as Chat } from "./img/chat.svg"
 import Comment from "../Comments/Comment";
 import PostText from "../PostText/PostText";
 import { api } from "../../api";
-import { Avatar, Dropdown } from "@nextui-org/react";
+import { Avatar } from "@nextui-org/react";
 import { DeleteDocumentIcon } from "./DeleteDocumentIcon"
 import { EditDocumentIcon } from "./EditDocumentIcon"
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Modal from "../Modal/Modal";
+import EditPost from "../Profile/EditPost/EditPost";
+import Card from "./Card/Card";
 
 
- const Post = ({
-  image,
-  comments,
-  author,
-  updated_at,
-  post,
-  text,
-  likes,
-  userId,
-  tags,
-  _id,
-  postId,
-  created_at,
+
+ const Post = ({image, text, tags, likes, created_at, author, name, about, avatar, _id, comments,post, userId,postId,setEditPostInfo,
+  editPostInfo,
   ...args
 }) => {
  
-  
-  const { user, handleLike, updatePostState, setPostComment, openModal,setOpenModal } = useContext(ContextData);
+  const { user, handleLike, updatePostState, setPostComment, openModal,setOpenModal, 
+    setPost,setPostImageView,setPostInform, postInform, isCommentsShown, setisCommentsShown } = useContext(ContextData);
   const { reset, register, handleSubmit } = useForm({});
-  const [isCommentsShown, setisCommentsShown] = useState(false);
-
-  const isLiked = likes.some((e) => e === user._id);
+  
+ 
+ 
+   
+  const isLiked = likes?.includes(user._id);;
   const handleClick = () => {
     handleLike(post, isLiked);
   };
 
- 
+ //рендер комментов, который проверит если у нас комм >2 
   const renderComments = () => {
     if (comments?.length > 2 && !isCommentsShown) {
       const commentsCopy = [...comments];
@@ -66,7 +60,7 @@ import Modal from "../Modal/Modal";
 
  
 
-
+//добавление комментов
   const addComment = async (data) => {
    return  (await 
       api.getAddCommentsPosts(_id, data)
@@ -77,17 +71,19 @@ import Modal from "../Modal/Modal";
    )
   }
 
-  
-  
-     
-  
-
-  const deletePost = async (id) => {
-  //    return await api.deletePostById(id)
-  //      .then(() => setPosts((state) => state.filter((post) => post._id !== id)))
-  //     .catch((error) => console.log(error));
-  // };
+  //удаление поста
+  const deletePost = async (_id) => {
+    if (window.confirm('Вы действительно хотите удалить пост ?'))
+      try {
+        const result = await api.deletePostById(post._id);
+        setPost({ ...result });
+        handleClick()
+        window.location.reload();
+      } catch (error) {
+      }
   }
+
+  
 
 
 
@@ -95,50 +91,57 @@ import Modal from "../Modal/Modal";
   return (
    
     <div className='post__card'>
-       {openModal === 'post' && (
-      <Modal state={openModal === 'post'} setState={setOpenModal}>
-
-      </Modal>
-      )}
+       {openModal === _id && (
+                        <Modal state= {openModal === _id} setState={setOpenModal}>
+                          <Card image={image} created_at={created_at}   
+                          likes={likes}
+                          comments={comments}
+                          _id={_id}
+                         
+                         
+                        
+                        
+                           />
+                        </Modal>
+       )}
       <div className='post__header'>
       
         <div className='post__userLogo'>
-          <Link to={`/profilepage/${author._id}`}>
-            <Avatar src={author.avatar} alt='name' css={{ size: '$16' }} />
+          <Link to={`/profile/${author._id}`}>
+            <Avatar src={author.avatar} alt='name' css={{ size: '$16' }}    />
           </Link>
         </div>
         <div className='post__userDate'>
           <div className='post__userName'> {author.name}</div>
         </div>
 
-        <Dropdown>
-          <Dropdown.Button color='default' light>
-            . . .
-          </Dropdown.Button>
-          <Dropdown.Menu color='default' variant='light' aria-label='Actions'>
-            <Dropdown.Item
-              key='edit'
-              icon={<EditDocumentIcon size={20} fill='currentColor' />}
-            >
-              Редактировать
-            </Dropdown.Item>
-            {user._id === author._id ? (
-              <Dropdown.Item
-                key='delete'
-                icon={<DeleteDocumentIcon size={20} fill='currentColor' />}
-                onClick={() => deletePost(_id)}>
-               Удалить
-              </Dropdown.Item>
-             ) : (
-              ''
-          )}
-          </Dropdown.Menu>
-        </Dropdown>
+       
+            
+          
+        {user._id === author._id && (
+           <button className="editPostBtn" type="submit">
+            <EditDocumentIcon size={20} fill='currentColor'  onClick={() => {setOpenModal('editPost');
+             setPostImageView(image)}}/>
+              </button>)}
+              {openModal === 'editPost' && (
+                        <Modal state= {openModal === 'editPost'} setState={setOpenModal}>
+                         <EditPost setOpenModal={setOpenModal}
+                          editablePost={postInform}
+                          setPostInform={setPostInform}/>
+                        </Modal>)}
+                       
+            {user._id === author._id && (
+              <button className="deletPostBtn" type="submit" onClick={() => deletePost(_id)}>
+              <DeleteDocumentIcon size={20} fill='currentColor'/></button>)}
+        
       </div>
-      <div>
       
-        <img src={image} alt='avatar' className='card__image' />
+          <div className="post__image">
+
+          <img src={image} alt='img' className='card__image' onClick={() => {setOpenModal(_id)}}/>
+          
       </div>
+      
 
       <div className='post__icon'>
         <button
@@ -148,7 +151,7 @@ import Modal from "../Modal/Modal";
           <Like />
         </button>
         <button className='post__chat'>
-          {' '}
+          
           <Chat />
           <span className='chat_count'>
             {!!comments.length && comments.length}
@@ -176,7 +179,7 @@ import Modal from "../Modal/Modal";
           type="text"
             {...register('text')}
             placeholder="Напишите комментарий..."
-              className='textarea__comments'
+              className='textComments'
                 />
                          
         <button className="commentsSend">

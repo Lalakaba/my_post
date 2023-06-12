@@ -1,12 +1,17 @@
+import React from 'react';
 import "./addPost.css"
 
 
 
-const AddBtn =() => {
+const AddBtn =({onClick}) => {
+
+
 return(
 <div className="boxButt">
 
-    <button className="AddPostButt" type="submit">+</button>
+    <button className="AddPostButt" type="submit" onClick={() => onClick()}>+
+    
+    </button>
 
     
 </div>

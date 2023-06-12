@@ -6,7 +6,7 @@ import { api } from './api';
 import { ContextData } from './components/someContext/Context';
 
 //Подключение страниц
-import {Main} from './pages/Main';
+
 import { Enter } from './pages/Enter';
 import { ProfilePage } from "./pages/ProfilePage";
 import { NotFound } from './pages/NotFound';
@@ -14,6 +14,7 @@ import {  RessetPass } from './components/Profile/ResetPass';
 import { ChangePass } from './components/Profile/ChangePass';
 import { Registration } from './pages/Registration';
 import { AboutPost, AboutUser } from './others/InfoUserPost';
+import { MainPostPage } from './pages/MainPostPage';
 
 
 
@@ -34,8 +35,11 @@ function App() {
   const [authorized, setAuthorized] = useState(false);
   const [postInform, setPostInform] = useState(AboutPost)
   const [userInfo, setUserInfo] = useState(AboutUser);
+  const [isCommentsShown, setisCommentsShown] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [preliminaryAvatar, setPreliminaryAvatar] = useState("")
+  const [ postImageView, setPostImageView]= useState("https://velo1000.ru/local/templates/velo1000/images/no-img.png")
+  const [post, setPost]= useState([])
 //функция снятия и удаление лайка без перезагрузки страницы
 
 const handlePostLike = useCallback(async (post, isLiked) => {
@@ -92,6 +96,9 @@ useEffect(() => {
     openModal, setOpenModal,
     preliminaryAvatar, setPreliminaryAvatar,
     postInform, setPostInform,
+    postImageView, setPostImageView,
+    post, setPost,
+    isCommentsShown, setisCommentsShown
  
   }
 
@@ -117,7 +124,7 @@ useEffect(() => {
       <Route path='/' element={<Enter />}/>
       
 
-      <Route path='/blogpage' element={<Main posts={posts}/>}/> 
+      <Route path='/blogpage' element={<MainPostPage/>}/> 
       <Route path='/profile/:userId' element={<ProfilePage/>} /> 
 
       

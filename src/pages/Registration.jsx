@@ -8,6 +8,7 @@ import { ContextData } from "../components/someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { Footer } from "../components/Footer/Footer";
 
 
 
@@ -40,6 +41,9 @@ export const Registration = () => {
   };
     return (
       <div className="enter__container">
+        <div class="text-container">
+            <h1>Lalakaba<br/>Project </h1>
+               </div>
         <div className="wrapper">
           <form className="auth-form" onSubmit={handleSubmit(sendData)}>
             <h3>Регистрация</h3>
@@ -97,7 +101,7 @@ export const Registration = () => {
           </form>
         </div>
   
-        <h1 className="title">А хочешь?</h1>
+        <Footer/>
         
       </div>
     );

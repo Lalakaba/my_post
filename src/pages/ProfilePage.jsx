@@ -1,51 +1,77 @@
 
 
 import "./index.css"
-import Profile from "../components/Profile/Profile";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextData } from "../components/someContext/Context";
-import {Link} from "react-router-dom";
-import Header from "../components/Header/Header";
+import {Link, useParams} from "react-router-dom";
+
 import Modal from "../components/Modal/Modal";
 import ChangeAvatar from "../components/Profile/ChangeAvatar";
 import { api } from "../api";
 import { Icon } from "@blueprintjs/core";
 import EditProfile from "../components/Profile/EditProfile"
 
+import { Avatar } from "@nextui-org/react";
+import CardsList from "../components/Post/Card/CardsList";
+import Logo from "../components/Logo/Logo";
+
+
+
+
 export const ProfilePage  = () => {
-    const { user, setUserInfo, openModal, setOpenModal, preliminaryAvatar, setPreliminaryAvatar } = useContext(ContextData);
-  
-    const userProfile = user._id 
+    const { user,userInfo, setUserInfo, openModal, setOpenModal, preliminaryAvatar, setPreliminaryAvatar, posts, setAuthorized } = useContext(ContextData);
+  const [userPosts, setUserPosts] = useState([]);
+  const { name, about, email, avatar } = userInfo;
+  const { userId } = useParams();
+    const userProfile = user._id === userId;
    
     useEffect (() => {
-        api.getUserInfoById(user._id)
+        api.getUserInfoById(userId)
             .then((userData) => {
                 setUserInfo(userData);
                 setPreliminaryAvatar(userData.avatar);
             })
-            .catch((error) =>
-            console.error(error)
+            .catch((error) => console.error(error)
             );
-    }, [ user._id, setUserInfo]);
+    }, [ userId, setUserInfo, setPreliminaryAvatar]);
       
+    function logOut() {
+        localStorage.removeItem("token" );
+        setAuthorized(false);
+        alert("Уже покидаете нас?")
+       
+      }
 
+    useEffect(() => {
+        const filter = posts.filter((post) => post.author._id === userId);
+        setUserPosts(filter);
+        
+    }, [userId, posts]);
 
     return (
         <div className='profilePage_container'>
-             <Header/>
+            <Logo className="profileLogo"/>
 
-        <div>
-            <Link to="/blogpage">
-            <button className="comeBack" type="button">Назад
+        <div className="backBtnProfile">
+            <Link className="linkBtn" to="/blogpage">
+            <button className="glow-on-hover" type="button"> Назад
             </button>
             </Link>
-            <div>
-            <Profile/>
+            <Link className="linkBtn"to="/enter">
+            <button type="submit" className="glow-on-hover"
+                onClick={() => logOut()}
+              > Выйти
+              </button>
+              </Link>
             </div>
+            <div className="profile">
+    
+        <Avatar src={avatar} alt='avatar' css={{ size: '$48' }}  className="profileAvatar"/>
+        
 
             <div className="editProfile">
             {userProfile && (
-          <Icon icon ="edit" className="editProfileIcon"  onClick={() => setOpenModal('avatar')}/> )}
+          <Icon icon ="edit" className="editProfileIcon" onClick={() => setOpenModal('avatar')}/> )}
 
              {openModal === 'avatar' && (
                         <Modal state={openModal === 'avatar'} setState={setOpenModal}>
@@ -55,32 +81,41 @@ export const ProfilePage  = () => {
                                 setPreliminaryAvatar={setPreliminaryAvatar}/>
                         </Modal>)}
 
-</div>
+          </div>
 
                 <div className="editProfileUser">
-
+                <div className="profileInfo">
+                        <span className="profileName">{name}</span>
+                        <span className="profileAbout">{about} </span>
+                        <span className="profileEmail">{email}</span>
+                        
+                       </div>
+              
                 {userProfile && (
           <Icon icon ="edit" className="editProfileIconInfo"  onClick={() => setOpenModal('editProfileInfo')}/> )}
            
                 {openModal === 'editProfileInfo' && (
-               <Modal state={openModal === 'editProfileInfo'} setState={setOpenModal}>
+              <Modal state={openModal === 'editProfileInfo'} setState={setOpenModal}>
                     <EditProfile
                     setUserInfo= {setUserInfo} 
                     setOpenModal= {setOpenModal} /> 
-               </Modal>
-                )
-            }
-                </div>
+             </Modal>
+                  ) }
+                 </div>
+                 </div>
 
-            <div className='profilePost'>
+           
+
+
+
+            {userProfile && (
+               <CardsList
+            cards={userPosts}/>)}
              
-
-
-
-
+              
+           
+           
             </div>
-            </div>
-        </div>
 
     )
 

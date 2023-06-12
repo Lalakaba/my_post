@@ -23,19 +23,28 @@
   }
   
 
-.post__burger {
-    font-size: 20px;
-    font-weight: 900;
-    cursor: pointer;
-    opacity: 0.7;
+
+.editPostBtn{
+  border:none;
+  background: transparent;
+  margin:5px;
+}
+.deletPostBtn{
+  border:none;
+  background: transparent;
+  margin:5px;
 
 }
-
 
 .post__userName {
   font-weight: 600;
   padding: 10px;
 
+}
+.post__image{
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .card__image {
@@ -43,6 +52,7 @@
   height: 400px;
   border-radius: 10px;
   object-fit: cover;
+  
 
 }
 
@@ -98,7 +108,7 @@
  padding:0 5px 5px 5px;
 
 }
-.textarea__comments{
+.textComments{
 width: 85%;
 border:none;
 padding: 10px;

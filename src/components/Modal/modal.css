@@ -1,13 +1,15 @@
 .modal {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
   top: 0;
   left: 0;
-  background-color: rgba(201, 201, 201, 0);
+  border-radius: 24px;
+  background-color: rgba(201, 201, 201, 0.329);
+  backdrop-filter: blur(3px);
   z-index: 999;
 }
 
@@ -15,10 +17,8 @@
   position: relative;
   padding: 30px;
   border-radius: 20px;
-  background-image: url('./img/guns-YkCG2OrEPEw-unsplash.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: transparent;
+  
   min-width: 400px;
   min-height: 200px;
   

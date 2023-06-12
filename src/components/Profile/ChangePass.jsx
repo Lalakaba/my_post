@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ContextData } from "../someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined  } from "@ant-design/icons";
+import { Footer } from "../Footer/Footer";
 
 
 export const ChangePass = () => {
@@ -40,6 +41,9 @@ export const ChangePass = () => {
 
 return (
   <div className="enter__container">
+    <div class="text-container">
+            <h1>Lalakaba<br/>Project </h1>
+               </div>
     <div className="wrapper">
       <form className="auth-form" onSubmit={handleSubmit(changePass)}>
         <h3>Восстановление пароля</h3>
@@ -82,7 +86,7 @@ return (
         </div>
       </form>
     </div>
-    <h1 className="title">Осталось совсем немного</h1>
+   <Footer/>
   </div>
 );
 
