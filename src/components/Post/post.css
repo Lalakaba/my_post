@@ -1,7 +1,7 @@
 .post__card {
  display: flex;
  flex-direction: column;
- width: 600px;
+ width: 550px;
  border: 1px solid #dbdbdb;
  margin-bottom: 10px;
  background-color: #DBD7D2;
@@ -177,8 +177,9 @@ font-size: 14px;
 
  .commentsSend{
   position: absolute;
+  padding:3px;
   bottom: 5px;
-  right:3px;
+  right:1px;
   border:none;
   background: none;
   font-weight: 600;

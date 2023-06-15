@@ -4,8 +4,8 @@ background-color: #b4b4b491;
 display: flex;
 align-items: center;
 justify-content: center;
-width: 120px;
-height: 120px;
+width: 70px;
+height: 70px;
 top:40%;
 right:15%;
 border-radius: 50%;
@@ -17,14 +17,14 @@ border:none;
 .AddPostButt{
 position: fixed;
 color: #a7a7a7;
-width: 100px;
-height: 100px;
+width: 60px;
+height: 60px;
 text-align: center;
 border-radius: 50%;
 background-color: #e7e7e7;
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3) ,-5px -5px 15px rgba(255, 255, 255, 0.5);
 border: 1px solid #dbdbdb;
-font-size: 42px;
+font-size: 36px;
 }
 .AddPostButt::before{
    filter: blur(2px);

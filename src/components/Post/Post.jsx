@@ -5,7 +5,7 @@ import { ContextData } from "../someContext/Context";
 import { ReactComponent as Chat } from "./img/chat.svg"
 import Comment from "../Comments/Comment";
 import PostText from "../PostText/PostText";
-import { api } from "../../api";
+import { api } from "../api/api";
 import { Avatar } from "@nextui-org/react";
 import { DeleteDocumentIcon } from "./DeleteDocumentIcon"
 import { EditDocumentIcon } from "./EditDocumentIcon"
@@ -17,19 +17,18 @@ import Card from "./Card/Card";
 
 
 
- const Post = ({image, text, tags, likes, created_at, author, name, about, avatar, _id, comments,post, userId,postId,setEditPostInfo,
-  editPostInfo,
+ const Post = ({image, text, tags, likes, created_at, author, name, _id, comments,post ,postId,
   ...args
 }) => {
  
   const { user, handleLike, updatePostState, setPostComment, openModal,setOpenModal, 
-    setPost,setPostImageView,setPostInform, postInform, isCommentsShown, setisCommentsShown } = useContext(ContextData);
+    setPosts,setPostImageView, isCommentsShown, setisCommentsShown } = useContext(ContextData);
   const { reset, register, handleSubmit } = useForm({});
   
  
  
    
-  const isLiked = likes?.includes(user._id);;
+  const isLiked = likes?.includes(user._id);
   const handleClick = () => {
     handleLike(post, isLiked);
   };
@@ -75,14 +74,11 @@ import Card from "./Card/Card";
   const deletePost = async (_id) => {
     if (window.confirm('Вы действительно хотите удалить пост ?'))
       try {
-        const result = await api.deletePostById(post._id);
-        setPost({ ...result });
-        handleClick()
-        window.location.reload();
+        const result = await api.deletePostById(_id);
+        setPosts(s => s.filter(e => e._id !== result._id));
       } catch (error) {
       }
   }
-
   
 
 
@@ -120,14 +116,13 @@ import Card from "./Card/Card";
           
         {user._id === author._id && (
            <button className="editPostBtn" type="submit">
-            <EditDocumentIcon size={20} fill='currentColor'  onClick={() => {setOpenModal('editPost');
+            <EditDocumentIcon size={20} fill='currentColor'  onClick={() => {setOpenModal(`editPost${_id}`);
              setPostImageView(image)}}/>
               </button>)}
-              {openModal === 'editPost' && (
-                        <Modal state= {openModal === 'editPost'} setState={setOpenModal}>
+              {openModal === `editPost${_id}` && (
+                        <Modal state= {openModal === `editPost${_id}`} setState={setOpenModal}>
                          <EditPost setOpenModal={setOpenModal}
-                          editablePost={postInform}
-                          setPostInform={setPostInform}/>
+                          post={post}/>
                         </Modal>)}
                        
             {user._id === author._id && (

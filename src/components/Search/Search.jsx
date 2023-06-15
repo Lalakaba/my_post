@@ -5,20 +5,20 @@ import { ContextData } from '../someContext/Context';
 
 const Search = () => {
  
-  const {goods, setVisibleGoods, posts} = useContext(ContextData);
+  const { posts} = useContext(ContextData);
   const [text, updateText] = useState("");
-  const [searchData, setSearchData] = useState(goods);
+  const [searchData, setSearchData] = useState(posts);
   const clearSearch = () => {
       updateText("");
       setSearchData(posts);
-      setVisibleGoods(posts);
+      
   }
   const setSearch = (e) => {
       
       updateText(e.target.value);
       let arr = posts.filter(el => el.name.toLowerCase().includes(e.target.value.toLowerCase()))
       setSearchData(arr);
-      setVisibleGoods(arr);
+      
   }
 
 

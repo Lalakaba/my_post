@@ -1,25 +1,23 @@
 
-import { useParams } from "react-router";
-import { api } from "../../../api";
+import { api } from "../../api/api";
 import { ContextData } from "../../someContext/Context";
 import "./card.css"
-import React, { useCallback, useContext} from "react"
-import PostText from "../../PostText/PostText";
+import React, { useContext} from "react"
 import { ReactComponent as Like } from "../../Post/img/like.svg"
 import { ReactComponent as Chat } from "../../Post/img/chat.svg"
-import { Avatar } from "@nextui-org/react";
 
 const Card = ({image,created_at, likes,comments, _id}) => {
   const {user, setPosts, setPost } = useContext(ContextData)
   const isLiked = likes?.includes(user._id);;
   
-  const handleLikeOnCard = async (post, isLiked) => {
-    const updatedPost = await api.changeLikePostStatus(post._id, isLiked);
+  const handleLikeOnCard = async (_id, isLiked) => {
+    const updatedPost = await api.changeLikePostStatus(_id, isLiked);
     setPost(updatedPost)
     setPosts((posts)=>
     posts.map((e) => (e._id === updatedPost?._id ? updatedPost : e))
   )
   }
+  
   
 
 
@@ -35,7 +33,7 @@ const Card = ({image,created_at, likes,comments, _id}) => {
    
         <div className='post__icon'>
         <button
-          onClick={handleLikeOnCard}
+          onClick={() => handleLikeOnCard(_id, isLiked)}
           className={`post__like ${isLiked ? 'post__like_active' : ''}`} 
         >
           <Like />

@@ -7,7 +7,7 @@ import {Link, useParams} from "react-router-dom";
 
 import Modal from "../components/Modal/Modal";
 import ChangeAvatar from "../components/Profile/ChangeAvatar";
-import { api } from "../api";
+import { api } from "../components/api/api"
 import { Icon } from "@blueprintjs/core";
 import EditProfile from "../components/Profile/EditProfile"
 
@@ -24,7 +24,6 @@ export const ProfilePage  = () => {
   const { name, about, email, avatar } = userInfo;
   const { userId } = useParams();
     const userProfile = user._id === userId;
-   
     useEffect (() => {
         api.getUserInfoById(userId)
             .then((userData) => {
@@ -36,7 +35,7 @@ export const ProfilePage  = () => {
     }, [ userId, setUserInfo, setPreliminaryAvatar]);
       
     function logOut() {
-        localStorage.removeItem("token" );
+        localStorage.removeItem("tokenPostikt" );
         setAuthorized(false);
         alert("Уже покидаете нас?")
        
@@ -57,7 +56,7 @@ export const ProfilePage  = () => {
             <button className="glow-on-hover" type="button"> Назад
             </button>
             </Link>
-            <Link className="linkBtn"to="/enter">
+            <Link className="linkBtn"to="/">
             <button type="submit" className="glow-on-hover"
                 onClick={() => logOut()}
               > Выйти

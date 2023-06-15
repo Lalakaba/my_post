@@ -31,8 +31,8 @@
     
     width: 100%;
     height: 100vh;
-    background-color: #e1e290;
-    backdrop-filter: blur(5px);
+    background-color: #838383;
+  
    
     
     
@@ -84,7 +84,8 @@
 
 .link-primary {
     font-size: 16px;
-    color:#ffff;
+    color:#353535;
+    text-shadow: 1px 1px #fff;
     text-decoration: none !important;
     cursor: pointer;
     background: transparent;
@@ -98,7 +99,8 @@
 .text-center{
     font-size: 16px;
     font-family: 'CursiveSerifBook';
-    color:black;
+    color:rgb(0, 0, 0);
+    text-shadow: 1px 1px #fff;
 }
 
 /* стили профиля*/
@@ -201,8 +203,8 @@ font-weight: 700;
 
 .mainPostContainer{ 
     display: flex;
-    flex-direction: column;
-    padding-left: 150px;
+    flex-direction: wrap;
+    padding-left: 50px;
     margin-top: 180px;
     background: transparent;
     border: none;

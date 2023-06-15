@@ -1,7 +1,7 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, useNavigate} from 'react-router-dom'
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { api } from './api';
+import { api } from './components/api/api';
 
 import { ContextData } from './components/someContext/Context';
 
@@ -15,6 +15,7 @@ import { ChangePass } from './components/Profile/ChangePass';
 import { Registration } from './pages/Registration';
 import { AboutPost, AboutUser } from './others/InfoUserPost';
 import { MainPostPage } from './pages/MainPostPage';
+import { parseJwt } from './components/api/utils/utils';
 
 
 
@@ -40,6 +41,8 @@ function App() {
   const [preliminaryAvatar, setPreliminaryAvatar] = useState("")
   const [ postImageView, setPostImageView]= useState("https://velo1000.ru/local/templates/velo1000/images/no-img.png")
   const [post, setPost]= useState([])
+  const navigate = useNavigate();
+  
 //функция снятия и удаление лайка без перезагрузки страницы
 
 const handlePostLike = useCallback(async (post, isLiked) => {
@@ -102,8 +105,16 @@ useEffect(() => {
  
   }
 
-  
-  
+  // Проверка на авторизацию
+ useEffect(() => {
+   const token = parseJwt(localStorage.getItem("tokenPostik"));
+   
+   if (token && new Date() < new Date(token?.exp * 1e3)) {
+     setAuthorized(true);
+   } else {
+     navigate("/");
+   }
+ }, [navigate, setAuthorized]);
   
   return (
 

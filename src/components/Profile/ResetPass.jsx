@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import "./index.css"
 import { Link } from "react-router-dom";
 import { emailValidate } from "./Validate";
-import { api } from "../../api";
+import { api } from "../api/api";
 import { Footer } from "../Footer/Footer";
 
 
@@ -62,13 +62,13 @@ return(
                           Отправить
                         </button>
                        
-                        <div className="btn-log">
+                     
                           <Link to="/changePass">
                             <button className="btn-log" type="button">
                               Вперед
                             </button>
                           </Link>
-                         </div>
+                    
                          </div>
                       </form>
                 </div>

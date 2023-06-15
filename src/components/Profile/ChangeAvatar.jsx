@@ -1,5 +1,5 @@
 
-import { api } from "../../api";
+import { api } from "../api/api";
 import { avatarValidate } from "./Validate";
 import "./index.css"
 import { useForm } from "react-hook-form";

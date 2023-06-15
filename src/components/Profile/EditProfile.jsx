@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { aboutValidate, nameValidate } from "./Validate";
 import "./index.css"
-import { api } from "../../api";
+import { api } from "../api/api";
 
 
 

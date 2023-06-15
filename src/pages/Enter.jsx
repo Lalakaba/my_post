@@ -2,13 +2,14 @@ import "../components/Profile/index.css";
 import { useForm } from "react-hook-form";
 import {emailValidate,  passValidate} from "../components/Profile/Validate";
 import { useNavigate } from "react-router";
-import { api } from "../api";
-import { useContext } from "react";
+import { api } from "../components/api/api";
+import { useContext} from "react";
 import { ContextData } from "../components/someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import {Footer} from "../components/Footer/Footer";
+
 
 export const Enter = () => {
   const { visible, setVisible, setAuthorized} = useContext(ContextData);
@@ -28,15 +29,15 @@ export const Enter = () => {
         reset();
       } else {
         alert(`Очень рады видеть Вас снова, ${res.data.name}`);
+        localStorage.setItem("tokenPostik", res.token)
         setAuthorized(true);
-        localStorage.setItem("token", data.token)
-        navigate("/profilepage");
+        navigate(`/profile/${res.data._id}`);
         
       }
     });
   };
 
-
+ 
 
 
   

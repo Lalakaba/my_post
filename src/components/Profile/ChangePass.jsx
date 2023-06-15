@@ -2,7 +2,7 @@ import { useContext} from "react";
 import { passValidate,tokenValidate } from "./Validate";
 import "./index.css"
 import { useForm } from "react-hook-form";
-import { api } from "../../api";
+import { api } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextData } from "../someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";

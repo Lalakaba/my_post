@@ -3,9 +3,7 @@ import "./index.css"
 import { ContextData } from "../someContext/Context";
 import { useCallback, useContext } from "react";
 import { Trash } from "react-bootstrap-icons";
-import { api } from "../../api";
-
-import { useForm } from "react-hook-form";
+import { api } from "../api/api";
 
 
 
@@ -24,7 +22,7 @@ const { setPostComment, user} = useContext(ContextData)
           .then((data) => setPostComment({ ...data }))
           .catch(() => console.log('err'));
       },
-      [postId]
+      [postId, setPostComment]
     );
 
     

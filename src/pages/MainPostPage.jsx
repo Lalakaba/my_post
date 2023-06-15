@@ -3,7 +3,7 @@ import Modal from "../components/Modal/Modal";
 import AddPost from "../components/Profile/AddPost/AddPost";
 import Header from "../components/Header/Header";
 import { ContextData } from "../components/someContext/Context";
-import { api } from "../api";
+import { api } from "../components/api/api";
 import { filteredPosts } from "../others/something";
 import AddBtn from "../components/Profile/AddPost/AddBtn"
 import {useDebounce} from "../components/MyHooks/hook"

@@ -11,6 +11,15 @@ const baseInfo = {
   group: "group-12" 
  
 };
+const newHeaders = () => {
+  return {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: localStorage.getItem("tokenPostik")
+    }
+  }
+};
+
 
 const onResponse = (res) => {
   return res.ok ? res.json() : res.json().then(() => Promise.reject('Error'));
@@ -18,28 +27,29 @@ const onResponse = (res) => {
 
   
   class Api {
-    constructor(data) {
+    constructor(data, newHeaders) {
       this.baseUrl = data.baseUrl;
       this.headers = data.headers;
+      this.newHeaders = newHeaders;
     }
 
     getAllPosts() {
       return fetch(`${this.baseUrl}/posts`, {
         method: "GET",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
 
 
     getPostById(postId) {
       return fetch(`${this.baseUrl}/posts/${postId}`, {
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse)
     }
 
     searchPosts(path) {
       return fetch(`${this.baseUrl}/posts/search?query=${path}`, {
-          headers: this.headers,
+        ...this.newHeaders(),
         }
       ).then(onResponse);
     }
@@ -47,41 +57,41 @@ const onResponse = (res) => {
     getUserInfo() {
       return fetch(`${this.baseUrl}/users/me`, {
         method: "GET",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
 
     getUsers() {
       return fetch(`${this.baseUrl}/users`, {
         method: "GET",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
 
     getUserInfoById(userId) {
       return fetch(`${this.baseUrl}/users/${userId}`, {
         method: "GET",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
     // // установка лайка по id
     addLikeOnPosts(postId) {
       return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
-        headers: this.headers,
+        ...this.newHeaders(),
         method: "PUT",
       }).then(onResponse);
     }
     // // удаление лайка по id
     deleteLikeOfPosts(postId) {
       return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
-        headers: this.headers,
+        ...this.newHeaders(),
         method: "DELETE",
       }).then(onResponse);
     }
     // // 2 метода сразу
     changeLikePostStatus(postId, isLiked) {
       return fetch(`${this.baseUrl}/posts/likes/${postId}`, {
-        headers: this.headers,
+        ...this.newHeaders(),
         method: isLiked ? "DELETE" : "PUT",
       }).then(onResponse);
     }
@@ -90,7 +100,7 @@ const onResponse = (res) => {
     registratedUser(data) {
       return fetch(`${this.baseUrl}/signup`, {
         method: "POST",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(data),
       }).then(onResponse);
     }
@@ -98,22 +108,22 @@ const onResponse = (res) => {
     authorizedUser(data) {
       return fetch(`${this.baseUrl}/signin`, {
         method: "POST",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(data),
       }).then(onResponse);
     }
 
     resetPassword(dataUser) {
-      return fetch(`${this.baseUrl}/password-reset`, {
+      return fetch(`${this.baseUrl}/forgot-password `, {
         method: "POST",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(dataUser),
       }).then(onResponse);
     }
     changePassword(data) {
       return fetch(`${this.baseUrl}/password-reset/${data.token}`, {
         method: "PATCH",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify({ password: data.password }),
       }).then(onResponse);
     }
@@ -124,7 +134,7 @@ const onResponse = (res) => {
     getAddPost(post) {
       return fetch(`${this.baseUrl}/posts`, {
         method: "POST",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(post),
       }).then(onResponse);
     }
@@ -132,7 +142,7 @@ const onResponse = (res) => {
     editPost(id, data) {
       return fetch(`${this.baseUrl}/posts/${id}`, {
         method: "PATCH",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(data),
       }).then(onResponse);
     }
@@ -141,7 +151,7 @@ const onResponse = (res) => {
     deletePostById(postId) {
       return fetch(`${this.baseUrl}/posts/${postId}`, {
         method: "DELETE",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
 
@@ -149,14 +159,14 @@ const onResponse = (res) => {
 
     getAllComments() {
       return fetch(`${this.basePostsUrl}/comments`, {
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
 
     getAddCommentsPosts(postId, data) {
       return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
         method: "POST",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(data),
       }).then(onResponse);
     }
@@ -164,7 +174,7 @@ const onResponse = (res) => {
     getPostCommentsAll(id) {
       return fetch(`${this.baseUrl}/posts/comments/${id}`, {
           method: 'GET',
-          headers: this.headers,
+          ...this.newHeaders(),
       }).then(onResponse);
   }
 
@@ -173,14 +183,14 @@ const onResponse = (res) => {
     getCommentOfPost(postId) {
       return fetch(`${this.baseUrl}/posts/comments/${postId}`, {
         method: "GET",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
     //удаление комментариев
     deleteComment(postId, commentId) {
       return fetch(`${this.baseUrl}/posts/comments/${postId}/${commentId}`, {
         method: "DELETE",
-        headers: this.headers,
+        ...this.newHeaders(),
       }).then(onResponse);
     }
 
@@ -189,7 +199,7 @@ const onResponse = (res) => {
     editProfileInfo(data) {
       return fetch(`${this.baseUrl}/users/me`, {
         method: "PATCH",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(data),
       }).then(onResponse);
     }
@@ -197,7 +207,7 @@ const onResponse = (res) => {
     editAvatar(avatar) {
       return fetch(`${this.baseUrl}/users/me/avatar`, {
         method: "PATCH",
-        headers: this.headers,
+        ...this.newHeaders(),
         body: JSON.stringify(avatar),
       }).then(onResponse);
     }
@@ -208,4 +218,4 @@ const onResponse = (res) => {
 
 
 
-  export const api = new Api(baseInfo);
+  export const api = new Api(baseInfo, newHeaders);
