@@ -25,7 +25,7 @@ export const Enter = () => {
   const sendInfo = (data) => {
     api.authorizedUser(data).then((res) => {
       if (!!res.err) {
-        alert(`${res.message}`);
+        alert(`${res.message} Неправильные почта или пароль`);
         reset();
       } else {
         alert(`Очень рады видеть Вас снова, ${res.data.name}`);

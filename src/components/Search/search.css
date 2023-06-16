@@ -12,12 +12,12 @@
 }
 
 .searchBox:hover > .searchInput {
-    width: 240px;
+    width: 180px;
     padding: 0 6px;
 }
 
 .searchBox:hover > .searchButton {
-  background: white;
+  background: rgb(224, 224, 224);
   color : #474a51;
 }
 
@@ -51,7 +51,7 @@
 
 @media screen and (max-width: 620px) {
 .searchBox:hover > .searchInput {
-    width: 120px;
+    width: 100px;
     padding: 0 6px;
 }
 }

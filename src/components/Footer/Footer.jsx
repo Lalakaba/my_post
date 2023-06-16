@@ -3,21 +3,17 @@ import "../Footer/footer.css"
 
 
 export const Footer = () => {
-    
+  const year = new Date().getFullYear();
   
   
     return (
+    <div className="footer">
 
-      <div className="footer">
-        <div className="footerTime">
-        {new Date().toLocaleDateString('ru-RU', {
-          year: 'numeric',
-          month: 'numeric',
-          day: 'numeric',
-        })}
+      <span className="footer_copy">©{year}</span>&nbsp;
+        
+        
         </div>
-      </div>
-      
-    );
+    )
+
   };
   
