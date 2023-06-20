@@ -20,12 +20,17 @@ export const Enter = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({ mode: "onSubmit" });
+  } = useForm({ mode: "onSubmit" ,
+  defaultValues: {
+    email: "shenonmetew23@gmail.com",
+    password: "Obscure23"
+  },
+});
 
   const sendInfo = (data) => {
     api.authorizedUser(data).then((res) => {
       if (!!res.err) {
-        alert(`${res.message} Неправильные почта или пароль`);
+        alert(`Неправильные почта или пароль${res.message}`);
         reset();
       } else {
         alert(`Очень рады видеть Вас снова, ${res.data.name}`);
