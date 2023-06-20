@@ -28,7 +28,8 @@ export const Registration = () => {
     } = useForm({ mode: "onSubmit" });
 
     const sendData = (data) => {
-      api.registratedUser(data).then((res) => {
+      api.registratedUser(data)
+      .then((res) => {
         if (!!res.err) {
           alert(`${res.message}`);
         } else {
@@ -37,7 +38,7 @@ export const Registration = () => {
           reset();
         }
       })
-      .catch((error) => alert(`${error}`));
+      .catch((error) => alert(`Упс, что-то пошло не так${error}`));
   };
     return (
       <div className="enter__container">
