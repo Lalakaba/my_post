@@ -4,7 +4,7 @@ import "./index.css"
 import { useForm } from "react-hook-form";
 import { api } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
-import { ContextData } from "../someContext/Context";
+import { ContextData } from "../../someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined  } from "@ant-design/icons";
 import { Footer } from "../Footer/Footer";
@@ -75,14 +75,14 @@ return (
           <button className="btn-log" type="submit" >
             Восстановить
           </button>
-
-          <div className="btn-log">
+          </div>
+          <div className="modal-btn">
             <Link to="/">
               <button className="btn-log" type="button">
                 Назад
               </button>
             </Link>
-          </div>
+          
         </div>
       </form>
     </div>

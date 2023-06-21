@@ -17,6 +17,15 @@
     overflow: hidden;
     position: absolute;
 }
+@media (max-width: 720px) {
+    .wrapper{
+        width: 350px;
+        height: 350px;
+        display: flex;
+        top: 15%;
+        right: 0;
+    }
+}
 .wrapper:hover{
     box-shadow: -2px -2px 5px #979797, 2px 2px 5px #080808;
 
@@ -24,11 +33,17 @@
 
 
 h3{
-    color:#888888;
+    color:#000000;
     text-align: center;
-    text-shadow: 1px 1px #fff;
-   padding: 10px;
+    text-shadow: 1px 1px #ebebeb;
+    padding: 10px;
     font-family: 'CursiveSerifBook';
+}
+@media (max-width: 720px) {
+    .wrapper h3 {
+       font-size: 15px;
+       padding: 3px;
+    }
 }
 
 
@@ -41,6 +56,13 @@ h3{
     outline: none;
     
 }
+@media (max-width: 720px) {
+    .auth-form{
+        width: 215px;
+        gap: 5px;
+        
+    }
+}
 .postInput__input {
     width: 100%;
     height: 45px;
@@ -51,8 +73,14 @@ h3{
     text-shadow: 1px 1px #fff;
     box-shadow:  inset 2px 2px 5px #BABECC, inset -3px -3px 5px #fff;
    
-
-
+}
+@media (max-width: 720px) {
+    .postInput__input{
+        width: 100%;
+        height: 30px;
+        font-size: 14px;
+        
+    }
 }
 
 .postInput__input:focus {
@@ -65,19 +93,25 @@ h3{
 .modal-btn {
     display: flex;
     align-items: center;
+    width: 300px;
     justify-content: center;
-    gap: 10px;
-    margin: 15px;
+   
+    margin: 5px;
     border-radius: 15px;
-
-
+}
+@media (max-width: 720px) {
+    .modal-btn {
+        
+       width: 160px;
+        
+    }
 }
 .btn-log{
     text-decoration: none;
     font-family: 'CursiveSerifBook';
-    width: 150px;
+    width: 130px;
     height: 30px;
-    color:#505050;
+    color:#000000;
     font-size: 14px;
     font-weight: 600;
     background:#b2b3b28f;
@@ -87,6 +121,16 @@ h3{
     transition: all 0.2s ease-in-out;
 
 }
+@media (max-width: 720px) {
+    .btn-log {
+        width: 120px;
+        height: 20px;
+        font-size: 12px;
+       font-weight: 600;
+        
+}
+}
+
 
 .btn-log:hover{
 
@@ -110,7 +154,7 @@ h3{
 .inputText{
     font-size: 12px;
     text-align: center;
-    color:#505050;
+    color:#000000;
     padding: 5px;
     text-shadow: 1px 1px #ffffff;
 }
@@ -121,7 +165,7 @@ h3{
     text-shadow: 1px 1px #fff;
     font-size: 14px;
     font-family: 'CursiveSerifBook';
-    color:#505050;
+    color:#000000;
     cursor: pointer;
 
 }
@@ -137,12 +181,12 @@ h3{
 
 }
 .inputEye{
-    color:#505050;
+    color:#000000;
     text-shadow: 1px 1px #fff;
     cursor: pointer;
     position: absolute;
     bottom: 33%;
-   right: 6%;
+    right: 6%;
 }
 
 

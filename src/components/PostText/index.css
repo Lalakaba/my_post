@@ -20,4 +20,15 @@
 
 
 }
+
+@media (max-width: 720px) {
+    .text{
+      font-size: 13px; 
+      padding: 0 3px 0 10px;
     
+    }
+    .readHide{
+font-size: 12px;
+font-weight: 500;
+    }
+}

@@ -3,7 +3,7 @@ import { api } from "../../api/api";
 import "../index.css"
 import { hashtag } from "../../../others/something";
 import { useContext } from "react";
-import { ContextData } from "../../someContext/Context";
+import { ContextData } from "../../../someContext/Context";
 import { imageValidate, textValidate, titleValidate } from "../Validate";
 
 
@@ -19,7 +19,7 @@ const EditPost = ({ setOpenModal, post, setEditPostInfo }) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      title: post.title, //ругается на это
+      title: post.title, 
       text: post.text,
       image: post.image,
       tags: post.tags.join(","),
@@ -27,13 +27,13 @@ const EditPost = ({ setOpenModal, post, setEditPostInfo }) => {
   });
 
   const sendEditPost = (newPostInfo) => {
-    api
-      .editPost(post._id, { ...newPostInfo, tags: hashtag(newPostInfo.tags) })
+    api.editPost(post._id, { ...newPostInfo, tags: hashtag(newPostInfo.tags) })
       .then((res) => {
         updatePostState(res);
         setOpenModal("");
-      });
-  };
+      })
+     .catch((error) => alert(`Поле "image" должно быть валидным url-адресом`));
+    }
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import "../index.css"
-import { ContextData } from "../../someContext/Context";
+import { ContextData } from "../../../someContext/Context";
 import { imageValidate, textValidate, titleValidate } from "../Validate";
 import { api } from "../../api/api";
 import { useForm } from "react-hook-form";

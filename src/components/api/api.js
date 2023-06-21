@@ -1,13 +1,13 @@
 const baseInfo = {
   baseUrl:  'https://api.react-learning.ru/v2/group-12' ,
+  baseUrl2: 'https://api.react-learning.ru/users',
+    baseUrl3: 'https://api.react-learning.ru',
            
   headers: {
     'Content-Type': 'application/json',
     authorization:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc4OWM5M2UwYmYyYzUxOWJkMGRiNWIiLCJncm91cCI6Imdyb3VwLTEyIiwiaWF0IjoxNjg1NjI2MDI5LCJleHAiOjE3MTcxNjIwMjl9.aU-ZrGi_AVHxmaudN7p0VX1L_mZElsrbOokEudQf-3o',
-      
-    
-  },
+       },
   group: "group-12" 
  
 };
@@ -22,13 +22,15 @@ const newHeaders = () => {
 
 
 const onResponse = (res) => {
-  return res.ok ? res.json() : res.json().then(() => Promise.reject('Error'));
+  return res.ok ? res.json() : res.json().then(() => Promise.reject("Error"));
 };
 
   
   class Api {
     constructor(data, newHeaders) {
       this.baseUrl = data.baseUrl;
+      this.baseUrl2 = data.baseUrl2
+      this.baseUrl3 = data.baseUrl3;
       this.headers = data.headers;
       this.newHeaders = newHeaders;
     }
@@ -47,15 +49,15 @@ const onResponse = (res) => {
       }).then(onResponse)
     }
 
-    searchPosts(path) {
-      return fetch(`${this.baseUrl}/posts/search?query=${path}`, {
+    searchPosts(title) {
+      return fetch(`${this.baseUrl}/posts/search?query=${title}`, {
         ...this.newHeaders(),
         }
       ).then(onResponse);
     }
 
     getUserInfo() {
-      return fetch(`${this.baseUrl}/users/me`, {
+      return fetch(`${this.baseUrl2}/me`, {
         method: "GET",
         ...this.newHeaders(),
       }).then(onResponse);
@@ -69,7 +71,7 @@ const onResponse = (res) => {
     }
 
     getUserInfoById(userId) {
-      return fetch(`${this.baseUrl}/users/${userId}`, {
+      return fetch(`${this.baseUrl2}/${userId}`, {
         method: "GET",
         ...this.newHeaders(),
       }).then(onResponse);
@@ -98,15 +100,15 @@ const onResponse = (res) => {
 
     /*Методы регистрации/авторизации/сброса пароля*/
     registratedUser(data) {
-      return fetch(`${this.baseUrl}/signup`, {
+      return fetch(`${this.baseUrl3}/signup`, {
         method: "POST",
         ...this.newHeaders(),
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, group: 'group-12' })
       }).then(onResponse);
     }
 
     authorizedUser(data) {
-      return fetch(`${this.baseUrl}/signin`, {
+      return fetch(`${this.baseUrl3}/signin`, {
         method: "POST",
         ...this.newHeaders(),
         body: JSON.stringify(data),
@@ -114,14 +116,14 @@ const onResponse = (res) => {
     }
 
     resetPassword(dataUser) {
-      return fetch(`${this.baseUrl}/forgot-password `, {
+      return fetch(`${this.baseUrl3}/forgot-password `, {
         method: "POST",
         ...this.newHeaders(),
         body: JSON.stringify(dataUser),
       }).then(onResponse);
     }
     changePassword(data) {
-      return fetch(`${this.baseUrl}/password-reset/${data.token}`, {
+      return fetch(`${this.baseUrl3}/password-reset/${data.token}`, {
         method: "PATCH",
         ...this.newHeaders(),
         body: JSON.stringify({ password: data.password }),
@@ -197,7 +199,7 @@ const onResponse = (res) => {
     // Изменение данных пользователя
 
     editProfileInfo(data) {
-      return fetch(`${this.baseUrl}/users/me`, {
+      return fetch(`${this.baseUrl2}/me`, {
         method: "PATCH",
         ...this.newHeaders(),
         body: JSON.stringify(data),
@@ -205,7 +207,7 @@ const onResponse = (res) => {
     }
 
     editAvatar(avatar) {
-      return fetch(`${this.baseUrl}/users/me/avatar`, {
+      return fetch(`${this.baseUrl2}/me/avatar`, {
         method: "PATCH",
         ...this.newHeaders(),
         body: JSON.stringify(avatar),

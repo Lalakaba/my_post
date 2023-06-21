@@ -1,16 +1,16 @@
 
 import { useEffect, useState } from "react";
 
-export const useDebounce = (path) => {
-  const [debounceValue, setDebounceValue] = useState(path);
+export const useDebounce = (title) => {
+  const [debounceValue, setDebounceValue] = useState(title);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setDebounceValue(path);
-    }, 200);
+      setDebounceValue(title);
+    }, 500);
 
     return () => clearTimeout(timeout);
-  }, [path]);
+  }, [title]);
 
   return debounceValue;
 };

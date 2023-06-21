@@ -4,7 +4,7 @@ import logotype from "./img/logo.svg";
 
 const Logo = () => {
   return (
-    <a href="/">
+    <a href="/blogpage">
       <img src={logotype} alt="logo" className="logo-pic" />
     </a>
   );

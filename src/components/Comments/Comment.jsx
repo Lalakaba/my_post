@@ -1,6 +1,6 @@
 
 import "./index.css"
-import { ContextData } from "../someContext/Context";
+import { ContextData } from "../../someContext/Context";
 import { useCallback, useContext } from "react";
 import { Trash } from "react-bootstrap-icons";
 import { api } from "../api/api";
@@ -9,11 +9,12 @@ import { api } from "../api/api";
 
 
 
-const Comment =({ author,name, text, _id, created_at, postId, ...rest }) => {
+const Comment =({ author,name, text, _id,postId, ...rest }) => {
  
 const { setPostComment, user} = useContext(ContextData)
-    
-   
+
+
+
 
    
     const removeComment = useCallback(
@@ -38,6 +39,7 @@ const { setPostComment, user} = useContext(ContextData)
              </div>
              <div className="textPlace">
      <span className="commentText">{text}</span>
+     
      </div>
      
     
@@ -49,7 +51,7 @@ const { setPostComment, user} = useContext(ContextData)
                    ) : (
                     ''
                 )}
-                  </div>
+  </div>
                   
 )
 

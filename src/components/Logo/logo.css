@@ -6,3 +6,11 @@
 }
 
 
+/* Мобильные устройства */
+@media (max-width: 720px) {
+    .logo-pic {
+        width: 200px;
+        padding:10px;
+        margin:10px 0 0 10px;
+}
+}

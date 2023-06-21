@@ -4,7 +4,7 @@ import {emailValidate, nameValidate, passValidate} from "../components/Profile/V
 import { useNavigate } from "react-router";
 import { api } from "../components/api/api";
 import { useContext } from "react";
-import { ContextData } from "../components/someContext/Context";
+import { ContextData } from "../someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -38,7 +38,7 @@ export const Registration = () => {
           reset();
         }
       })
-      .catch((error) => alert(`Упс, что-то пошло не так${error}`));
+      .catch((err) => alert(`Упс, что-то пошло не так`));
   };
     return (
       <div className="enter__container">

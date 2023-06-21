@@ -4,7 +4,7 @@ import { avatarValidate } from "./Validate";
 import "./index.css"
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
-import { ContextData } from "../someContext/Context";
+import { ContextData } from "../../someContext/Context";
 import { Avatar } from "@nextui-org/react";
 
 

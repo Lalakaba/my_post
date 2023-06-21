@@ -2,7 +2,7 @@
 
 import "./index.css"
 import { useContext, useEffect, useState } from "react";
-import { ContextData } from "../components/someContext/Context";
+import { ContextData } from "../someContext/Context";
 import {Link, useParams} from "react-router-dom";
 
 import Modal from "../components/Modal/Modal";

@@ -61,9 +61,10 @@ return(
                         <button className="btn-log" type="submit" >
                           Отправить
                         </button>
-                       
+                        </div>
+                        <div className="modal-btn">
                      
-                          <Link to="/changePass">
+                          <Link  className="btn-log"to="/changePass">
                             <button className="btn-log" type="button">
                               Вперед
                             </button>

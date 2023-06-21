@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { api } from './components/api/api';
 
-import { ContextData } from './components/someContext/Context';
+import { ContextData } from './someContext/Context';
 
 //Подключение страниц
 
@@ -108,8 +108,7 @@ useEffect(() => {
   // Проверка на авторизацию
  useEffect(() => {
    const token = parseJwt(localStorage.getItem("tokenPostik"));
-   
-   if (token && new Date() < new Date(token?.exp * 1e3)) {
+    if (token && new Date() < new Date(token?.exp * 1e3)) {
      setAuthorized(true);
    } else {
      navigate("/");
@@ -121,31 +120,16 @@ useEffect(() => {
     <div className='App' >
 
     <ContextData.Provider value={postsValue}>
-  
-
-   
-      <Routes>
+    <Routes>
       
       <Route path='/registration' element={<Registration/>}/> 
       <Route path='/ressetpass' element={<RessetPass/>}/> 
       <Route path='/changepass' element={<ChangePass/>}/> 
-
-
       <Route path='*' element={<NotFound/>}/> 
       <Route path='/' element={<Enter />}/>
-      
-
       <Route path='/blogpage' element={<MainPostPage/>}/> 
       <Route path='/profile/:userId' element={<ProfilePage/>} /> 
-
-      
-     
-      
-    
-       
-
-     
-      </Routes>
+   </Routes>
      
        
        </ContextData.Provider>

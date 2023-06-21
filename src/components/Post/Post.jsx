@@ -1,7 +1,7 @@
 import "./post.css";
 import React, {  useContext } from "react";
 import { ReactComponent as Like } from "./img/like.svg"
-import { ContextData } from "../someContext/Context";
+import { ContextData } from "../../someContext/Context";
 import { ReactComponent as Chat } from "./img/chat.svg"
 import Comment from "../Comments/Comment";
 import PostText from "../PostText/PostText";
@@ -18,7 +18,7 @@ import Card from "./Card/Card";
 
 
  const Post = ({image, text, tags, likes, created_at, author, name, _id, comments,post ,postId,
-  ...args
+...rest
 }) => {
  
   const { user, handleLike, updatePostState, setPostComment, openModal,setOpenModal, 
@@ -38,16 +38,15 @@ import Card from "./Card/Card";
     if (comments?.length > 2 && !isCommentsShown) {
       const commentsCopy = [...comments];
       const commentForRender = commentsCopy.splice(comments.length - 2, 2);
+
+
       return (
         <>
-          <span
-            className='postCommentTitle'
+          <span className='postCommentTitle'
             onClick={() => setisCommentsShown(true)}
-          >{`Показать еще комментарии ${
-            comments.length - commentForRender.length
-          }`}</span>
+          >{`Показать еще комментарии ${comments.length - commentForRender.length}`}</span>
           {commentForRender.map((comment) => (
-            <Comment {...comment} key={comment._id} postId={_id} />
+            <Comment {...comment} key={comment._id} postId={_id}  />
           ))}
         </>
       );
@@ -85,75 +84,83 @@ import Card from "./Card/Card";
 
 
   return (
-   
-    <div className='post__card'>
-       {openModal === _id && (
-                        <Modal state= {openModal === _id} setState={setOpenModal}>
-                          <Card image={image} created_at={created_at}   
-                          likes={likes}
-                          comments={comments}
-                          _id={_id}
-                         
-                         
-                        
-                        
-                           />
-                        </Modal>
-       )}
-      <div className='post__header'>
-      
-        <div className='post__userLogo'>
+    <div className="post__card">
+      {openModal === _id && (
+        <Modal state={openModal === _id} setState={setOpenModal}>
+          <Card
+            image={image}
+            created_at={created_at}
+            likes={likes}
+            comments={comments}
+            _id={_id}
+          />
+        </Modal>
+      )}
+      <div className="post__header">
+        <div className="post__userLogo">
           <Link to={`/profile/${author._id}`}>
-            <Avatar src={author.avatar} alt='name' css={{ size: '$16' }}    />
+            <Avatar src={author.avatar} alt="name" css={{ size: "$16" }} />
           </Link>
         </div>
-        <div className='post__userDate'>
-          <div className='post__userName'> {author.name}</div>
+        <div className="post__userDate">
+          <div className="post__userName"> {author.name}</div>
         </div>
 
-       
-            
-          
         {user._id === author._id && (
-           <button className="editPostBtn" type="submit">
-            <EditDocumentIcon size={20} fill='currentColor'  onClick={() => {setOpenModal(`editPost${_id}`);
-             setPostImageView(image)}}/>
-              </button>)}
-              {openModal === `editPost${_id}` && (
-                        <Modal state= {openModal === `editPost${_id}`} setState={setOpenModal}>
-                         <EditPost setOpenModal={setOpenModal}
-                          post={post}/>
-                        </Modal>)}
-                       
-            {user._id === author._id && (
-              <button className="deletPostBtn" type="submit" onClick={() => deletePost(_id)}>
-              <DeleteDocumentIcon size={20} fill='currentColor'/></button>)}
-        
-      </div>
-      
-          <div className="post__image">
+          <button className="editPostBtn" type="submit">
+            <EditDocumentIcon
+              size={20}
+              fill="currentColor"
+              onClick={() => {
+                setOpenModal(`editPost${_id}`);
+                setPostImageView(image);
+              }}
+            />
+          </button>
+        )}
+        {openModal === `editPost${_id}` && (
+          <Modal state={openModal === `editPost${_id}`} setState={setOpenModal}>
+            <EditPost setOpenModal={setOpenModal} post={post} />
+          </Modal>
+        )}
 
-          <img src={image} alt='img' className='card__image' onClick={() => {setOpenModal(_id)}}/>
-          
+        {user._id === author._id && (
+          <button
+            className="deletPostBtn"
+            type="submit"
+            onClick={() => deletePost(_id)}
+          >
+            <DeleteDocumentIcon size={20} fill="currentColor" />
+          </button>
+        )}
       </div>
-      
 
-      <div className='post__icon'>
+      <div className="post__image">
+        <img
+          src={image}
+          alt="img"
+          className="card__image"
+          onClick={() => {
+            setOpenModal(_id);
+          }}
+        />
+      </div>
+
+      <div className="post__icon">
         <button
           onClick={handleClick}
-          className={`post__like ${isLiked ? 'post__like_active' : ''}`} 
+          className={`post__like ${isLiked ? "post__like_active" : ""}`}
         >
           <Like />
         </button>
-        <button className='post__chat'>
-          
+        <button className="post__chat">
           <Chat />
-          <span className='chat_count'>
+          <span className="chat_count">
             {!!comments.length && comments.length}
           </span>
         </button>
       </div>
-      <div className='like_count'>{`Оценили ${likes.length} человек`}</div>
+      <div className="like_count">{`Оценили ${likes.length} человек`}</div>
       <div>
         {tags.map((e) => (
           <span className={`tag tag_type_ ${e}`} key={e}>
@@ -161,39 +168,33 @@ import Card from "./Card/Card";
           </span>
         ))}
       </div>
-      <div className='post__text'>
+      <div className="post__text">
         <PostText>{text}</PostText>
       </div>
 
       {renderComments()}
 
       <div className="footer__form">
-       <form className='post__comments'onSubmit={handleSubmit(addComment)}>
-        
-         <textarea
-          type="text"
-            {...register('text')}
+        <form className="post__comments" onSubmit={handleSubmit(addComment)}>
+          <textarea
+            type="text"
+            {...register("text")}
             placeholder="Напишите комментарий..."
-              className='textComments'
-                />
-                         
-        <button className="commentsSend">
-          Отправить
-        </button>
-        </form> 
+            className="textComments"
+          />
+
+          <button className="commentsSend">Отправить</button>
+        </form>
       </div>
 
-
-      <div className='postTime'>
-        {new Date(created_at).toLocaleDateString('ru-RU', {
-          year: 'numeric',
-          month: 'numeric',
-          day: 'numeric',
+      <div className="postTime">
+        {new Date(created_at).toLocaleDateString("ru-RU", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
         })}
       </div>
-      
     </div>
-   
   );
 };
 export default Post;

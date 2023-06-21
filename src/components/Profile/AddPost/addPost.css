@@ -13,6 +13,13 @@ border:none;
 
 
 }
+@media (max-width: 720px) {
+    .boxButt{
+        width: 40px;
+        height: 40px;
+       
+    }
+}
 
 .AddPostButt{
 position: fixed;
@@ -25,6 +32,15 @@ background-color: #e7e7e7;
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3) ,-5px -5px 15px rgba(255, 255, 255, 0.5);
 border: 1px solid #dbdbdb;
 font-size: 36px;
+}
+
+@media (max-width: 720px) {
+    .AddPostButt{
+        width: 30px;
+        height: 30px;
+        font-size: 26px;
+        
+    }
 }
 .AddPostButt::before{
    filter: blur(2px);

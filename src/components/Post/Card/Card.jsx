@@ -1,6 +1,6 @@
 
 import { api } from "../../api/api";
-import { ContextData } from "../../someContext/Context";
+import { ContextData } from "../../../someContext/Context";
 import "./card.css"
 import React, { useContext} from "react"
 import { ReactComponent as Like } from "../../Post/img/like.svg"
@@ -47,7 +47,7 @@ const Card = ({image,created_at, likes,comments, _id}) => {
         </button>
       </div>
       <div className='like_count'>{`Оценили ${likes.length} человек`}</div>
-      <div></div>
+     
        
       
       <div className='modalTime'>

@@ -43,3 +43,23 @@
     font-size: 12px;
     cursor: pointer;
 }
+
+
+
+
+
+@media (max-width: 720px) {
+    .commentName {
+        font-size: 11px;
+        font-weight: 700;
+    }
+    .commentText {
+       
+       
+        font-size: 11px;
+    }
+    .trash {
+        font-size: 10px;
+        cursor: pointer;
+    }
+    }

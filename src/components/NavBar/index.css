@@ -1,7 +1,17 @@
 .navbar{
     gap: 5px;
+    width: 120px;
     
     
+}
+
+@media (max-width: 720px) {
+    .navbar{
+        gap: 5px;
+        width: 100px;
+        
+        
+    }
 }
 .navbar__link{
     color: #fff;

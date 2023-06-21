@@ -4,7 +4,7 @@ import {emailValidate,  passValidate} from "../components/Profile/Validate";
 import { useNavigate } from "react-router";
 import { api } from "../components/api/api";
 import { useContext} from "react";
-import { ContextData } from "../components/someContext/Context";
+import { ContextData } from "../someContext/Context";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -30,7 +30,7 @@ export const Enter = () => {
   const sendInfo = (data) => {
     api.authorizedUser(data).then((res) => {
       if (!!res.err) {
-        alert(`Неправильные почта или пароль${res.message}`);
+        alert(`Неправильные почта или пароль`);
         reset();
       } else {
         alert(`Очень рады видеть Вас снова, ${res.data.name}`);

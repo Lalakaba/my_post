@@ -1,21 +1,25 @@
 import "./header.css";
 import React from 'react';
 import Logo from "../Logo/Logo";
+import Search from "../Search/Search";
 
 
-const Header = () => {
- 
-
-
+const Header = (props) => {
+  const setSearchQuery = (title) => {
+    props.setSearch(title);
+  };
 
   return (
-    <div className="header">
+    <header className="header">
+     
+        <div className="headerWrapper">
       <Logo />
+      <Search setSearch={setSearchQuery} />
+      </div>
       
-    </div>
-    
+    </header>
   );
-}
+};
 
 
 export default Header;
