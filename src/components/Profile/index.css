@@ -65,7 +65,7 @@ h3{
 }
 .postInput__input {
     width: 100%;
-    height: 45px;
+    height: 40px;
     border-radius: 20px;
     border: 1px solid #7a7a7a91;
     padding: 10px;
@@ -109,7 +109,7 @@ h3{
 .btn-log{
     text-decoration: none;
     font-family: 'CursiveSerifBook';
-    width: 130px;
+    width: 180px;
     height: 30px;
     color:#000000;
     font-size: 14px;
@@ -165,12 +165,12 @@ h3{
     text-shadow: 1px 1px #fff;
     font-size: 14px;
     font-family: 'CursiveSerifBook';
-    color:#000000;
+    color:#1900ff;
     cursor: pointer;
 
 }
 .recover__pass:hover{
-    color:#1c5ff0;
+    color:#061638;
 }
 .input__error{
     font-size: 12px;

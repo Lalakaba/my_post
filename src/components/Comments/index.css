@@ -1,4 +1,5 @@
 .commentRoot {
+
     margin: 0 10px 0 10px;
     display: flex;
     align-items: flex-start;
@@ -14,8 +15,7 @@
 
 .textPlace {
     display: flex;
-    justify-content: center;
-    margin: 0 12px 0 3px;
+    
 }
 
 .commentName {
@@ -24,9 +24,12 @@
 }
 
 .commentText {
+ position: absolute;
     margin: 0 5px 0 5px;
     line-height: 0, 1;
     font-size: 12px;
+    padding: 0 10px 0 10px;
+   
 }
 
 .commentButt {

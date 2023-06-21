@@ -35,7 +35,7 @@ import Card from "./Card/Card";
 
  //рендер комментов, который проверит если у нас комм >2 
   const renderComments = () => {
-    if (comments?.length > 2 && !isCommentsShown) {
+    if (comments.length > 2 && !isCommentsShown) {
       const commentsCopy = [...comments];
       const commentForRender = commentsCopy.splice(comments.length - 2, 2);
 
@@ -62,12 +62,12 @@ import Card from "./Card/Card";
   const addComment = async (data) => {
    return  (await 
       api.getAddCommentsPosts(_id, data)
-      .then((data) => setPostComment(data.comments.reverse()))
+      .then((data) => setPostComment(data.comments))
       .then(reset())
       .then((data) => updatePostState(data))
       .catch((error) => console.log(error))
    )
-  }
+   }
 
   //удаление поста
   const deletePost = async (_id) => {

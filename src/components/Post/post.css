@@ -192,6 +192,7 @@ font-size: 14px;
     font-size: 600;
     color:#776161;
     cursor: pointer;
+    padding: 10px;
 
  }
  .footer__form{
@@ -207,6 +208,7 @@ font-size: 14px;
   background: none;
   font-weight: 600;
   cursor: pointer;
+ 
 
  }
 
@@ -222,6 +224,7 @@ font-size: 14px;
   .postCommentTitle{
     font-size: 10px;
     font-size: 600;
+    padding: 10px;
   }
   .postTime{
     font-size: 10px;

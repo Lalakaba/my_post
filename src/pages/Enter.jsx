@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import {Footer} from "../components/Footer/Footer";
 
 
+
 export const Enter = () => {
   const { visible, setVisible, setAuthorized} = useContext(ContextData);
   const navigate = useNavigate();

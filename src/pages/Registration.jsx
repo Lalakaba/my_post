@@ -16,6 +16,8 @@ import { Footer } from "../components/Footer/Footer";
 
 
 
+
+
 export const Registration = () => {
     const { visible, setVisible } = useContext(ContextData);
     const navigate = useNavigate();
