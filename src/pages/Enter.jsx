@@ -36,8 +36,10 @@ export const Enter = () => {
         reset();
       } else {
         clickNotification('success', 'Ураааа!', `Очень рады видеть Вас снова, ${res.data.name}`);
-        localStorage.setItem("tokenPostik", res.token)
+        
+        localStorage.setItem("tokenPostik", JSON.stringify({token:res.token, group:res.data.group}))
         setAuthorized(true);
+        console.log(res.data._id)
         navigate(`/profile/${res.data._id}`);
         
       }

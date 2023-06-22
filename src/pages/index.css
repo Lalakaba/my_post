@@ -98,7 +98,7 @@
 
 
 
-/*сатили кнопок в Enter*/
+/*стили кнопок в Enter*/
 
 
 
@@ -159,7 +159,7 @@
     height: 30px;
     position: relative;
     top:100px;
-    left:3%;
+    left:10%;
     background-color: #000000;
     color:#ffffff;
     border-radius: 12px;
@@ -170,8 +170,8 @@
 }
 
 .editProfileIcon{
-   top:-10%;
-   left:46%;
+   top:-5%;
+   left:48%;
    position: absolute;
    cursor: pointer;
 
@@ -179,8 +179,8 @@
 .editProfileIconInfo{
     position: absolute;
     cursor: pointer;
-    top:20%;
-    right:35%;
+    top:14%;
+    right:30%;
 
 }
 
@@ -243,7 +243,7 @@ font-weight: 700;
 .mainPostContainer{ 
     display: flex;
     flex-direction: wrap;
-    padding-left: 50px;
+    padding-left: 150px;
     margin-top: 180px;
     background: transparent;
     border: none;
@@ -261,6 +261,7 @@ font-weight: 700;
     display: flex;
     gap:20px;
     padding: 10px;
+    margin: 10px 0 0 18px;
 }
 
 

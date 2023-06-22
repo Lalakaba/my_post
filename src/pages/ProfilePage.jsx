@@ -25,6 +25,7 @@ export const ProfilePage  = () => {
   const { name, about, email, avatar } = userInfo;
   const { userId } = useParams();
     const userProfile = user._id === userId;
+
     useEffect (() => {
         api.getUserInfoById(userId)
             .then((userData) => {
@@ -36,9 +37,10 @@ export const ProfilePage  = () => {
     }, [ userId, setUserInfo, setPreliminaryAvatar]);
       
     function logOut() {
-        localStorage.removeItem("tokenPostikt" );
+        localStorage.removeItem("tokenPostik" );
+        clickNotification('error', 'Ой', "Уже покидаете нас? 🥺");
         setAuthorized(false);
-        clickNotification('error', '🥺', `Уже покидаете нас?,${userId}`);
+        
        
       }
 
@@ -54,8 +56,10 @@ export const ProfilePage  = () => {
 
         <div className="backBtnProfile">
             <Link className="linkBtn" to="/blogpage">
+            <Tooltip content="Вернуться в блог 🙂" color="warning">
             <button className="glow-on-hover" type="button"> Назад
             </button>
+            </Tooltip>
             </Link>
             <Link className="linkBtn"to="/">
             <Tooltip content="Уже уходите? 🥺" color="error">
@@ -72,8 +76,11 @@ export const ProfilePage  = () => {
         
 
             <div className="editProfile">
+           
             {userProfile && (
-          <Icon icon ="edit" className="editProfileIcon" onClick={() => setOpenModal('avatar')}/> )}
+                 
+          <Icon icon ="edit" className="editProfileIcon" onClick={() => setOpenModal('avatar')}/>   
+          )}
 
              {openModal === 'avatar' && (
                         <Modal state={openModal === 'avatar'} setState={setOpenModal}>
@@ -82,7 +89,7 @@ export const ProfilePage  = () => {
                                 setUserInfo={setUserInfo}
                                 setPreliminaryAvatar={setPreliminaryAvatar}/>
                         </Modal>)}
-
+                     
           </div>
 
                 <div className="editProfileUser">
@@ -92,9 +99,12 @@ export const ProfilePage  = () => {
                         <span className="profileEmail">{email}</span>
                         
                        </div>
-              
+                     
                 {userProfile && (
-          <Icon icon ="edit" className="editProfileIconInfo"  onClick={() => setOpenModal('editProfileInfo')}/> )}
+                     
+          <Icon icon ="edit"  className="editProfileIconInfo"  onClick={() => setOpenModal('editProfileInfo')} />
+        
+          )}
            
                 {openModal === 'editProfileInfo' && (
               <Modal state={openModal === 'editProfileInfo'} setState={setOpenModal}>
@@ -103,6 +113,7 @@ export const ProfilePage  = () => {
                     setOpenModal= {setOpenModal} /> 
              </Modal>
                   ) }
+                    
                  </div>
                  </div>
 

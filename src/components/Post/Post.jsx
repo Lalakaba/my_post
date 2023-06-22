@@ -141,7 +141,7 @@ import Card from "./Card/Card";
       </div>
 
       <div className="post__image">
-     
+     <>
         <img src={image}
           alt="img"
           className="card__image"
@@ -149,7 +149,7 @@ import Card from "./Card/Card";
             setOpenModal(_id);
           }}
         />
-      
+      </>
       </div>
 
       <div className="post__icon">
