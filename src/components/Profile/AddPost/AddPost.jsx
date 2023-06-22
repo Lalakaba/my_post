@@ -5,6 +5,7 @@ import { imageValidate, textValidate, titleValidate } from "../Validate";
 import { api } from "../../api/api";
 import { useForm } from "react-hook-form";
 import { hashtag } from "../../../others/something";
+import { clickNotification } from "../../../others/Notification";
 
 
 
@@ -25,6 +26,8 @@ const AddPost =({ setOpenModal }) => {
                 setPosts((state) => [post, ...state]);
                 setOpenModal('');
                 reset();
+                clickNotification('success', 'Ураааа!', "Пост успешно добавлен");
+
             })
             .catch((error) => console.log(error));
     };

@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { api } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextData } from "../../someContext/Context";
-import { EyeInvisibleOutlined } from "@ant-design/icons";
-import { EyeOutlined  } from "@ant-design/icons";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Footer } from "../Footer/Footer";
+import { clickNotification } from "../../others/Notification";
 
 
 export const ChangePass = () => {
@@ -30,7 +31,7 @@ export const ChangePass = () => {
           if (!!res.err) {
             alert(`${res.message}`);
           } else {
-            alert(`У Вас получилось, ${res.data.name}`);
+            clickNotification('success', 'Ураааа!'`У Вас получилось, ${res.data.name}`);
             navigate("/personalpage");
           }
         });
@@ -41,7 +42,7 @@ export const ChangePass = () => {
 
 return (
   <div className="enter__container">
-    <div class="text-container">
+    <div className="text-container">
             <h1>Lalakaba<br/>Project </h1>
                </div>
     <div className="wrapper">
@@ -65,7 +66,7 @@ return (
           placeholder="password"
         />
         <span className="inputEye" onClick={() => setVisible((v) => !v)}>
-        {visible ?  <EyeOutlined /> : <EyeInvisibleOutlined />}
+        {visible ?  <VisibilityIcon /> : <VisibilityOffIcon/>}
         </span>
 </div>
       {errors?.password && (

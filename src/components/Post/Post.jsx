@@ -6,7 +6,7 @@ import { ReactComponent as Chat } from "./img/chat.svg"
 import Comment from "../Comments/Comment";
 import PostText from "../PostText/PostText";
 import { api } from "../api/api";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Tooltip } from "@nextui-org/react";
 import { DeleteDocumentIcon } from "./DeleteDocumentIcon"
 import { EditDocumentIcon } from "./EditDocumentIcon"
 import { Link } from "react-router-dom";
@@ -62,7 +62,7 @@ import Card from "./Card/Card";
   const addComment = async (data) => {
    return  (await 
       api.getAddCommentsPosts(_id, data)
-      .then((data) => setPostComment(data.comments))
+      .then((data) => setPostComment(data.comments.reverse()))
       .then(reset())
       .then((data) => updatePostState(data))
       .catch((error) => console.log(error))
@@ -107,6 +107,7 @@ import Card from "./Card/Card";
         </div>
 
         {user._id === author._id && (
+          <Tooltip content="Редактировать" color="secondary">
           <button className="editPostBtn" type="submit">
             <EditDocumentIcon
               size={20}
@@ -117,6 +118,7 @@ import Card from "./Card/Card";
               }}
             />
           </button>
+          </Tooltip>
         )}
         {openModal === `editPost${_id}` && (
           <Modal state={openModal === `editPost${_id}`} setState={setOpenModal}>
@@ -125,13 +127,14 @@ import Card from "./Card/Card";
         )}
 
         {user._id === author._id && (
-          <button
-            className="deletPostBtn"
+          <Tooltip content="Удалить" color="error">
+          <button className="deletPostBtn"
             type="submit"
             onClick={() => deletePost(_id)}
           >
             <DeleteDocumentIcon size={20} fill="currentColor" />
           </button>
+          </Tooltip>
         )}
       </div>
 

@@ -181,11 +181,11 @@ h3{
 
 }
 .inputEye{
-    color:#000000;
+    color:#3f3f3f;
     text-shadow: 1px 1px #fff;
     cursor: pointer;
     position: absolute;
-    bottom: 33%;
+    bottom: 30%;
     right: 6%;
 }
 

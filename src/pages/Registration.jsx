@@ -5,10 +5,11 @@ import { useNavigate } from "react-router";
 import { api } from "../components/api/api";
 import { useContext } from "react";
 import { ContextData } from "../someContext/Context";
-import { EyeInvisibleOutlined } from "@ant-design/icons";
-import { EyeOutlined } from "@ant-design/icons";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from "react-router-dom";
 import { Footer } from "../components/Footer/Footer";
+import { clickNotification } from "../others/Notification";
 
 
 
@@ -33,18 +34,19 @@ export const Registration = () => {
       api.registratedUser(data)
       .then((res) => {
         if (!!res.err) {
-          alert(`${res.message}`);
-        } else {
-          alert(`Знали, что Вы будете с нами, ${res.data.name}`);
-          navigate("/");
+          clickNotification("error", "Упссс", `Такой пользователь уже существует, ${res.message}`);
           reset();
+        } else {
+          clickNotification('success', 'Ураааа!',`Знали, что Вы будете с нами, ${res.data.name}`);
+          navigate("/");
+         
         }
       })
       .catch((err) => alert(`Упс, что-то пошло не так`));
   };
     return (
       <div className="enter__container">
-        <div class="text-container">
+        <div className="text-container">
             <h1>Lalakaba<br/>Project </h1>
                </div>
         <div className="wrapper">
@@ -85,7 +87,7 @@ export const Registration = () => {
               placeholder="Пароль"
             />
            <span className="inputEye" onClick={() => setVisible((v) => !v)}>
-            {visible ?  <EyeOutlined /> : <EyeInvisibleOutlined />}
+           {visible ?  <VisibilityIcon /> : <VisibilityOffIcon/>}
             </span>
   </div>
   {errors.password && 

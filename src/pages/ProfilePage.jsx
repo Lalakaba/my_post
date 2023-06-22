@@ -14,6 +14,7 @@ import EditProfile from "../components/Profile/EditProfile"
 import { Avatar } from "@nextui-org/react";
 import CardsList from "../components/Post/Card/CardsList";
 import Logo from "../components/Logo/Logo";
+import { clickNotification } from "../others/Notification";
 
 
 
@@ -37,7 +38,7 @@ export const ProfilePage  = () => {
     function logOut() {
         localStorage.removeItem("tokenPostikt" );
         setAuthorized(false);
-        alert("Уже покидаете нас?")
+        clickNotification('error', '🥺', `Уже покидаете нас?,${userId}`);
        
       }
 

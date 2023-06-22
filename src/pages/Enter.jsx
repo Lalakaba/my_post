@@ -5,10 +5,11 @@ import { useNavigate } from "react-router";
 import { api } from "../components/api/api";
 import { useContext} from "react";
 import { ContextData } from "../someContext/Context";
-import { EyeInvisibleOutlined } from "@ant-design/icons";
-import { EyeOutlined } from "@ant-design/icons";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from "react-router-dom";
 import {Footer} from "../components/Footer/Footer";
+import { clickNotification } from "../others/Notification";
 
 
 
@@ -31,10 +32,10 @@ export const Enter = () => {
   const sendInfo = (data) => {
     api.authorizedUser(data).then((res) => {
       if (!!res.err) {
-        alert(`Неправильные почта или пароль`);
+        clickNotification("error", "Упссс", "Очень жаль,но логин и пароль неправильные");
         reset();
       } else {
-        alert(`Очень рады видеть Вас снова, ${res.data.name}`);
+        clickNotification('success', 'Ураааа!', `Очень рады видеть Вас снова, ${res.data.name}`);
         localStorage.setItem("tokenPostik", res.token)
         setAuthorized(true);
         navigate(`/profile/${res.data._id}`);
@@ -55,7 +56,7 @@ export const Enter = () => {
 
 
 
-         <div class="text-container">
+         <div className="text-container">
             <h1>Lalakaba<br/>Project </h1>
                </div>
         
@@ -87,7 +88,7 @@ export const Enter = () => {
               placeholder="Пароль"
             />
             <span className="inputEye" onClick={() => setVisible((v) => !v)}>
-              {visible ?  <EyeOutlined /> : <EyeInvisibleOutlined />}
+              {visible ?  <VisibilityIcon /> : <VisibilityOffIcon />}
             </span>
            </div>
            {errors.password && 

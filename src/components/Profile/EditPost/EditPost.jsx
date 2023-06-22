@@ -9,7 +9,7 @@ import { imageValidate, textValidate, titleValidate } from "../Validate";
 
 
 
-const EditPost = ({ setOpenModal, post, setEditPostInfo }) => {
+const EditPost = ({ setOpenModal, post }) => {
   const { postImageView, setPostImageView, updatePostState } =
     useContext(ContextData);
   const {

@@ -36,7 +36,7 @@ export const RessetPass = () => {
 
 return(
 <div className="enter__container">
-<div class="text-container">
+<div className="text-container">
             <h1>Lalakaba<br/>Project </h1>
                </div>
             <div className="wrapper">
