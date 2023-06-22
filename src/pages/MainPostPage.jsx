@@ -8,7 +8,7 @@ import { ContextData } from "../someContext/Context";
 import AddBtn from "../components/Profile/AddPost/AddBtn"
 
 import MainList from "../components/MainList/MainList";
-import { Navbar } from "../components/NavBar/NavBar";
+
 
 
 
@@ -38,9 +38,7 @@ export  const MainPostPage = () => {
                           </Modal>)}
                          
             <div className="mainPostContainer">
-            <div className="NavBarBox">
-                          <Navbar/>
-                          </div>
+            
            
            <MainList posts={posts} />
            </div>
