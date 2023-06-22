@@ -40,7 +40,7 @@ export const Enter = () => {
         localStorage.setItem("tokenPostik", JSON.stringify({token:res.token, group:res.data.group}))
         setAuthorized(true);
         console.log(res.data._id)
-        navigate(`/profile/${res.data._id}`);
+        navigate("/blogpage");
         
       }
     });

@@ -21,9 +21,14 @@ return(
   <nav className="navbar">       
         
         <Link to={`/profile/${user?._id}`}>
+    
+        <div className="userPanel">
+       
           <Tooltip content="Перейти в профиль" color="secondary">
             <Avatar src={user?.avatar} alt="name" css={{ size: "$16" }} />
             </Tooltip>
+           <div className="userName"> {user?.name}</div> 
+           </div>
           </Link>
      
       {/* <button className="glow-on-hover" >
