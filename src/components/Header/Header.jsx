@@ -6,12 +6,10 @@ import { Navbar } from "../NavBar/NavBar";
 
 
 
-const Header = ({props, author,avatar}) => {
+const Header = ({ author,avatar}) => {
  
 
-  const setSearchQuery = (title) => {
-    props.setSearch(title);
-  };
+ 
 
   return (
     <header className="header">

@@ -14,13 +14,13 @@ import EditProfile from "../components/Profile/EditProfile"
 import { Avatar, Tooltip } from "@nextui-org/react";
 import CardsList from "../components/Post/Card/CardsList";
 import Logo from "../components/Logo/Logo";
-import { clickNotification } from "../others/Notification";
+
 
 
 
 
 export const ProfilePage  = () => {
-    const { user,userInfo, setUserInfo, openModal, setOpenModal, preliminaryAvatar, setPreliminaryAvatar, posts, setAuthorized } = useContext(ContextData);
+    const { user,userInfo, setUserInfo, openModal, setOpenModal, preliminaryAvatar, setPreliminaryAvatar, posts} = useContext(ContextData);
   const [userPosts, setUserPosts] = useState([]);
   const { name, about, email, avatar } = userInfo;
   const { userId } = useParams();
@@ -36,13 +36,7 @@ export const ProfilePage  = () => {
             );
     }, [ userId, setUserInfo, setPreliminaryAvatar]);
       
-    function logOut() {
-        localStorage.removeItem("tokenPostik" );
-        clickNotification('error', 'Ой', "Уже покидаете нас? 🥺");
-        setAuthorized(false);
-        
-       
-      }
+   
 
     useEffect(() => {
         const filter = posts.filter((post) => post.author._id === userId);
@@ -61,14 +55,7 @@ export const ProfilePage  = () => {
             </button>
             </Tooltip>
             </Link>
-            <Link className="linkBtn"to="/">
-            <Tooltip content="Уже уходите? 🥺" color="error">
-            <button type="submit" className="glow-on-hover"
-                onClick={() => logOut()}
-              > Выйти
-              </button>
-              </Tooltip>
-              </Link>
+           
             </div>
             <div className="profile">
     

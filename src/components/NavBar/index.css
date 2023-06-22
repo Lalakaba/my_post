@@ -1,6 +1,8 @@
 .navbar{
-    gap: 5px;
-    width: 120px;
+    
+    width: 250px;
+    display: flex;
+    flex-direction: row;
     
     
 }
@@ -22,8 +24,8 @@
 
 
 .glow-on-hover{
-    width: 100px;
-    height: 40px;
+    width: 90px;
+    height: 35px;
     border: none;
     outline: none;
     color: #fff;
@@ -86,6 +88,15 @@
 
 .userPanel{
     display: flex;
-    
+    gap:10px;
+    align-items: center;
 
+
+}
+
+.linkUser{
+    text-decoration: none;
+    color:#000;
+    font-size: 16px;
+    font-weight: 600;
 }

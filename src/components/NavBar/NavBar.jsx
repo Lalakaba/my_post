@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../NavBar/index.css"
 import { Avatar, Tooltip } from "@nextui-org/react";
 import { ContextData } from "../../someContext/Context";
+import { clickNotification } from "../../others/Notification";
 
 
 
@@ -12,15 +13,30 @@ import { ContextData } from "../../someContext/Context";
 
 export const Navbar = () => {
   
-  const { user} = useContext(ContextData)
+  const { user,setAuthorized} = useContext(ContextData)
 
-
+  function logOut() {
+    localStorage.removeItem("tokenPostik" );
+    clickNotification('error', 'Ой', "Уже покидаете нас? 🥺");
+    setAuthorized(false);
+    
+   
+  }
 
 return(
 
-  <nav className="navbar">       
-        
-        <Link to={`/profile/${user?._id}`}>
+  <nav className="navbar">  
+  <div className="exit">  
+         <Link className="linkBtn"to="/">
+            <Tooltip content="Уже уходите? 🥺" color="error">
+            <button type="submit" className="glow-on-hover"
+                onClick={() => logOut()}
+              > Выйти
+              </button>
+              </Tooltip>
+              </Link>
+              </div>   
+        <Link className="linkUser" to={`/profile/${user?._id}`}>
     
         <div className="userPanel">
        
