@@ -99,7 +99,9 @@ import Card from "./Card/Card";
       <div className="post__header">
         <div className="post__userLogo">
           <Link to={`/profile/${author._id}`}>
+          <Tooltip content="Перейти в профиль" color="secondary">
             <Avatar src={author.avatar} alt="name" css={{ size: "$16" }} />
+            </Tooltip>
           </Link>
         </div>
         <div className="post__userDate">
@@ -139,14 +141,15 @@ import Card from "./Card/Card";
       </div>
 
       <div className="post__image">
-        <img
-          src={image}
+     
+        <img src={image}
           alt="img"
           className="card__image"
           onClick={() => {
             setOpenModal(_id);
           }}
         />
+      
       </div>
 
       <div className="post__icon">

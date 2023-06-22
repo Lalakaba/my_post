@@ -11,7 +11,7 @@ import { api } from "../components/api/api"
 import { Icon } from "@blueprintjs/core";
 import EditProfile from "../components/Profile/EditProfile"
 
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Tooltip } from "@nextui-org/react";
 import CardsList from "../components/Post/Card/CardsList";
 import Logo from "../components/Logo/Logo";
 import { clickNotification } from "../others/Notification";
@@ -58,10 +58,12 @@ export const ProfilePage  = () => {
             </button>
             </Link>
             <Link className="linkBtn"to="/">
+            <Tooltip content="Уже уходите? 🥺" color="error">
             <button type="submit" className="glow-on-hover"
                 onClick={() => logOut()}
               > Выйти
               </button>
+              </Tooltip>
               </Link>
             </div>
             <div className="profile">

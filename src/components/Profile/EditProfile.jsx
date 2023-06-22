@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { aboutValidate, nameValidate } from "./Validate";
 import "./index.css"
 import { api } from "../api/api";
+import { clickNotification } from "../../others/Notification";
 
 
 
@@ -22,8 +23,9 @@ const EditProfile = ({ setUserInfo, setOpenModal }) => {
             .then((userData) => {
                 setUserInfo(userData);
                 setOpenModal('');
+                clickNotification('success', 'Ураааа!',"Данные успешно изменены");
             })
-            .catch((error) => console.log(error));
+            .catch((error) => clickNotification('error', 'Ой',"Что-то не так"));;
     };
 
 return(

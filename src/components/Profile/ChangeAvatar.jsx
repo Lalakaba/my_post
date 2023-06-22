@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { ContextData } from "../../someContext/Context";
 import { Avatar } from "@nextui-org/react";
+import { clickNotification } from "../../others/Notification";
 
 
 
@@ -24,35 +25,41 @@ const ChangeAvatar = ({preliminaryAvatar, setUserInfo,  setPreliminaryAvatar }) 
                 setOpenModal('');
                 reset();
                 setUserInfo({ ...userInfo });
+                clickNotification('success', 'Ураааа!',"Аватар успешно изменен");
             })
-            .catch((error) => console.log('Провал',error));
+            .catch((error) => clickNotification('error', 'Упсс!',"Что-то не так"));
     };
 
 
 
 return (
-<div>
-<form className='form' onSubmit={handleSubmit(sendAvatar)}>
-<input type='text'
-{...register('avatar', avatarValidate)}
-className={errors.avatar ? "formInput error" : "formInput__input"}
-                placeholder='Аватар'
-                onChange={(e) => setPreliminaryAvatar(e.target.value)}/>
- {errors.avatar && 
-              <p className="input__error">{errors.avatar.message}</p>}
-<div className='preliminaryAvatar'>
-    
-<Avatar src={preliminaryAvatar} alt='avatar' css={{ size: '$48' }}  className="profileAvatar"/>
-</div>
- <div className="saveBtn">
- <button className="save" type="submit"> Cохранить </button>
-
- </div>
-            
-</form>
-</div>
-
-)
+  <div>
+    <form className="form" onSubmit={handleSubmit(sendAvatar)}>
+      <input
+        type="text"
+        {...register("avatar", avatarValidate)}
+        className={errors.avatar ? "formInput error" : "formInput__input"}
+        placeholder="Аватар"
+        onChange={(e) => setPreliminaryAvatar(e.target.value)}
+      />
+      {errors.avatar && <p className="input__error">{errors.avatar.message}</p>}
+      <div className="preliminaryAvatar">
+        <Avatar
+          src={preliminaryAvatar}
+          alt="avatar"
+          css={{ size: "$48" }}
+          className="profileAvatar"
+        />
+      </div>
+      <div className="saveBtn">
+        <button className="save" type="submit">
+          {" "}
+          Cохранить{" "}
+        </button>
+      </div>
+    </form>
+  </div>
+);
 
 
 }
