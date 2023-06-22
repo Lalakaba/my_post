@@ -20,68 +20,67 @@ import Card from "./Card/Card";
  const Post = ({image, text, tags, likes, created_at, author, name, _id, comments,post ,postId,
 ...rest
 }) => {
- 
-  const { user, handleLike, updatePostState, setPostComment, openModal,setOpenModal, 
-    setPosts,setPostImageView, isCommentsShown, setisCommentsShown } = useContext(ContextData);
+  const {
+    user,
+    handleLike,
+    updatePostState,
+    setPostComment,
+    openModal,
+    setOpenModal,
+    setPosts,
+    setPostImageView,
+    isCommentsShown,
+    setisCommentsShown,
+  } = useContext(ContextData);
   const { reset, register, handleSubmit } = useForm({});
-  
- 
- 
-   
+
   const isLiked = likes?.includes(user._id);
   const handleClick = () => {
     handleLike(post, isLiked);
   };
 
- //рендер комментов, который проверит если у нас комм >2 
+  //рендер комментов, который проверит если у нас комм >2
   const renderComments = () => {
     if (comments.length > 2 && !isCommentsShown) {
       const commentsCopy = [...comments];
       const commentForRender = commentsCopy.splice(comments.length - 2, 2);
 
-
       return (
         <>
-          <span className='postCommentTitle'
+          <span className="postCommentTitle"
             onClick={() => setisCommentsShown(true)}
-          >{`Показать еще комментарии ${comments.length - commentForRender.length}`}</span>
+          >{`Показать еще комментарии ${
+            comments.length - commentForRender.length
+          }`}</span>
           {commentForRender.map((comment) => (
-            <Comment {...comment} key={comment._id} postId={_id}  />
+            <Comment {...comment} key={comment._id} postId={_id} />
           ))}
         </>
       );
     }
-       return comments.map((comment) => (
-        <Comment {...comment} key={comment._id} postId={_id}/>
+    return comments.map((comment) => (
+      <Comment {...comment} key={comment._id} postId={_id} />
     ));
   };
 
- 
-
-//добавление комментов
+  //добавление комментов
   const addComment = async (data) => {
-   return  (await 
-      api.getAddCommentsPosts(_id, data)
+    return await api
+      .getAddCommentsPosts(_id, data)
       .then((data) => setPostComment(data.comments.reverse()))
       .then(reset())
       .then((data) => updatePostState(data))
-      .catch((error) => console.log(error))
-   )
-   }
+      .catch((error) => console.log(error));
+  };
 
   //удаление поста
   const deletePost = async (_id) => {
-    if (window.confirm('Вы действительно хотите удалить пост ?'))
+    if (window.confirm("Вы действительно хотите удалить пост ?"))
       try {
         const result = await api.deletePostById(_id);
-        setPosts(s => s.filter(e => e._id !== result._id));
-      } catch (error) {
-      }
-  }
-  
-
-
-
+        setPosts((s) => s.filter((e) => e._id !== result._id));
+      } catch (error) {}
+  };
 
   return (
     <div className="post__card">
@@ -99,8 +98,8 @@ import Card from "./Card/Card";
       <div className="post__header">
         <div className="post__userLogo">
           <Link to={`/profile/${author._id}`}>
-          <Tooltip content="Перейти в профиль" color="secondary">
-            <Avatar src={author.avatar} alt="name" css={{ size: "$16" }} />
+            <Tooltip content="Перейти в профиль" color="secondary">
+              <Avatar src={author.avatar} alt="name" css={{ size: "$16" }} />
             </Tooltip>
           </Link>
         </div>
@@ -110,16 +109,16 @@ import Card from "./Card/Card";
 
         {user._id === author._id && (
           <Tooltip content="Редактировать" color="secondary">
-          <button className="editPostBtn" type="submit">
-            <EditDocumentIcon
-              size={20}
-              fill="currentColor"
-              onClick={() => {
-                setOpenModal(`editPost${_id}`);
-                setPostImageView(image);
-              }}
-            />
-          </button>
+            <button className="editPostBtn" type="submit">
+              <EditDocumentIcon
+                size={20}
+                fill="currentColor"
+                onClick={() => {
+                  setOpenModal(`editPost${_id}`);
+                  setPostImageView(image);
+                }}
+              />
+            </button>
           </Tooltip>
         )}
         {openModal === `editPost${_id}` && (
@@ -130,26 +129,28 @@ import Card from "./Card/Card";
 
         {user._id === author._id && (
           <Tooltip content="Удалить" color="error">
-          <button className="deletPostBtn"
-            type="submit"
-            onClick={() => deletePost(_id)}
-          >
-            <DeleteDocumentIcon size={20} fill="currentColor" />
-          </button>
+            <button
+              className="deletPostBtn"
+              type="submit"
+              onClick={() => deletePost(_id)}
+            >
+              <DeleteDocumentIcon size={20} fill="currentColor" />
+            </button>
           </Tooltip>
         )}
       </div>
 
       <div className="post__image">
-     <>
-        <img src={image}
-          alt="img"
-          className="card__image"
-          onClick={() => {
-            setOpenModal(_id);
-          }}
-        />
-      </>
+        <>
+          <img
+            src={image}
+            alt="img"
+            className="card__image"
+            onClick={() => {
+              setOpenModal(_id);
+            }}
+          />
+        </>
       </div>
 
       <div className="post__icon">
