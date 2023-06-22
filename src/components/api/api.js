@@ -2,12 +2,7 @@ const baseInfo = {
   baseUrl:  'https://api.react-learning.ru/v2' ,
   baseUrl2: 'https://api.react-learning.ru/users',
     baseUrl3: 'https://api.react-learning.ru',
-           
-  // headers: {
-  //   'Content-Type': 'application/json',
-  //   authorization:
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc4OWM5M2UwYmYyYzUxOWJkMGRiNWIiLCJncm91cCI6Imdyb3VwLTEyIiwiaWF0IjoxNjg1NjI2MDI5LCJleHAiOjE3MTcxNjIwMjl9.aU-ZrGi_AVHxmaudN7p0VX1L_mZElsrbOokEudQf-3o',
-  //      },
+   
   group: "group-12" 
  
 };
