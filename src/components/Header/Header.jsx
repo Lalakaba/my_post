@@ -1,9 +1,9 @@
 import "./header.css";
-import React, { useContext } from 'react';
+import React from 'react';
 import Logo from "../Logo/Logo";
 import Search from "../Search/Search";
 import { Navbar } from "../NavBar/NavBar";
-import { ContextData } from "../../someContext/Context";
+
 
 
 const Header = ({props, author,avatar}) => {
@@ -18,7 +18,7 @@ const Header = ({props, author,avatar}) => {
      
         <div className="headerWrapper">
       <Logo />
-      <Search setSearch={setSearchQuery} />
+      <Search />
       <Navbar author={author} avatar={avatar}
      />
       </div>

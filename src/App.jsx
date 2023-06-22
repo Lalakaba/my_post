@@ -63,7 +63,7 @@ useEffect(() => {
       setUser(userData);
     })
     .catch((error) => console.error(error));
-}, [postInform, postComment, userInfo]);
+}, [postInform, postComment, userInfo,authorized]);
 
 
 
@@ -109,7 +109,7 @@ useEffect(() => {
   // Проверка на авторизацию
  useEffect(() => {
    const token = parseJwt(JSON.parse(localStorage.getItem("tokenPostik"))?.token);
-  //  console.log(JSON.parse(localStorage.getItem("tokenPostik")).token)
+ 
     if (token && new Date() < new Date(token?.exp * 1e3)) {
      setAuthorized(true);
    } else {

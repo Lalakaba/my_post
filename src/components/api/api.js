@@ -19,6 +19,7 @@ const newHeaders = () => {
     }
   }
 };
+
 const updatedGroup = () => {
   return JSON.parse(localStorage.getItem("tokenPostik"))?.group;
 }
