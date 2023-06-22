@@ -108,12 +108,11 @@ function App() {
   // Проверка на авторизацию
   useEffect(() => {
     const token = parseJwt(
-      JSON.parse(localStorage.getItem("tokenPostik"))?.token
-    );
+      JSON.parse(localStorage.getItem("tokenPostik"))?.token);
 if (token && new Date() < new Date(token?.exp * 1e3)) {
       setAuthorized(true);
     } else {
-   
+  
     }
   }, [navigate, setAuthorized]);
 
