@@ -26,18 +26,17 @@ export const ChangePass = () => {
  
 
  
-      const changePass = (data) => {
-        api.changePassword(data).then((res) => {
-          if (!!res.err) {
-            alert(`${res.message}`);
-          } else {
-            clickNotification('success', 'Ураааа!'`У Вас получилось, ${res.data.name}`);
-            navigate("/personalpage");
-          }
-        });
+  const changePass = async (data) => {
+    if (data.token) {
+      try {
+        const res = await api.changePassword(data)
+        clickNotification ('success', 'Ураааа!'`У Вас получилось, ${data.name}`);
+        navigate("/personalpage");
+      } catch (error) {
+        clickNotification('error', 'Ошибка', `${error.message}`);
+}}
       };
-
-
+    
 
 
 return (

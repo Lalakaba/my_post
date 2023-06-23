@@ -30,20 +30,19 @@ export const Registration = () => {
       formState: { errors },
     } = useForm({ mode: "onSubmit" });
 
-    const sendData = (data) => {
-      api.registratedUser(data)
-      .then((res) => {
-        if (!!res.err) {
-          clickNotification("error", "Упссс", `Такой пользователь уже существует, ${res.message}`);
-          reset();
-        } else {
-          clickNotification('success', 'Ураааа!',`Знали, что Вы будете с нами, ${res.data.name}`);
-          navigate("/");
-         
-        }
-      })
-      .catch((err) => alert(`Упс, что-то пошло не так`));
-  };
+    const sendData = async (data) => {
+      try {
+        await api.registratedUser(data);
+        clickNotification(
+          "success", "Ураааа!",`Знали, что Вы будете с нами, ${data.name}`);
+        navigate("/");
+      } catch (error) {
+        clickNotification( "error","Упссс","Такой пользователь уже существует");
+        reset();
+      }
+    };
+  
+  
     return (
       <div className="enter__container">
         <div className="text-container">

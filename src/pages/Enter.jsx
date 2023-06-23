@@ -30,7 +30,8 @@ export const Enter = () => {
 });
 
   const sendInfo = (data) => {
-    api.authorizedUser(data).then((res) => {
+    api.authorizedUser(data)
+    .then((res) => {
       if (!!res.err) {
         clickNotification("error", "Упссс", "Очень жаль,но логин и пароль неправильные");
         reset();
@@ -38,7 +39,6 @@ export const Enter = () => {
         clickNotification('success', 'Ураааа!', `Очень рады видеть Вас снова, ${res.data.name}`);
         localStorage.setItem("tokenPostik", JSON.stringify({token:res.token, group:res.data.group}))
         setAuthorized(true);
-        console.log(res.data._id)
         navigate("/blogpage");
         
       }

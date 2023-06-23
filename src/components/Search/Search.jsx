@@ -1,5 +1,5 @@
 import './search.css';
-import React, { useContext} from "react";
+import React, { useContext, useState} from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { ContextData } from '../../someContext/Context';
 
@@ -8,7 +8,8 @@ import { ContextData } from '../../someContext/Context';
 
 
 const Search = () => {
-  const {setPosts, search,setSearch, posts}= useContext(ContextData)
+  const [search, setSearch] = useState(undefined);
+  const {setPosts,  posts}= useContext(ContextData)
  
   const searchData = (e) => {
     e.preventDefault();
