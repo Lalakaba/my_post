@@ -1,5 +1,5 @@
 import "./post.css";
-import React, {  useContext } from "react";
+import React, {  useContext, useState } from "react";
 import { ReactComponent as Like } from "./img/like.svg"
 import { ContextData } from "../../someContext/Context";
 import { ReactComponent as Chat } from "./img/chat.svg"
@@ -17,21 +17,17 @@ import Card from "./Card/Card";
 
 
 
- const Post = ({image, text, tags, likes, created_at, author, name, _id, comments,post ,postId,
-...rest
+ const Post = ({image, text, tags, likes, created_at, author, _id, comments,post ,
 }) => {
-  const {
-    user,
-    handleLike,
+  const {user,handleLike,
     updatePostState,
     setPostComment,
     openModal,
     setOpenModal,
     setPosts,
     setPostImageView,
-    isCommentsShown,
-    setisCommentsShown,
   } = useContext(ContextData);
+  const [isCommentsShown, setisCommentsShown] = useState(false);
   const { reset, register, handleSubmit } = useForm({});
 
   const isLiked = likes?.includes(user._id);
@@ -81,6 +77,12 @@ import Card from "./Card/Card";
         setPosts((s) => s.filter((e) => e._id !== result._id));
       } catch (error) {}
   };
+
+
+
+
+
+
 
   return (
     <div className="post__card">
