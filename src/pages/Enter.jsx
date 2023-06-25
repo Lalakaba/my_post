@@ -29,20 +29,25 @@ export const Enter = () => {
   },
 });
 
-  const sendInfo = (data) => {
-    api.authorizedUser(data)
-    .then((res) => {
-      if (!!res.err) {
-        clickNotification("error", "Упссс", "Очень жаль,но логин и пароль неправильные");
-        reset();
-      } else {
-        clickNotification('success', 'Ураааа!', `Очень рады видеть Вас снова, ${res.data.name}`);
-        localStorage.setItem("tokenPostik", JSON.stringify({token:res.token, group:res.data.group}))
-        setAuthorized(true);
-        navigate("/blogpage");
-        
-      }
-    });
+  
+  const sendInfo = async (data) => {
+    try {
+      const res = await api.authorizedUser(data);
+      localStorage.setItem(
+        "tokenPostik",
+        JSON.stringify({ token: res.token, group: res.data.group })
+      );
+      setAuthorized(true);
+      navigate("/blogpage");
+      clickNotification(
+        "success",
+        "Ураааа!",
+        `Очень рады видеть Вас снова, ${res.data.name} 🤩`
+      );
+    } catch (error) {
+      clickNotification("error", "Ужассс", "не тот логин или пароль 😨");
+      reset();
+    }
   };
 
  
@@ -62,12 +67,11 @@ export const Enter = () => {
                </div>
         
         <div className="wrapper">
-          <form className="auth-form" onSubmit={handleSubmit(sendInfo)}>
-            <h3>Вход</h3>
-            <div className="text-center">
+        <form className="auth-form" onSubmit={handleSubmit(sendInfo)}>
+                <h3>Вход</h3>
+          <div className="text-center">
               Нет регистрации?
-
-              <Link to ="/registration"> <button className="link-primary" type= "button">
+            <Link to ="/registration"> <button className="link-primary" type= "button">
                 Регистрация
               </button>
               </Link>
@@ -89,7 +93,7 @@ export const Enter = () => {
               placeholder="Пароль"
             />
             <span className="inputEye" onClick={() => setVisible((v) => !v)}>
-              {visible ?  <VisibilityIcon /> : <VisibilityOffIcon />}
+              {visible ?  <VisibilityIcon fontSize="small" color="primary" /> : <VisibilityOffIcon fontSize="small" color="primary" />}
             </span>
            </div>
            {errors.password && 
