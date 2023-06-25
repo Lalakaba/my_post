@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { api } from "./components/api/api";
@@ -31,7 +31,7 @@ function App() {
     "https://velo1000.ru/local/templates/velo1000/images/no-img.png"
   );
   const [post, setPost] = useState([]);
-  const navigate = useNavigate();
+
 
   //функция снятия и удаление лайка без перезагрузки страницы
 
@@ -60,9 +60,10 @@ function App() {
       if (token && new Date() < new Date(token?.exp * 1e3)) {
         setAuthorized(true);
       } else {
-        // navigate('/')
+        setAuthorized(false);
+      
       }
-    }, [navigate, setAuthorized]);
+    }, [ setAuthorized]);
   
 
   const postsValue = {
@@ -96,9 +97,10 @@ function App() {
         <Routes>
         {authorized ?(
           <>
-          <Route path="*" element={<NotFound />} />
+          
           <Route path="/blogpage" element={<MainPostPage />} />
           <Route path="/profile/:userId" element={<ProfilePage />} />
+          <Route path="*" element={<NotFound />} />
           </>
 ):(
 <>

@@ -9,7 +9,7 @@ import { api } from "../api/api";
 
 
 
-const Comment =({ author,name, text, _id,postId, ...rest }) => {
+const Comment =({ author, text, _id,postId}) => {
  
 const { setPostComment, user} = useContext(ContextData)
 
@@ -40,7 +40,7 @@ const { setPostComment, user} = useContext(ContextData)
              <div className="textPlace">
      <span className="commentText">{text}</span>
      
-     </div>
+</div>
      
     
      {user._id === author._id ? (                

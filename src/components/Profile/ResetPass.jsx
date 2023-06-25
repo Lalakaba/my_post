@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { emailValidate } from "./Validate";
 import { api } from "../api/api";
 import { Footer } from "../Footer/Footer";
+import { clickNotification } from "../../others/Notification";
+import { Tooltip } from "@nextui-org/react";
 
 
 
@@ -21,11 +23,12 @@ export const RessetPass = () => {
 
 
     const sendPass = (data) => {
-        api.resetPassword(data).then((res) => {
+        api.resetPassword(data)
+        .then((res) => {
             if (!!res.err) {
                 alert('Email не существует');
             } else {
-                alert(`${res.message}`);
+              clickNotification('success', 'Ураа', 'Письмо отправлено');
                 reset();
               }
           })
@@ -57,10 +60,11 @@ return(
               )}
                       
                       <div className="modal-btn">
-                        
+                      <Tooltip content="Отправить письмо" color="secondary">
                         <button className="btn-log" type="submit" >
                           Отправить
                         </button>
+                        </Tooltip>
                         </div>
                         <div className="modal-btn">
                      

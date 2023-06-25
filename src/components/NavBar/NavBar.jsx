@@ -17,7 +17,7 @@ export const Navbar = () => {
 
   function logOut() {
     localStorage.removeItem("tokenPostik" );
-    clickNotification('error', 'Ой', "Уже покидаете нас? 🥺");
+    clickNotification('info', '', "Приходите еще 😉 ");
     setAuthorized(false);
     
    

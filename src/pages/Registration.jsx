@@ -86,7 +86,7 @@ export const Registration = () => {
               placeholder="Пароль"
             />
            <span className="inputEye" onClick={() => setVisible((v) => !v)}>
-           {visible ?  <VisibilityIcon /> : <VisibilityOffIcon/>}
+           {visible ?  <VisibilityIcon fontSize="small" color="primary" /> : <VisibilityOffIcon fontSize="small" color="primary"/>}
             </span>
   </div>
   {errors.password && 

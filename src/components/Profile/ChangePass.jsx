@@ -9,6 +9,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Footer } from "../Footer/Footer";
 import { clickNotification } from "../../others/Notification";
+import { Tooltip } from "@nextui-org/react";
 
 
 export const ChangePass = () => {
@@ -29,7 +30,7 @@ export const ChangePass = () => {
   const changePass = async (data) => {
     if (data.token) {
       try {
-        const res = await api.changePassword(data)
+       await api.changePassword(data)
         clickNotification ('success', 'Ураааа!'`У Вас получилось, ${data.name}`);
         navigate("/personalpage");
       } catch (error) {
@@ -65,16 +66,18 @@ return (
           placeholder="password"
         />
         <span className="inputEye" onClick={() => setVisible((v) => !v)}>
-        {visible ?  <VisibilityIcon /> : <VisibilityOffIcon/>}
+        {visible ?  <VisibilityIcon fontSize="small" color="primary" /> : <VisibilityOffIcon fontSize="small" color="primary"/>}
         </span>
 </div>
       {errors?.password && (
           <p className="input__error">{errors.password.message}</p>
         )}
         <div className="modal-btn">
+        <Tooltip content="Восстановить пароль" color="secondary">
           <button className="btn-log" type="submit" >
             Восстановить
           </button>
+          </Tooltip>
           </div>
           <div className="modal-btn">
             <Link to="/">
